@@ -1,0 +1,608 @@
+/*****************************************************************************
+ * Copyright 1994-2005, Elliot Mednick and Mark Hummel
+ * This file is part of Veriwell.
+ *
+ * Veriwell is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * Veriwell is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *****************************************************************************/
+
+/* The third argument can be:
+   "b" for a scoping block (tasks, functions, named begins, and modules)
+   "x" for an exceptional code (fits no category).
+   "s" for a statement code.
+   "g" for a gate primitive.
+
+   "c" for codes for constants.
+   "d" for codes for declarations (also serving as variable refs).
+   "r" for codes for references to storage.
+   "e" for codes for other kinds of expressions.  */
+
+/* Expression nodes are further broken down:
+   "e3" for conditional (?:)
+   "ex" for arithmetic and bit-wise (context-dependent lengths) (+ - * / %)
+   "eu" for arithmetic unary (-)
+   "es" for shift (<< >>)
+   "e1" for conditionals (length = 1)
+   "er" for reduction (unary conditional)
+   "ec" for unary type conversion
+*/
+
+/* For `r', `e' and `x' nodes,
+   the 4th element is the number of argument slots to allocate.
+   This determines the size of the tree node object.  */
+
+/* Any erroneous construct is parsed into a node of this type.
+   This type of node is accepted without complaint in all contexts
+   by later parsing activities, to avoid multiple error messages
+   for one error.
+   No fields in these nodes are used except the TREE_CODE.  
+   Must also alias for decls so extend by 3*/
+DEFTREECODE (ERROR_MARK, "error_mark", "x", 3)
+
+/* Used to represent a name (such as, in the DECL_NAME of a decl node).
+   Internally it looks like a STRING_CST node.
+   There is only one IDENTIFIER_NODE ever made for any particular name.
+   Use `get_identifier' to get it (or create it, the first time).  */
+DEFTREECODE (IDENTIFIER_NODE, "identifier_node", "x", 7)
+
+/* Has the TREE_VALUE and TREE_PURPOSE fields.  */
+/* These nodes are made into lists by chaining through the
+   TREE_CHAIN field.  The elements of the list live in the
+   TREE_VALUE fields, while TREE_PURPOSE fields are occasionally
+   used as well to get the effect of Lisp association lists.  */
+DEFTREECODE (TREE_LIST, "tree_list", "x", 3)
+
+DEFTREECODE (PATH_OUTPUT, "path_output", "x", 6 )
+DEFTREECODE (PATH_INSTANCE, "path_instance", "x", 2 )
+
+/* Has the PATH_DELAYS, PATH_INPUTS, PATH_OUTPUTS, PATH_PARALLEL fields.  */
+/* These nodes are made into lists by chaining through the
+   TREE_CHAIN field. PATH_DELAYS points to a list of delay expressions.
+   PATH_INPUTS points to a list of input/inout ports. PATH_OUTPUTS points
+   to a list of output/inout ports. PATH_PARALLEL is a flag indication 
+   if the path is a parallel specification. PATH_SOURCE is the source 
+   expression for edge triggered paths. PATH_CONDITION is the expression
+   for the if clause. PATH_EDGE is the transition for edge triggered paths.
+   PATH_POLARITY is the polarity for level and edge sensitive paths.
+*/
+DEFTREECODE (PATH_NODE, "path_node", "x", 10)
+
+/* Has CHECK_SPEC_EVENT1, CHECK_SPEC_EVENT2, CHECK_SPEC_PARAM1,
+   CHECK_SPEC_PARAM2, CHECK_SPEC_CHECKTYPE, CHECK_SPEC_NOTIFIER fields.
+   All check specs are chained anchored to its MODULE.
+   EVENT1 and EVENT2 are trees to scalar,part or bit selects of in, or inout.
+   PARAM1 and PARAM2 are trees to constants. 
+   CHECKTYPE identifies the type of check.
+   NOTIFIER is a tree to the notifier or NULL.
+*/
+DEFTREECODE (CHECK_SPEC, "check_spec", "x", 8)
+
+/* Has:
+ 	PLI_DELAY_NEXT - next delay for pli task/function
+	PLI_DELAY_NODE - task/function node for this delay
+	PLI_DELAY_TIME - time for this delay to fire
+	PLI_DELAY_STORAGE - group structure for assigns
+	PLI_DELAY_LVAL - lval tree for assigns
+*/
+DEFTREECODE (PLI_DELAY, "pli_delay", "x", 5 )
+
+/* Has TIMING_EVENT_EDGESPEC, TIMING_EVENT_EXPRESSION, TIMING_EVENT_CONDITION
+   fields.
+   EDGESPEC is a long with one bit per edge type.
+   EXPRESSION is a tree to the expression to be evaluated.
+   CONDITION is a tree to the condition expression.
+*/
+DEFTREECODE (TIMING_EVENT, "timing_event", "x", 3 )
+
+DEFTREECODE (TIMING_CHECK, "timing_check", "x", 21 )
+DEFTREECODE (NOTIFIER_NODE, "notifier", "x", 2 )
+DEFTREECODE (UDP_STRING_NODE, "udp_string", "x", 9 )
+DEFTREECODE (UDP_TABLE_NODE, "udp_table", "x", 10 )
+
+/* Scoping blocks.  These represent a push to a new scoping (context) level
+   for hierarchical references, where each level can define new variables or
+   redeclare previously-used names.  These are modules, tasks, fuctions,
+   named begin/end, and named fork/join.  These are also used to resolve
+   forward references for calls and the DISABLE statement.
+   TREE_CHAIN points to another block at the same level.
+   TREE_TYPE is the return type for functions.
+   BLOCK_NAME points to the INDENTIFIER_NODE with the name of the block.
+   BLOCK_DOWN points to a chain of subblocks.
+   BLOCK_UP points to the next higher level.
+   BLOCK_DECL points to a chain of ..._DECL nodes that represent the
+     declarations within this block.
+   BLOCK_PARAM points to a TREE_LIST of parameter expressions; TREE_PURPOSE
+     is the name of the parameter.
+   BLOCK_PARAM_ASSIGN points to a chain of parameter expressions.
+   BLOCK_PORTS is a TREE_LIST of ..._DECL nodes representing the ports
+     or task/function arguments; TREE_PURPOSE points to the identifier
+     node of the name of the port.
+   BLOCK_BODY point to either a tree list of INITIAL/ALWAYS blcoks (modules)
+     or to the code (tasks, functions, begin/fork). */
+
+/* Module.  This is sort of a root node.
+   MODULE_INSTANCES point to a chain of module and gate instances. */
+DEFTREECODE (MODULE_BLOCK, "module_block", "b", 8)
+
+/* Tasks and functions.
+   FUNCT_DECL points to a declaration node representing the return type */
+DEFTREECODE (TASK_BLOCK, "task_block", "b", 2)
+DEFTREECODE (FUNCTION_BLOCK, "function_block", "b", 5)
+
+/* Named begin/end and named fork/join */
+DEFTREECODE (NAMED_BLOCK, "named_block", "b", 0)
+
+/* Mother of all blocks */
+DEFTREECODE (SUPER_BLOCK, "super_block", "b", 0)
+
+
+/* All statement types have fields STMT_SOURCE_FILE and STMT_SOURCE_LINE.  */
+/* Consecutive statements within a compound statement are chained together
+   through the TREE_CHAIN field.  */
+
+/* INITIAL and ALWAYS blocks.  These are sort of a cross between statement
+   nodes and blcok nodes.  TREE_CHAIN links all INITIAL and ALWAYS block
+   in a module.  BLOCK_BODY points to a chain of statements. */
+DEFTREECODE (INITIAL_BLOCK, "initial_block", "s", 1)
+DEFTREECODE (ALWAYS_BLOCK, "always_block", "s", 1)
+
+/* A null statement for use with stamtement_or_null.  Although
+   exec will execute it, it is needed only for aesthetic purposes during
+   trace. */
+DEFTREECODE (NULL_STMT, "null_stmt", "s", 0)
+
+/* This is a fast way to return from exec() during disable stmt processing */
+DEFTREECODE (DUMMY_RETURN_STMT, "dummy_return_stmt", "s", 0)
+
+/* Removes process from system.  Used by INITIAL and interactive stmts */
+DEFTREECODE (DUMP_STMT, "dump_stmt", "s", 0)
+
+/* Finishes a Verilog session */
+DEFTREECODE (FINISH_STMT, "finish_stmt", "s", 0)
+
+/* A label definition, encapsulated as a statement.
+   STMT_BODY is the LABEL_DECL node for the label that appears here.  */
+DEFTREECODE (LABEL_STMT, "label_stmt", "s", 1)
+
+/* Assignment statements:
+   ASSIGN_STMT is a simple procedural assignment.
+   ASSIGN_DELAY_STMT is an intra assignment delay.
+   ASSIGN_EVENT_STMT is an intra assignment event.
+   ASSIGN_NONBLK_DELAY_STMT is a non-blocking assignment w/delay.
+   ASSIGN_NONBLK_EVENT_STMT is a non-blocking assignment w/event.
+   ASSIGN_CONT_STMT is a simple continuous assignment.
+
+   STMT_ASSIGN_LVAL is the lvalue of the assignment
+   STMT_ASSIGN_RVAL is the rvalue expression
+   STMT_ASSIGN_RVAL_CODE is the rvalue expression instructions
+
+   STMT_ASSIGN_EVENT_LIST is a list of markers that will trigger this
+     assignment.
+   STMT_ASSIGN_DELAY is an event or delay expression or NULL.
+   STMT_ASSIGN_NEXT points to another continuous assignment of the same net.
+   */
+DEFTREECODE (ASSIGN_STMT, "assign_stmt", "s", 3)
+DEFTREECODE (ASSIGN_DELAY_STMT, "assign_delay_stmt", "s", 7)
+DEFTREECODE (ASSIGN_EVENT_STMT, "assign_delay_stmt", "s", 7)
+DEFTREECODE (ASSIGN_NONBLK_DELAY_STMT, "assign_delay_stmt", "s", 7)
+DEFTREECODE (ASSIGN_NONBLK_EVENT_STMT, "assign_delay_stmt", "s", 9)
+DEFTREECODE (ASSIGN_CONT_STMT, "assign_cont_stmt", "s", 5)
+
+/* Procedural continuous assignment and force assignment. Uses
+   same structures as ASSIGN statements */
+
+DEFTREECODE (ASSIGN_PROC_STMT, "assign_proc_stmt", "s", 5)
+DEFTREECODE (FORCE_STMT, "force_stmt", "s", 7)
+
+
+//DEFTREECODE (ASSIGN2_STMT, "assign2_stmt", "s", 4)
+//DEFTREECODE (ASSIGN_NOBLOCK_STMT, "assign_noblock_stmt", "s", 4)
+
+/* if-then-else statement.
+   STMT_COND is the condition (an expression).
+   STMT_THEN is the then-branch (a statement or chain of statements).
+   STMT_ELSE is the else-branch (a statement or chain of statements).  */
+DEFTREECODE (IF_STMT, "if_stmt", "s", 4)
+
+/* case, casez, casex.
+   STMT_CASE_INDEX is an expression for the value to dispatch on.
+   STMT_CASE_LIST is a list (a chain of TREE_LIST nodes)
+    of the branches of the dispatch.
+   Each such TREE_LIST node has the case it is for (a constant expression)
+   as the TREE_PURPOSE (if there is a comma-delimited list of constant
+     expressions, then these are expanded to multiple TREE_LIST nodes)
+   and statement to execute as the TREE_VALUE.  A null value for 
+     TREE_PURPOSE indicates the default item.
+   STMT_CASE_DEFAULT_ATTR is set once a default is found and tested to
+     prevent and flag multiple defaults. */
+DEFTREECODE (CASE_STMT, "case_stmt", "s", 4)
+DEFTREECODE (CASEZ_STMT, "casez_stmt", "s", 4)
+DEFTREECODE (CASEX_STMT, "casex_stmt", "s", 4)
+
+/* forever statement.
+   STMT_BODY is the list of statements with the loop. */
+DEFTREECODE (FOREVER_STMT, "forever_stmt", "s", 1)
+
+/* repeat statement.
+   STMT_REPEAT_COUNT is the repeat count expression.
+   STMT_BODY is the list of statements within the loop. */
+DEFTREECODE (REPEAT_INIT_STMT, "repeat_init_stmt", "s", 4)
+DEFTREECODE (REPEAT_STMT, "repeat_init_stmt", "s", 4)
+
+/* while statement.
+   STMT_COND is the while condition.
+   STMT_BODY is the list of statements within the loop. */
+DEFTREECODE (WHILE_STMT, "while_stmt", "s", 3)
+
+/* for statement.
+   STMT_FOR_INIT is the initial assignment.
+   STMT_FOR_COND is the condition.
+   STMT_FOR_ITER is the iteartion assignment.
+   STMT_BODY is the list of statements within the loop. */
+DEFTREECODE (FOR_STMT, "for_stmt", "s", 4)
+
+/* wait statement.
+   STMT_WAIT_EXPR is the expression on which to wait.
+   STMT_WAIT_EXPR_CODE is the instructions of the expression
+   STMT_WAIT_MARKER is the list of markers that can trigger the event */
+DEFTREECODE (WAIT_STMT, "wait_stmt", "s", 4)
+
+/* phantom jump for the end of loops. */
+DEFTREECODE (LOOPBACK_STMT, "loopback_stmt", "s", 1)
+
+/* delay control (e.g. #5)
+   STMT_BODY
+   STMT_DELAY_EXPR is the delay expression.
+   STMT_DELAY_EXPR_CODE is the list of expression to evaluate */
+DEFTREECODE (DELAY_STMT, "delay_stmt", "s", 3)
+
+/* event control (e.g. @foo; @(posedge foo) )
+   STMT_BODY is the next stmt to execute after the event is triggered.
+   STMT_EVENT_MARKER is a list of event markers. */
+DEFTREECODE (EVENT_STMT, "event_stmt", "s", 3)
+
+/* trigger named event
+   STMT_ARROW_NAME is the name of the event.
+   STMT_ARROW_EVENT is actual event if NAME is hierarchical. */
+DEFTREECODE (ARROW_STMT, "arrow_stmt", "s", 2)
+
+/* begin/end block (possibly named)
+   STMT_NAME is the name of the block.  If it is null, then it is not
+    named and no scoping occurs.  If there is a name, then the scope is
+    pushed and new declarations may occur.
+   STMT_BLOCK points to scoping block,
+   STMT_BEGIN_NAMED_END points to stmt after end for disable stmt. */
+DEFTREECODE (BEGIN_STMT, "begin_stmt", "s", 1)
+DEFTREECODE (BEGIN_NAMED_STMT, "begin_named_stmt", "s", 3)
+DEFTREECODE (END_STMT, "end_stmt", "s", 0)
+DEFTREECODE (END_NAMED_STMT, "end_named_stmt", "s", 2)
+
+/* fork/join block (possibly named)
+   STMT_BLOCK_NAME is the name of the block.  If it is null, then it is not
+    named and no scoping occurs.  If there is a name, then the scope is
+    pushed and new declarations may occur.
+   STMT_BODY is the chain of substatements. 
+   STMT_FORK_SCB points to te sub-SCBs (for disabling) */
+DEFTREECODE (FORK_STMT, "fork_stmt", "s", 3)
+DEFTREECODE (FORK_NAMED_STMT, "fork_named_stmt", "s", 4)
+DEFTREECODE (JOIN_STMT, "join_stmt", "s", 1)
+DEFTREECODE (JOIN_NAMED_STMT, "join_named_stmt", "s", 2)
+
+/* Task and system task enable.
+   Function and system function reference.
+   STMT_TASK_NAME is the task name.
+   STMT_TASK_ARGS is the argument list, a list of expressions made out
+   of a chain of TREE_LIST nodes. */
+DEFTREECODE (TASK_STMT, "task_stmt", "s", 5)
+DEFTREECODE (SYSTASK_STMT, "sys_task_stmt", "s", 10)
+DEFTREECODE (FUNCTION_REF, "function_ref", "r", 7)
+DEFTREECODE (SYSFUNCTION_REF, "sysfunction_ref", "r", 12)
+
+DEFTREECODE (GATE_INSTANCE, "gate_instance", "g", 0)
+
+/* These next two may be combined, since it probably is not known
+   at first pass if the name refers to a task or a block. */
+/* disable task and disable block.
+   STMT_DISABLE_NAME is the name of the task. */
+DEFTREECODE (DISABLE_STMT, "disable_stmt", "s", 2)
+DEFTREECODE (DISABLE_TASK_STMT, "disable_task_stmt", "s", 1)
+DEFTREECODE (DISABLE_BLOCK_STMT, "disable_block_stmt", "s", 1)
+
+/* Deassign psuedo continuous assignment and release.
+   STMT_LVAL is the lvalue to be deassigned. */
+DEFTREECODE (DEASSIGN_STMT, "deassign_stmt", "s", 1)
+DEFTREECODE (RELEASE_STMT, "release_stmt", "s", 1)
+
+/* Continuous assignments, in two parts */
+//DEFTREECODE (CONT_ASSIGN, "cont_assign", "s", 9)
+//DEFTREECODE (CONT_ASSIGN2, "cont_assign2", "s", 0)
+
+/* Instance placeholders.  When a module instantiates another module,
+   this structure hold all the information until the hierarchy is created
+   in phase 2.  ex. foo foobar #(1, 2) (a, b, c);
+   INSTANCE_NAME is the name of the instance (foobar),
+   INSTANCE_MODULE_NAME is the name of the referenced module (foo),
+   INSTANCE_PORTS is a TREE_LIST of arguments (a, b, c),
+   INSTANCE_PARAMS is a TREE_LIST of parameter overrides (1, 2),
+   INSTANCE_BLOCK is set to the actual module block during pass2.
+*/
+DEFTREECODE (INSTANCE_NODE, "instance_node", "s", 5)
+
+
+/* Expressions */
+
+/* First, the constants.  */
+
+/* Contents are in TREE_INT_CST; 32 bits, signed. */
+DEFTREECODE (INTEGER_CST, "integer_cst", "c", 2)
+
+/* Contents are in TREE_REAL_CST; double. */
+DEFTREECODE (REAL_CST, "real_cst", "c", 2)
+
+/* Contents are in TREE_BIT_DATUM */
+DEFTREECODE (BIT_CST, "bit_cst", "c", 3)
+
+/* Contents are TREE_STRING_LENGTH and TREE_STRING_POINTER fields. */
+DEFTREECODE (STRING_CST, "string_cst", "c", 3)
+
+/* Declarations.  All references to names are represented as ..._DECL nodes.
+   The decls in one binding context are chained through the TREE_CHAIN field.
+   Each DECL has a DECL_NAME field which contains an IDENTIFIER_NODE.
+    (Some decls, most often labels, may have zero as the DECL_NAME).
+   DECL_SCOPE points to the node representing the context in which
+    this declaration has its scope.  This is either a MODULE, FUNCTION,
+    TASK, NAMED_BEGIN or NAMED_FORK scoping node.
+   The TREE_TYPE field holds the data type of the object, when relevant.
+    LABEL_DECLs have no data type.  For TYPE_DECL, the TREE_TYPE field
+    contents are the type whose name is being declared.
+   DECL_SIZE hold the size in bytes required to store the value.
+    If parameters were used in the definition, then this is not known
+    at first pass time.
+   DECL_ADDR points to the address in memory where the value is held.
+   DECL_ACTIVE points to the activation list, that is, the list of event
+     markers that this declaration could trigger*/
+/* Integer declaration. */
+DEFTREECODE (INTEGER_DECL, "integer_decl", "d", 0)
+
+/* Real declaration */
+DEFTREECODE (REAL_DECL, "real_decl", "d", 0)
+
+/* Register scalar (single-bit) declaration. */
+DEFTREECODE (REG_SCALAR_DECL, "reg_scalar_decl", "d", 0)
+
+/* Time declaration */
+DEFTREECODE (TIME_DECL, "time_decl", "d", 0)
+
+/* Register vector declaration. */
+DEFTREECODE (REG_VECTOR_DECL, "reg_vector_decl", "d", 0)
+
+/* temp used for intermediate storage of delayed assignments */
+DEFTREECODE (TMP_DECL, "tmp_decl", "d", 0)
+
+/* Specify path constraint */
+DEFTREECODE (PATH_CONSTRAINT,"path_constraint", "x", 19 )
+
+/* Net declarations.  TREE_TYPE indicates the subtype.
+   NET_LIST is a pointer to other sources to this net
+   NET_DELAY is a pointer to the delay expression (must be constant) */
+DEFTREECODE (NET_SCALAR_DECL, "net_scalar_decl", "d", 3)
+DEFTREECODE (NET_VECTOR_DECL, "net_vector_decl", "d", 3)
+
+/* Array declarations.  DECL_NOUN points to another declaration node
+   that describes the type of array.  Currently, only integers and registers
+   are arrayable (or is that arrayible).  Also:
+   DECL_LOW_BOUNDS        Low bounds of array.
+   DECL_HIGH_BOUNDS       High bounds of array. */
+DEFTREECODE (ARRAY_DECL, "array_decl", "d", 5)
+
+/* Port and argument declarations.  DECL_NOUN points to another
+   declaration node if this port is redefined as a register, or other
+   type.  If null, then its type is the default net type.  For vector ports:
+   DECL_PORT_MSB is the most significant bit.
+   DECL_PORT_LSB is the least significant bit.
+   PORT_INPUT_ATTR is set if the port/arg is an input.
+   PORT_OUTPUT_ATTR is set if the port/arg is an output.
+     if both are set, the port/arg is an INOUT.  */
+DEFTREECODE (PORT_SCALAR_DECL, "port_scalar_decl", "d", 1)
+DEFTREECODE (PORT_VECTOR_DECL, "port_vector_decl", "d", 3)
+DEFTREECODE (ARG_SCALAR_DECL, "arg_scalar_decl", "d", 1)
+DEFTREECODE (ARG_VECTOR_DECL, "arg_vector_decl", "d", 3)
+
+/* Parameter Declarations.  These may be modified by a parent module,
+   so their current value cannot be used.  Treat and a variable during
+   first pass, resolve and collapse during second pass.
+   DECL_PARAM_SEQ is the sequence number of the parameter (the order is which
+     it appeared in the declarations).
+   DECL_PARAM_EXPR is the default expression for the parameter.
+   DECL_PARAM_WHERE os a TREE_LIST of the heads of expressions that use
+     this parameter. */
+DEFTREECODE (PARAM_DECL, "param_decl", "d", 3)
+/* Spec parameters have same layout as Parameter Declarations only different code */
+DEFTREECODE (SPECPARAM_DECL, "specparam_decl", "d", 3)
+
+
+/* Named event declaration.  This type does not store a value; it is used
+   only to trigger an event. */
+DEFTREECODE (EVENT_DECL, "event_decl", "d", 0)
+
+/* Result represents the return value of a function.  DECL_NOUN points
+   to the subtype. */
+DEFTREECODE (RESULT_DECL, "result_decl", "d", 1)
+
+/* Represents a placeholder for block names: named begin, named fork, task
+   or function names are represented. */
+DEFTREECODE (BLOCK_DECL, "block_decl", "d", 0)
+
+/* References to storage.  */
+
+/* A placeholder for hierarchical names */
+DEFTREECODE (HIERARCHICAL_REF, "hierarchical_ref", "r", 1)
+
+/* Array indexing.
+   Operand 0 is the array; operand 1 is the index. */
+DEFTREECODE (ARRAY_REF, "array_ref", "r", 4)
+
+/* Bit-select.  Operand 0 is the register or net, operand 1 is the index. */
+DEFTREECODE (BIT_REF, "bit_ref", "r", 4)
+
+/* Part-select.  Operand 0 is the register or net.
+   PART_DECL is the pointer to the referenced decl node.
+   PART_MSB_ is the most significant bit (expression on the left side of
+     the colon).
+   PART_LSB_ is the least significant bit (expression on the right side
+     of the colon).
+   PART_MSB and PART_LSB are the actual constants, evaluated in pass 3.*/
+DEFTREECODE (PART_REF, "part_ref", "r", 9)
+
+DEFTREECODE (CONCAT_REF, "concat_ref", "r", 2)
+DEFTREECODE (CONCAT_REP_REF, "concat_rep_ref", "r", 4)
+
+/* Shadow references are used when the size of a var must be adjusted
+   to something other than the native size. */
+DEFTREECODE (SHADOW_REF, "shadow_ref", "r", 0)
+
+/* Shadow lval references are for resolving direct (not indexed) references
+   to hierarchical names in the lval */
+DEFTREECODE (SHADOW_LVAL_REF, "shadow_lval_ref", "r", 1)
+
+/* The expression types are mostly straightforward,
+   with the fourth argument of DEFTREECODE saying
+   how many operands there are.
+   Unless otherwise specified, the operands are expressions.  */
+
+/* This is used to pass msb and lsb expression pointers during
+   parsing.  Only one of these are needed. */
+DEFTREECODE (RANGE_HANDLE, "range_handle", "e", 2)
+
+/* Contains two expressions to compute, one followed by the other.
+   the first value is ignored.  The second one's value is used.  */
+DEFTREECODE (COMPOUND_EXPR, "compound_expr", "e", 2)
+
+/* Initialization expression.  Operand 0 is the variable to initialize;
+   Operand 1 is the initializer.  */
+DEFTREECODE (INIT_EXPR, "init_expr", "e", 2)
+
+/* Conditional expression ( ... ? ... : ... ).
+   Operand 0, 1 is the condition.
+   Operand 2, 3 is the then-value.
+   Operand 4, 5 is the else-value.  */
+DEFTREECODE (COND_EXPR, "cond_expr", "e3", 6)
+
+/* Edge detection.  Expression node contains the previous state for
+   edge comparison. */
+DEFTREECODE (ANYEDGE_EXPR, "anyedge_expr", "er", 2)
+DEFTREECODE (POSEDGE_EXPR, "POSEDGE ", "er", 2)
+DEFTREECODE (NEGEDGE_EXPR, "NEGEDGE ", "er", 2)
+
+/* Simple arithmetic.  Operands must have the same machine mode
+   and the value shares that mode.  */
+DEFTREECODE (PLUS_EXPR, "+", "ex", 2)
+DEFTREECODE (MINUS_EXPR, "-", "ex", 2)
+DEFTREECODE (MULT_EXPR, "*", "ex", 2)
+
+/* Division for integer result that rounds the quotient toward zero.  */
+/* Operands must have the same machine mode.
+   In principle they may be real, but that is not currently supported.
+   The result is always fixed point, and it has the same type as the
+   operands if they are fixed point.   */
+DEFTREECODE (DIV_EXPR, "/", "ex", 2)
+
+/* Four kinds of remainder that go with the four kinds of division.  */
+DEFTREECODE (MOD_EXPR, "%", "ex", 2)
+
+/* Unary negation.  Value has same type as operand.  */
+DEFTREECODE (NEGATE_EXPR, "-", "eu", 1)
+
+/* Shift operations for shift and rotate.
+   Shift is supposed to mean logical shift if done on an
+   unsigned type, arithmetic shift on a signed type.
+   The second operand is the number of bits to
+   shift by, and must always have mode SImode.
+   The result has the same mode as the first operand.  */
+DEFTREECODE (LSHIFT_EXPR, "<<", "es", 3)
+DEFTREECODE (RSHIFT_EXPR, ">>", "es", 3)
+/* DEFTREECODE (LROTATE_EXPR, "lrotate_expr", "e", 2)
+   DEFTREECODE (RROTATE_EXPR, "rrotate_expr", "e", 2) */
+
+/* Bitwise operations.  Operands have same mode as result.  */
+DEFTREECODE (BIT_OR_EXPR, "|", "ex", 2)
+DEFTREECODE (BIT_NOR_EXPR, "~|", "ex", 2)
+DEFTREECODE (BIT_XOR_EXPR, "^", "ex", 2)
+DEFTREECODE (BIT_XNOR_EXPR, "~^", "ex", 2)
+DEFTREECODE (BIT_AND_EXPR, "&", "ex", 2)
+DEFTREECODE (BIT_NAND_EXPR, "~&", "ex", 2)
+ /* DEFTREECODE (BIT_ANDTC_EXPR, "bit_andtc_expr", "ex", 2) */
+DEFTREECODE (BIT_NOT_EXPR, "~", "eu", 1)
+
+/* Combination of boolean values or of integers considered only
+   as zero or nonzero.  ANDIF and ORIF allow the second operand
+   not to be computed if the value of the expression is determined
+   from the first operand.  AND and OR always compute the second
+   operand whether its value is needed or not (for side effects).  */
+DEFTREECODE (TRUTH_ANDIF_EXPR, "&&", "e1", 3)
+DEFTREECODE (TRUTH_ORIF_EXPR, "||", "e1", 3)
+DEFTREECODE (TRUTH_AND_EXPR, "&&", "e1", 2)
+DEFTREECODE (TRUTH_OR_EXPR, "||", "e1", 2)
+DEFTREECODE (TRUTH_NOT_EXPR, "!", "er", 1)
+
+/* Relational operators.
+   `EQ_EXPR' and `NE_EXPR' are allowed for any types.
+   The others are allowed only for integer (or pointer or enumeral)
+   or real types.
+   In all cases the operands will have the same type,
+   and the value is always the type used by the language for booleans.  */
+DEFTREECODE (LT_EXPR, "<", "e1", 2)
+DEFTREECODE (LE_EXPR, "<=", "e1", 2)
+DEFTREECODE (GT_EXPR, ">", "e1", 2)
+DEFTREECODE (GE_EXPR, ">=", "e1", 2)
+DEFTREECODE (EQ_EXPR, "==", "e1", 2)
+DEFTREECODE (NE_EXPR, "!=", "e1", 2)
+DEFTREECODE (EQ_CASE_EXPR, "===", "e1", 2)
+DEFTREECODE (NE_CASE_EXPR, "!==", "e1", 2)
+
+/* Unary reduction operators */
+DEFTREECODE (AND_REDUCE_EXPR, "&", "er", 1)
+DEFTREECODE (NAND_REDUCE_EXPR, "~&", "er", 1)
+DEFTREECODE (OR_REDUCE_EXPR, "|", "er", 1)
+DEFTREECODE (NOR_REDUCE_EXPR, "~|", "er", 1)
+DEFTREECODE (XOR_REDUCE_EXPR, "^", "er", 1)
+DEFTREECODE (XNOR_REDUCE_EXPR, "~^", "er", 1)
+
+/* Expressions that represent simulation activity: delay and event */
+
+/* Delay points to rise, fall, and Z delay expressions.  The transition
+    to Z may be null. The next 3 entries are for the respective
+    expression instructions */
+DEFTREECODE (DELAY_EXPR, "delay_expr", "e", 6)
+
+/* Event expression points to a tree list of ORed event expressions.
+    TREE_PURPOSE pointe to the exent expression;
+    TREE_VALUE contains either ANY_EDGE, POS_EDGE, or NEG_EDGE */
+/* DEFTREECODE (EVENT_EXPR, "event_expr", "e", 1) */
+
+/* Represents a conversion of type of a value.
+   All conversions, including implicit ones, must be
+   represented by CONVERT_EXPR nodes.  */
+DEFTREECODE (CONVERT_EXPR, "convert_expr", "e", 1)
+
+/* Represents conversion to REAL from any other type */
+DEFTREECODE (REAL_CONV_EXPR, "$itor ", "ec", 1)
+
+/* Represents conversion to INTEGER from REAL */
+DEFTREECODE (INT_CONV_EXPR, "$rtoi ", "ec", 1)
+
+/* Represents a conversion expected to require no code to be generated.  */
+DEFTREECODE (NOP_EXPR, "nop_expr", "ec", 1)
+
+

@@ -1,0 +1,31 @@
+Veriwell
+===================================
+
+Veriwell is a verilog simulator. It is compliant to verilog 95, but
+does not fully support it. The most notable missing feature is the 
+support for strengths.
+
+This package also integrates support for dumping lxt waveform files.
+These files can be used with the gtkwaves waveform viewer.
+
+Quick Start
+-----------
+tar -zxvf veriwell.tar.gz
+cd veriwell
+./configure
+make
+make install
+
+AMD64 Support
+-------------
+For AMD64 targets the --enable-m32 switch may be used
+when running configure to force a 32 bit version. Note 
+specifing this switch is equivilent to running 
+./configure CFLAGS=-m32 LDFLAGS=-m32.
+
+Lxt support for Gtkwaves (1.*) requires libz to
+be installed. Lxt support may be disabled by using
+the configuration switch --disable-lxt.
+
+Enjoy!
+

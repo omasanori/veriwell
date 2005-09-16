@@ -1,0 +1,38 @@
+2005-09-01	Mark Hummel	
+
+	* initial conversion to automake/autoconf.
+
+2005-09-07	Mark Hummel
+
+	* beefed up configure scripts
+	* added lxt support
+	* added --enable-m32 configuration switch
+	* added --disable-lxt configuration switch
+	* fixed amd64 failures
+
+2005-09-08	Mark Hummel
+
+	* --disable-lxt switch disables check for libz
+	* removed version.h file 
+	* changed revision number to 2.8.0
+	* added --bindir switch
+	* added --libdir switch
+	* added --cflags switch
+	* added --libs switch
+	* added --includedir switch
+	* added --help switch
+	* added --version switch
+	* using libtool to create static and dynamic libraries
+
+2005-09-11	Mark Hummel
+
+	* using libtool to build both static and shared libraries
+	* added --ldflags switch
+	* fixed lexer bug with `xyz directives
+
+2005-09-15	Mark Hummel	
+	
+	* removed shell_* memory management routines	
+	* fixed segfaults when opening non-existant files
+	* allow $random arg to be hiearchical reference
+	* allow bit references to scalar variables

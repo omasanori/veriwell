@@ -1,0 +1,107 @@
+AC_PREREQ(2.59)
+AC_INIT(veriwell,2.8.2)
+AC_CONFIG_AUX_DIR(config)
+AC_CONFIG_HEADER([config.h])
+
+AM_INIT_AUTOMAKE
+
+# Check for user supplied arguments
+AC_MSG_CHECKING([use 32 bit compile])
+AC_ARG_ENABLE([m32],AC_HELP_STRING([--enable-m32],
+		                   [compile in 32 bit modes (default is no)]),
+	      [ac_cv_enable_m32=yes], [ac_cv_enable_m32=no])
+AC_MSG_RESULT([$ac_cv_enable_m32])
+
+AC_MSG_CHECKING([enable lxt support])
+AC_ARG_ENABLE([lxt],AC_HELP_STRING([--disable-lxt],
+		                   [compile lxt pli routines (default is yes)]),
+	      [ac_cv_enable_lxt=no],ac_cv_enable_lxt=yes)
+AC_MSG_RESULT([$ac_cv_enable_lxt])
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_RANLIB
+if test X"$ac_cv_enable_m32" = Xyes 
+then  
+    CFLAGS="$CFLAGS -m32"
+    CPPFLAGS="$CPPFLAGS -m32"
+    LDFLAGS="$LDFLAGS -m32"
+fi
+AC_PROG_LIBTOOL
+
+AC_CHECK_PROGS([XGPERF],[gperf],[none])
+if test "$XGPERF" = "none"
+then
+        echo ""
+        echo "*** Warning: No suitable gperf found. ***"
+        echo "    The gperf package is essential for building veriwell from"
+        echo "    CVS sources, or modifying the parse engine of veriwell itself."
+        echo "    You can get away without it when simply building from"
+        echo "    snapshots or major releases."
+        echo ""
+fi
+
+#AC_PROG_YACC
+AC_CHECK_PROGS([YACC],[bison],[none])
+if test "$YACC" = "none"
+then
+        echo ""
+        echo "*** Warning: No suitable bison found. ***"
+        echo "    The bison package is essential for building veriwell from"
+        echo "    CVS sources, or modifying the parse engine of veriwell itself."
+        echo "    You can get away without it when simply building from"
+        echo "    snapshots or major releases."
+        echo ""
+fi
+
+
+
+# Checks for libraries.
+AC_CHECK_LIB([z], [gzwrite], [AC_DEFINE(HAVE_LIBZ,[],
+	[Define to 1 if you have the `z' library (-lz).])])
+if test X"$ac_cv_enable_lxt" = Xyes; then
+    if test X"$ac_cv_lib_z_gzwrite" = Xno; then
+        echo ""
+        echo "*** Error: libz not found. lxt waveform dumping"
+        echo "    cannot be built. Rerun configure with --disable-lxt."
+        echo ""
+        exit 1;
+    fi
+fi
+
+VL_LIB_READLINE
+if test ! "$HAVE_LIBREADLINE" = 1; then
+  AC_LIBOBJ([readline])
+fi
+
+# Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS([limits.h memory.h stddef.h stdlib.h stdarg.h string.h unistd.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_C_CONST
+AC_C_INLINE
+AC_TYPE_SIZE_T
+AC_HEADER_TIME
+AC_C_BIGENDIAN
+
+# Checks for library functions.
+AC_FUNC_MALLOC
+AC_TYPE_SIGNAL
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS([memmove memset pow strchr strdup strrchr])
+AC_REPLACE_FUNCS([vfscanf])
+
+
+# optional pli code
+AM_CONDITIONAL( [USE_LXT], [test "$ac_cv_enable_lxt" = yes])
+if test "$ac_cv_enable_lxt" = yes 
+then
+    AC_DEFINE([HAVE_LXT],1,[Set to one if lxt library should be used])
+fi
+
+AC_CONFIG_FILES([Makefile] [replace/Makefile] [src/Makefile] [lxt/Makefile])
+AC_OUTPUT

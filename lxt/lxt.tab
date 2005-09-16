@@ -1,0 +1,6 @@
+$lxt_recordvars   call=lxt_recordvars  misc=lxt_recordvars  check=lxt_recordvars  acc+=rw,cbk,frc:*
+$lxt_recordon     call=lxt_recordon    misc=lxt_recordon    check=lxt_recordon    acc+=rw,cbk,frc:*
+$lxt_recordoff    call=lxt_recordoff   misc=lxt_recordoff   check=lxt_recordoff   acc+=rw,cbk,frc:*
+$lxt_recordclose  call=lxt_recordclose misc=lxt_recordclose check=lxt_recordclose acc+=rw,cbk,frc:*
+$lxt_recordfile   call=lxt_recordfile  misc=lxt_recordfile  check=lxt_recordfile  acc+=rw,cbk,frc:*
+$lxt_recordsetup  call=lxt_recordsetup misc=lxt_recordsetup check=lxt_recordsetup acc+=rw,cbk,frc:*

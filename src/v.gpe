@@ -1,0 +1,137 @@
+/*****************************************************************************
+ * Copyright 1994-2005, Elliot Mednick and Mark Hummel
+ * This file is part of Veriwell.
+ *
+ * Veriwell is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * Veriwell is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *****************************************************************************/
+struct keywords { char *name; short kval; short type;};
+
+%%
+# Statements
+module, MODULE, NO_TYPE
+macromodule, MACROMODULE, NO_TYPE
+endmodule, ENDMODULE, NO_TYPE
+specify, SPECIFY, NO_TYPE
+endspecify, ENDSPECIFY, NO_TYPE
+primitive, PRIMITIVE, NO_TYPE
+endprimitive, ENDPRIMITIVE, NO_TYPE
+assign, ASSIGN, NO_TYPE
+table, TABLE, NO_TYPE
+endtable, ENDTABLE, NO_TYPE
+task, TASK, NO_TYPE
+endtask, ENDTASK, NO_TYPE
+function, FUNCTION, NO_TYPE
+endfunction, ENDFUNCTION, NO_TYPE
+parameter, PARAMETER, NO_TYPE
+input, INPUT, NO_TYPE
+output, OUTPUT, NO_TYPE
+inout, INOUT, NO_TYPE
+scalared, SCALARED, NO_TYPE
+vectored, VECTORED, NO_TYPE
+reg, REG, NO_TYPE
+time, TIME, NO_TYPE
+integer, INTEGER, NO_TYPE
+real, REAL, NO_TYPE
+event, EVENT, NO_TYPE
+defparam, DEFPARAM, NO_TYPE
+initial, INITIAL, NO_TYPE
+always, ALWAYS, NO_TYPE
+if, IF, NO_TYPE
+else, ELSE, NO_TYPE
+case, CASE, NO_TYPE
+casez, CASEZ, NO_TYPE
+casex, CASEX, NO_TYPE
+endcase, ENDCASE, NO_TYPE
+forever, FOREVER, NO_TYPE
+repeat, REPEAT, NO_TYPE
+while, WHILE, NO_TYPE
+for, FOR, NO_TYPE
+wait, WAIT_, NO_TYPE
+disable, DISABLE, NO_TYPE
+deassign, DEASSIGN, NO_TYPE
+force, FORCE, NO_TYPE
+release, RELEASE, NO_TYPE
+default, DEFAULT, NO_TYPE
+begin, BEGIN, NO_TYPE
+end, END, NO_TYPE
+fork, FORK, NO_TYPE
+join, JOIN, NO_TYPE
+posedge, POSEDGE, NO_TYPE
+negedge, NEGEDGE, NO_TYPE
+or, OR, NO_TYPE
+small, SMALL, NO_TYPE
+medium, MEDIUM, NO_TYPE
+# Gate Types
+and, LOGIC, GATE_AND_TYPE
+nand, LOGIC, GATE_NAND_TYPE
+nor, LOGIC, GATE_NOR_TYPE
+#or, LOGIC, GATE_OR_TYPE
+xor, LOGIC, GATE_XOR_TYPE
+xnor, LOGIC, GATE_XNOR_TYPE
+buf, BUFFER, GATE_BUF_TYPE
+not, BUFFER, GATE_NOT_TYPE
+bufif0, BUFIF, GATE_BUFIF0_TYPE
+bufif1, BUFIF, GATE_BUFIF1_TYPE
+notif0, BUFIF, GATE_NOTIF0_TYPE
+notif1, BUFIF, GATE_NOTIF1_TYPE
+nmos, BUFIF, GATE_NMOS_TYPE
+pmos, BUFIF, GATE_PMOS_TYPE
+rnmos, BUFIF, GATE_RNMOS_TYPE
+rpmos, BUFIF, GATE_RPMOS_TYPE
+cmos, CMOS, GATE_CMOS_TYPE
+rcmos, CMOS, GATE_RCMOS_TYPE
+pullup, PULL, GATE_PULLUP_TYPE
+pulldown, PULL, GATE_PULLDN_TYPE
+tran, TRAN, GATE_TRAN_TYPE
+tranif0, BUFIF, GATE_TRANIF0_TYPE
+tranif1, BUFIF, GATE_TRANIF1_TYPE
+rtran, TRAN, GATE_RTRAN_TYPE
+rtranif0, BUFIF, GATE_RTRANIF0_TYPE
+rtranif1, BUFIF, GATE_RTRANIF1_TYPE
+#
+# Net Types
+wire, NETTYPE, NET_WIRE_TYPE
+tri, NETTYPE, NET_TRI_TYPE
+wand, NETTYPE, NET_WAND_TYPE
+triand, NETTYPE, NET_TRIAND_TYPE
+wor, NETTYPE, NET_WOR_TYPE
+trior, NETTYPE, NET_TRIOR_TYPE
+tri1, NETTYPE, NET_TRI1_TYPE
+tri0, NETTYPE, NET_TRI0_TYPE
+supply1, SUPPLY1, NET_SUPPLY1_TYPE
+supply0, SUPPLY0, NET_SUPPLY0_TYPE
+trireg, TRIREG, NET_TRIREG_TYPE
+#
+# signal strengths
+#supply0, STRENGTH0, STRENGTH_SUPPLY0_TYPE
+strong0, STRENGTH0, STRENGTH_STRONG0_TYPE
+pull0, STRENGTH0, STRENGTH_PULL0_TYPE
+weak0, STRENGTH0, STRENGTH_WEAK0_TYPE
+highz0, STRENGTH0, STRENGTH_HIGHZ0_TYPE
+#supply1, STRENGTH1, STRENGTH_SUPPLY1_TYPE
+strong1, STRENGTH1, STRENGTH_STRONG1_TYPE
+pull1, STRENGTH1, STRENGTH_PULL1_TYPE
+weak1, STRENGTH1, STRENGTH_WEAK1_TYPE
+highz1, STRENGTH1, STRENGTH_HIGHZ1_TYPE
+specparam, SPECPARAM, NO_TYPE
+edge, EDGE, NO_TYPE
+$setup, SETUP, NO_TYPE
+$hold, HOLD, NO_TYPE
+$period, PERIOD, NO_TYPE
+$width, WIDTH, NO_TYPE
+$skew, SKEW, NO_TYPE
+$recovery, RECOVERY, NO_TYPE
+$setuphold, SETUPHOLD, NO_TYPE
+$nochange, NOCHANGE, NO_TYPE
