@@ -36,3 +36,11 @@
 	* fixed segfaults when opening non-existant files
 	* allow $random arg to be hiearchical reference
 	* allow bit references to scalar variables
+
+2005-09-17	Mark Hummel
+
+	* added --enable-gprof configuration switch
+	* added --enable-all-static configuration switch
+	* changed --version and --help output to be work with help2man
+	* added man page
+	

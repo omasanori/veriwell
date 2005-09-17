@@ -18,11 +18,22 @@ AC_ARG_ENABLE([lxt],AC_HELP_STRING([--disable-lxt],
 	      [ac_cv_enable_lxt=no],ac_cv_enable_lxt=yes)
 AC_MSG_RESULT([$ac_cv_enable_lxt])
 
+# Before configuring libtool check for --enable-all-static option
+AC_ARG_ENABLE(all-static,
+  AC_HELP_STRING([--enable-all-static],
+                 [Build completely static (standalone) binaries.]),
+  [
+    if test "$enableval" = "yes" ; then
+      LT_LDFLAGS="-all-static $LT_LDFLAGS"
+    fi
+])
+
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_RANLIB
+
 if test X"$ac_cv_enable_m32" = Xyes 
 then  
     CFLAGS="$CFLAGS -m32"
@@ -30,6 +41,33 @@ then
     LDFLAGS="$LDFLAGS -m32"
 fi
 AC_PROG_LIBTOOL
+
+
+AC_ARG_ENABLE(gprof,
+AC_HELP_STRING([--enable-gprof],
+	       [Produce gprof profiling data in 'gmon.out' (GCC only).]),
+[
+    if test "$enableval" = "yes" ; then
+      dnl Probably other compilers support -pg or something similar;
+      dnl feel free to extend this to include them.
+      if test "$GCC" = "yes"; then
+        if test "$enable_shared" = "yes" ; then
+          AC_MSG_ERROR(Can't have --enable-gprof without --disable-shared (we
+                  recommend also using --enable-all-static).)
+        fi
+        if test ! "$enable_all_static" = "yes" ; then
+          AC_MSG_WARN(We recommend --enable-all-static with --enable-gprof.)
+        fi
+        AC_MSG_NOTICE([Enabling gprof profiling data (to gmon.out).])
+        CFLAGS="$CFLAGS -pg"
+        CXXFLAGS="$CXXFLAGS -pg"
+        LDFLAGS="$LDFLAGS -pg"
+        LT_LDFLAGS="$LT_LDFLAGS -pg"
+      else
+        AC_MSG_ERROR(We only support --enable-gprof with GCC right now.)
+      fi
+    fi
+])
 
 AC_CHECK_PROGS([XGPERF],[gperf],[none])
 if test "$XGPERF" = "none"
@@ -103,5 +141,5 @@ then
     AC_DEFINE([HAVE_LXT],1,[Set to one if lxt library should be used])
 fi
 
-AC_CONFIG_FILES([Makefile] [replace/Makefile] [src/Makefile] [lxt/Makefile])
+AC_CONFIG_FILES([Makefile] [replace/Makefile] [src/Makefile] [lxt/Makefile] [doc/Makefile])
 AC_OUTPUT

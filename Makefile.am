@@ -1,7 +1,7 @@
 if USE_LXT
    LXT=lxt
 endif
-SUBDIRS = replace $(LXT) src .
+SUBDIRS = doc replace $(LXT) src .
 
 EXTRA_DIST = bootstrap
 

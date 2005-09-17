@@ -59,6 +59,13 @@ tree dbg1;			/* for debugging */
 extern LibPath_t *ypathList;
 
 char *versionString = VERSION;
+char copyright[] = "Copyright (C) 1993-2005 Elliot Mednick and Mark Hummel\n\n"
+	     "Veriwell comes with ABSOLUTELY NO WARRANTY; This is free\n"
+	     "software, and you are welcome to redistribute it under the\n"
+	     "terms of the GNU General Public License as published by\n"
+	     "the Free Software Foundation; either version 2 of the License,\n"
+	     "or (at your option) any later version. "
+	     "\n\n";
 
 #define MAX_LEVEL 25
 Bit mask_right[sizeof(Bit) * 8 + 1];
@@ -109,14 +116,8 @@ void init()
     time_t t = time(NULL);
 
     /* Print out our header */
-    printf_V("\n\n\t%s version %s, \n"
-	     "\tCopyright (C) 1993-2005 Elliot Mednick and Mark Hummel\n\n"
-	     "\tVeriwell comes with ABSOLUTELY NO WARRANTY; This is free\n"
-	     "\tsoftware, and you are welcome to redistribute it under the\n"
-	     "\tterms of the GNU General Public License as published by\n"
-	     "\tthe Free Software Foundation; either version 2 of the License,\n"
-	     "\tor (at your option) any later version. "
-	     "\n\n", VERIWELL, VERSION);
+    printf_V("\n\n%s version %s, \n", VERIWELL, VERSION );
+    printf_V( copyright );
     printf_V(veriuser_version_str);
 
 
@@ -589,7 +590,9 @@ void process_cmdline(char *input)
 	CmdlineHelp();
 	shell_exit(0);
     } else if (!strcmp( input, "--version" ) ) {
-	printf( "%s\n", VERSION );
+        printf("%s %s, \n\n", VERIWELL, VERSION );
+        printf( copyright );
+	printf( "\nWritten by Elliot Mednick and Mark Hummel\n" );
 	shell_exit(0);
     } else if (!strcmp( input, "--bindir" ) ) {
 	printf( "%s\n", BINDIR );
@@ -769,28 +772,53 @@ int moreinput(char *infile)
 
 void CmdlineHelp()
 {
-    printf("Usage: veriwell [options] <file1> [<file2>...]\n");
-    printf(" -c                Compile only - do not simulate\n");
-    printf(" -s                Enter interactive mode before running\n");
-    printf(" -t                Turn trace on\n");
-    printf(" -f <filename>     Read options from <filename>\n");
-    printf(" -i <filename>     Read commands from <filename>\n");
-    printf(" -l <filename>     Set log file to <filename>\n");
-    printf(" -l nolog          Disable log file\n");
-    printf(" -k <filename>     Set key file to <filename>\n");
-    printf(" -k nokey          Disable key file\n");
-    printf(" -?, -h            This message\n");
-    printf
-	(" +synopsys         Enable Synopsys HDL Compiler(tm) 2.x checking\n");
-    printf(" --help            This message\n");
-    printf(" --version         print version\n");
-    printf(" --bindir          Binary install path\n");
-    printf(" --libdir          Library install path\n");
-    printf(" --includedir      Include install path\n");
-    printf(" --cflags          Compiler flags used\n");
-    printf(" --ldflags         Linker flags used\n");
-    printf(" --libs            Libraries used\n");
+    printf( "'VeriWell' is a Verilog simulator supporting the IEEE 1364-1995 standard.\n\n" );
+    printf("Usage: veriwell [options] <file1> [<file2>...]\n\n");
+    printf("Options:\n");
+    printf(" -c                      Compile only - do not simulate\n");
+    printf(" -s                      Enter interactive mode before running\n");
+    printf(" -t                      Turn trace on\n");
+    printf(" -f <filename>           Read options from <filename>\n");
+    printf(" -i <filename>           Read commands from <filename>\n");
+    printf(" -l <filename>           Set log file to <filename>\n");
+    printf(" -l nolog                Disable log file\n");
+    printf(" -k <filename>           Set key file to <filename>\n");
+    printf(" -k nokey                Disable key file\n");
+    printf(" -y <directory>          Search directory for module definitions\n");
+    printf(" -?, -h                  This message\n");
+    printf(" +synopsys               Enable Synopsys HDL Compiler(tm) 2.x checking\n");
+    printf(" +mindelays              Use minimum delays\n");
+    printf(" +maxdelays              Use maximum delays\n");
+    printf(" +typdelays              Use typical delays\n");
+    printf(" +define+<macro>=<value> Define macros\n");
+    printf(" +libext+<extension>     Specify library suffix \n");
+    printf(" +incdir+<directory>     Specify include search path\n");
+    printf(" +<name>+<value>         Define plusargs\n");
+    printf(" --help                  This message\n");
+    printf(" --version               Print version\n");
+    printf(" --bindir                Binary install path\n");
+    printf(" --libdir                Library install path\n");
+    printf(" --includedir            Include install path\n");
+    printf(" --cflags                Compiler flags used\n");
+    printf(" --ldflags               Linker flags used\n");
+    printf(" --libs                  Libraries used\n");
     printf(" All other options are tested for arguments and ignored\n");
+    printf("\nExamples:\n");
+    printf("If lxt support is compiled in the following system" 
+	   " tasks are supported:\n\n");
+    printf(" $lxt_recordon                        Enable waveform dump\n");
+    printf(" $lxt_recordoff                       Disable waveform dump\n");
+    printf(" $lxt_recordclose                     End waveform dump\n");
+    printf(" $lxt_recordfile filename options     Set filename and options\n");
+    printf(" $lxt_recordsetup options             Set options\n");
+    printf(" $lxt_recordvar options               Start waveform dump\n\n");
+    printf("Lxt Options:\n");
+    printf("   incsize=<file_size>  Specify incremental file size in bytes\n");
+    printf("   sequence             Record 0 time signal changes\n");
+    printf("   nosequence           Do not record 0 time signal changes\n");
+    printf("   design=<name>        Specify design name\n");
+    printf("   depth=<depth>        Specify extraction depth\n");
+    printf("\nReport bugs at <http://sourceforge.net/projects/veriwell>\n");
 }
 
 /* Parse the input files and generate a syntax tree */
