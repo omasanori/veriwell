@@ -43,4 +43,5 @@
 	* added --enable-all-static configuration switch
 	* changed --version and --help output to be work with help2man
 	* added man page
+	* bumped revision to 2.8.3
 	
