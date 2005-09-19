@@ -91,7 +91,7 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
-/* Define to 1 if you have the `vfscanf' function. */
+/* Define if your system has vfscanf() in stdin.h */
 #undef HAVE_VFSCANF
 
 /* Define to 1 if you have the `vprintf' function. */

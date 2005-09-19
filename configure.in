@@ -131,7 +131,9 @@ AC_FUNC_MALLOC
 AC_TYPE_SIGNAL
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([memmove memset pow strchr strdup strrchr])
-AC_REPLACE_FUNCS([vfscanf])
+AC_LANG_PUSH(C++)
+MDH_STDIN_VFSCANF
+AC_LANG_POP
 
 
 # optional pli code

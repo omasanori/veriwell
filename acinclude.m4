@@ -46,3 +46,31 @@ AC_DEFUN([VL_LIB_READLINE], [
   fi
 ])dnl
 
+
+#
+# stdin vfscanf detection
+#
+AC_DEFUN([MDH_STDIN_VFSCANF], [
+    AC_CACHE_CHECK(
+        [for vfscanf in stdio.h],
+        ac_cv_stdin_vfscanf, [
+            AC_TRY_LINK(
+                [ #include <stdio.h>
+                  #include <stdarg.h>],
+                [ FILE* f;
+                  va_list ap;
+                  vfscanf(f, "format", ap); ],
+                ac_cv_stdin_vfscanf=yes,
+                ac_cv_stdin_vfscanf=no)
+        ]
+    )
+
+    if test x"$ac_cv_stdin_vfscanf" = "xyes"
+    then
+        AC_DEFINE(HAVE_VFSCANF, 1,
+            [ Define if your system has vfscanf() in stdin.h ])
+    else
+        AC_LIBOBJ([vfscanf])
+    fi
+]) dnl MDH_STDIN_VFSCANF
+
