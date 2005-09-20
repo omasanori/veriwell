@@ -49,3 +49,4 @@
 
 	* fixed parsers so they work with older versions of bision
 	* fixed vfscanf configuration check 
+	* changed revision number to 2.8.4
