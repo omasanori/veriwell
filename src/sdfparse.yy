@@ -32,9 +32,9 @@
 #include "veriuser.h"
 #include "sdf.h"
 
+#include "sdfparse.h"
 #ifdef __cplusplus
-    union YYSTYPE;
-    int	sdf_lex (YYSTYPE *);
+    int	sdf_lex( YYSTYPE* );
 #endif // __cplusplus
 
 #define yymaxdepth sdf_maxdepth

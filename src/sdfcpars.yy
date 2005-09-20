@@ -32,8 +32,8 @@
 #include "sdf.h"
 #include "sdfclex.h"
 
+#include "sdfcpars.h"
 #ifdef __cplusplus
-    union YYSTYPE;
     int	sdfconfig_lex( YYSTYPE* );
 #endif // __cplusplus
 

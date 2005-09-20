@@ -44,4 +44,8 @@
 	* changed --version and --help output to be work with help2man
 	* added man page
 	* bumped revision to 2.8.3
-	
+
+2005-09-20	Mark Hummel	
+
+	* fixed parsers so they work with older versions of bision
+	* fixed vfscanf configuration check 

@@ -56,10 +56,11 @@ extern char *token_buffer;
 
 void eat_block (short token);
 
+#include "parse.h"
 #ifdef __cplusplus
-    union YYSTYPE;
     int	yylex (YYSTYPE *);
 #endif // __cplusplus
+
 
 /* list of parsed modules (exported in tree.h) */
 tree module_list = NULL_TREE;
