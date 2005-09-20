@@ -838,55 +838,55 @@ static const unsigned short int yyrline[] =
        0,   425,   425,   434,   435,   444,   453,   454,   466,   467,
      472,   477,   486,   471,   498,   500,   502,   506,   509,   513,
      514,   518,   524,   528,   534,   539,   540,   545,   549,   551,
-     556,   558,   563,   571,   572,   573,   574,   575,   576,   579,
-     580,   581,   582,   586,   590,   591,   606,   611,   618,   605,
-     628,   629,   631,   635,   636,   640,   654,   655,   674,   673,
-     685,   686,   692,   701,   702,   706,   711,   716,   721,   726,
-     731,   736,   751,   752,   753,   754,   755,   760,   759,   780,
-     779,   799,   800,   802,   804,   810,   811,   815,   816,   817,
-     826,   825,   834,   835,   839,   840,   842,   846,   849,   856,
-     860,   863,   866,   873,   881,   888,   896,   908,   910,   914,
-     915,   916,   918,   922,   924,   929,   936,   941,   948,   952,
-     958,   959,   968,   976,   975,   984,   985,   987,   999,  1000,
-    1005,  1011,  1016,  1015,  1025,  1032,  1034,  1038,  1039,  1040,
-    1042,  1046,  1046,  1056,  1058,  1062,  1063,  1064,  1066,  1070,
-    1070,  1076,  1081,  1086,  1095,  1096,  1100,  1101,  1102,  1104,
-    1108,  1110,  1117,  1119,  1124,  1126,  1132,  1133,  1135,  1137,
-    1143,  1144,  1152,  1154,  1159,  1160,  1164,  1165,  1179,  1180,
-    1184,  1201,  1200,  1211,  1213,  1215,  1217,  1219,  1221,  1223,
-    1237,  1237,  1243,  1242,  1248,  1249,  1253,  1259,  1271,  1270,
-    1307,  1308,  1310,  1312,  1314,  1318,  1326,  1328,  1355,  1357,
-    1360,  1361,  1362,  1364,  1374,  1375,  1377,  1378,  1379,  1381,
-    1385,  1393,  1403,  1404,  1408,  1409,  1413,  1414,  1418,  1421,
-    1425,  1426,  1431,  1434,  1442,  1441,  1449,  1449,  1455,  1456,
-    1461,  1464,  1464,  1468,  1470,  1468,  1479,  1478,  1485,  1484,
-    1494,  1493,  1499,  1499,  1510,  1509,  1518,  1517,  1527,  1526,
-    1538,  1537,  1548,  1547,  1559,  1558,  1570,  1569,  1586,  1585,
-    1594,  1593,  1601,  1602,  1603,  1604,  1605,  1605,  1612,  1611,
-    1618,  1617,  1622,  1622,  1631,  1631,  1643,  1645,  1650,  1652,
-    1654,  1666,  1666,  1673,  1674,  1678,  1679,  1683,  1686,  1691,
-    1699,  1701,  1703,  1704,  1708,  1715,  1725,  1726,  1731,  1730,
-    1738,  1737,  1762,  1761,  1770,  1769,  1793,  1794,  1798,  1803,
-    1804,  1808,  1813,  1814,  1818,  1819,  1823,  1829,  1837,  1840,
-    1839,  1848,  1850,  1855,  1857,  1860,  1871,  1870,  1879,  1885,
-    1886,  1891,  1894,  1895,  1896,  1915,  1914,  1923,  1934,  1942,
-    1950,  1958,  1966,  1972,  1980,  1981,  1985,  1986,  1988,  1991,
-    1992,  1996,  1997,  1999,  2002,  2006,  2010,  2016,  2020,  2024,
-    2030,  2031,  2035,  2042,  2055,  2061,  2065,  2071,  2075,  2081,
-    2086,  2089,  2093,  2100,  2103,  2110,  2115,  2120,  2125,  2130,
-    2135,  2140,  2145,  2150,  2158,  2161,  2167,  2170,  2174,  2181,
-    2185,  2193,  2197,  2202,  2208,  2207,  2219,  2224,  2230,  2229,
-    2241,  2246,  2251,  2257,  2258,  2260,  2262,  2264,  2266,  2268,
-    2272,  2276,  2280,  2287,  2292,  2297,  2310,  2318,  2320,  2322,
-    2324,  2326,  2327,  2328,  2329,  2330,  2334,  2338,  2349,  2350,
-    2360,  2370,  2371,  2373,  2375,  2377,  2379,  2381,  2383,  2385,
-    2387,  2389,  2391,  2393,  2395,  2398,  2397,  2402,  2401,  2405,
-    2407,  2410,  2409,  2414,  2413,  2417,  2419,  2421,  2423,  2425,
-    2427,  2429,  2431,  2433,  2435,  2437,  2439,  2441,  2443,  2463,
-    2464,  2465,  2467,  2469,  2471,  2472,  2473,  2475,  2508,  2513,
-    2522,  2527,  2531,  2542,  2551,  2555,  2556,  2576,  2577,  2581,
-    2585,  2590,  2599,  2603,  2607,  2614,  2616,  2618,  2623,  2623,
-    2635,  2635,  2642,  2649,  2652,  2655,  2664,  2669,  2671,  2676
+     556,   558,   563,   571,   573,   575,   577,   579,   580,   582,
+     584,   586,   588,   592,   596,   598,   614,   619,   626,   613,
+     636,   637,   639,   643,   644,   648,   662,   663,   682,   681,
+     693,   694,   700,   709,   710,   714,   719,   724,   729,   734,
+     739,   744,   759,   760,   761,   762,   763,   768,   767,   788,
+     787,   807,   808,   810,   812,   818,   819,   823,   824,   825,
+     834,   833,   842,   843,   847,   848,   850,   854,   857,   864,
+     868,   871,   874,   881,   889,   896,   904,   916,   918,   922,
+     923,   924,   926,   930,   932,   937,   944,   949,   956,   960,
+     966,   967,   976,   984,   983,   992,   993,   995,  1007,  1008,
+    1013,  1019,  1024,  1023,  1033,  1040,  1042,  1046,  1047,  1048,
+    1050,  1054,  1054,  1064,  1066,  1070,  1071,  1072,  1074,  1078,
+    1078,  1084,  1089,  1094,  1103,  1104,  1108,  1109,  1110,  1112,
+    1116,  1118,  1125,  1127,  1132,  1134,  1140,  1141,  1143,  1145,
+    1151,  1152,  1160,  1162,  1167,  1168,  1172,  1173,  1187,  1188,
+    1192,  1209,  1208,  1219,  1221,  1223,  1225,  1227,  1229,  1231,
+    1245,  1245,  1251,  1250,  1256,  1257,  1261,  1267,  1279,  1278,
+    1315,  1316,  1318,  1320,  1322,  1326,  1334,  1336,  1363,  1365,
+    1368,  1369,  1370,  1372,  1382,  1383,  1385,  1386,  1387,  1389,
+    1393,  1401,  1411,  1412,  1416,  1417,  1421,  1422,  1426,  1429,
+    1433,  1434,  1439,  1442,  1450,  1449,  1457,  1457,  1463,  1464,
+    1469,  1472,  1472,  1476,  1478,  1476,  1487,  1486,  1493,  1492,
+    1502,  1501,  1507,  1507,  1518,  1517,  1526,  1525,  1535,  1534,
+    1546,  1545,  1556,  1555,  1567,  1566,  1578,  1577,  1594,  1593,
+    1602,  1601,  1609,  1610,  1611,  1612,  1613,  1613,  1620,  1619,
+    1626,  1625,  1630,  1630,  1639,  1639,  1651,  1653,  1658,  1660,
+    1662,  1674,  1674,  1681,  1682,  1686,  1687,  1691,  1694,  1699,
+    1707,  1709,  1711,  1712,  1716,  1723,  1733,  1734,  1739,  1738,
+    1746,  1745,  1770,  1769,  1778,  1777,  1801,  1802,  1806,  1811,
+    1812,  1816,  1821,  1822,  1826,  1827,  1831,  1837,  1845,  1848,
+    1847,  1856,  1858,  1863,  1865,  1868,  1879,  1878,  1887,  1893,
+    1894,  1899,  1902,  1903,  1904,  1923,  1922,  1931,  1942,  1950,
+    1958,  1966,  1974,  1980,  1988,  1989,  1993,  1994,  1996,  1999,
+    2000,  2004,  2005,  2007,  2010,  2014,  2018,  2024,  2028,  2032,
+    2038,  2039,  2043,  2050,  2063,  2069,  2073,  2079,  2083,  2089,
+    2094,  2097,  2101,  2108,  2111,  2118,  2123,  2128,  2133,  2138,
+    2143,  2148,  2153,  2158,  2166,  2169,  2175,  2178,  2182,  2189,
+    2193,  2201,  2205,  2210,  2216,  2215,  2227,  2232,  2238,  2237,
+    2249,  2254,  2259,  2265,  2266,  2268,  2270,  2272,  2274,  2276,
+    2280,  2284,  2288,  2295,  2300,  2305,  2318,  2326,  2328,  2330,
+    2332,  2334,  2335,  2336,  2337,  2338,  2342,  2346,  2357,  2358,
+    2368,  2378,  2379,  2381,  2383,  2385,  2387,  2389,  2391,  2393,
+    2395,  2397,  2399,  2401,  2403,  2406,  2405,  2410,  2409,  2413,
+    2415,  2418,  2417,  2422,  2421,  2425,  2427,  2429,  2431,  2433,
+    2435,  2437,  2439,  2441,  2443,  2445,  2447,  2449,  2451,  2471,
+    2472,  2473,  2475,  2477,  2479,  2480,  2481,  2483,  2516,  2521,
+    2530,  2535,  2539,  2550,  2559,  2563,  2564,  2584,  2585,  2589,
+    2593,  2598,  2607,  2611,  2615,  2622,  2624,  2626,  2631,  2631,
+    2643,  2643,  2650,  2657,  2660,  2663,  2672,  2677,  2679,  2684
 };
 #endif
 
@@ -2808,22 +2808,72 @@ if (vdebug)
 		}
     break;
 
-  case 42:
+  case 33:
+#line 572 "parse.yy"
+    {}
+    break;
+
+  case 34:
+#line 574 "parse.yy"
+    {}
+    break;
+
+  case 35:
+#line 576 "parse.yy"
+    {}
+    break;
+
+  case 36:
+#line 578 "parse.yy"
+    {}
+    break;
+
+  case 38:
+#line 581 "parse.yy"
+    {}
+    break;
+
+  case 39:
 #line 583 "parse.yy"
+    {}
+    break;
+
+  case 40:
+#line 585 "parse.yy"
+    {}
+    break;
+
+  case 41:
+#line 587 "parse.yy"
+    {}
+    break;
+
+  case 42:
+#line 589 "parse.yy"
     { BLOCK_BODY (current_module) = tree_cons ((yyvsp[0].ttype),
 			(tree)INITIAL_CODE, BLOCK_BODY (current_module));
 		}
     break;
 
   case 43:
-#line 587 "parse.yy"
+#line 593 "parse.yy"
     { BLOCK_BODY (current_module) = tree_cons ((yyvsp[0].ttype),
 			(tree)ALWAYS_CODE, BLOCK_BODY (current_module));
 		}
     break;
 
+  case 44:
+#line 597 "parse.yy"
+    {}
+    break;
+
+  case 45:
+#line 599 "parse.yy"
+    {}
+    break;
+
   case 46:
-#line 606 "parse.yy"
+#line 614 "parse.yy"
     { if (is_interactive) {
 		    YYFAIL;
                   }
@@ -2831,7 +2881,7 @@ if (vdebug)
     break;
 
   case 47:
-#line 611 "parse.yy"
+#line 619 "parse.yy"
     {
 		  current_module = current_scope = build_udp ((yyvsp[0].ttype));
 		  push_scope ();
@@ -2841,12 +2891,12 @@ if (vdebug)
     break;
 
   case 48:
-#line 618 "parse.yy"
+#line 626 "parse.yy"
     { UDP_PORT_LIST (current_module) = nreverse ((yyvsp[-1].ttype)); }
     break;
 
   case 49:
-#line 620 "parse.yy"
+#line 628 "parse.yy"
     {
 		  current_scope = pop_scope (); 
 		  UDP_STRING_LIST (current_module) = nreverse (UDP_STRING_LIST (current_module));
@@ -2855,17 +2905,17 @@ if (vdebug)
     break;
 
   case 50:
-#line 628 "parse.yy"
+#line 636 "parse.yy"
     { (yyval.ttype) = NULL_TREE; }
     break;
 
   case 51:
-#line 630 "parse.yy"
+#line 638 "parse.yy"
     { yyerrok; }
     break;
 
   case 55:
-#line 641 "parse.yy"
+#line 649 "parse.yy"
     {
 		if( strcmp( IDENT((yyvsp[-1].ttype)), 
 			IDENT(DECL_NAME(TREE_PURPOSE(MODULE_PORT_LIST(current_module)))) )!=0 ) {
@@ -2879,12 +2929,12 @@ if (vdebug)
     break;
 
   case 56:
-#line 654 "parse.yy"
+#line 662 "parse.yy"
     { (yyval.ttype) = NULL_TREE; }
     break;
 
   case 57:
-#line 656 "parse.yy"
+#line 664 "parse.yy"
     {
 		if( UDP_REG_NAME(current_module)==NULL_TREE ) {
 			error( "initial statement is no allowed in combinatorial udp's",
@@ -2900,7 +2950,7 @@ if (vdebug)
     break;
 
   case 58:
-#line 674 "parse.yy"
+#line 682 "parse.yy"
     { 	extern int enable_udp_parse;
 		enable_udp_parse = TRUE;
 	    current_udp_string = NULL_TREE;
@@ -2908,7 +2958,7 @@ if (vdebug)
     break;
 
   case 59:
-#line 679 "parse.yy"
+#line 687 "parse.yy"
     { 
 		UDP_STRING_LIST(current_module) = (yyvsp[-1].ttype);
 		(yyval.ttype) = NULL_TREE;
@@ -2916,14 +2966,14 @@ if (vdebug)
     break;
 
   case 61:
-#line 687 "parse.yy"
+#line 695 "parse.yy"
     { 
 		(yyval.ttype) = chainon ((yyvsp[0].ttype), (yyvsp[-1].ttype));
 	}
     break;
 
   case 62:
-#line 693 "parse.yy"
+#line 701 "parse.yy"
     { 
 		validate_udp_string( current_module, current_udp_string );
 		(yyval.ttype) = current_udp_string;
@@ -2932,17 +2982,17 @@ if (vdebug)
     break;
 
   case 63:
-#line 701 "parse.yy"
+#line 709 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 64:
-#line 703 "parse.yy"
+#line 711 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 65:
-#line 707 "parse.yy"
+#line 715 "parse.yy"
     {
 		append_udp_digits( &current_udp_string, (yyvsp[0].c), (yyvsp[0].c) );
 		(yyval.ttype) = NULL;
@@ -2950,7 +3000,7 @@ if (vdebug)
     break;
 
   case 66:
-#line 712 "parse.yy"
+#line 720 "parse.yy"
     {
 		append_udp_digits( &current_udp_string,'?','?' );
 		(yyval.ttype) = NULL;
@@ -2958,7 +3008,7 @@ if (vdebug)
     break;
 
   case 67:
-#line 717 "parse.yy"
+#line 725 "parse.yy"
     {
 		append_udp_digits( &current_udp_string,'0','0' );
 		(yyval.ttype) = NULL;
@@ -2966,7 +3016,7 @@ if (vdebug)
     break;
 
   case 68:
-#line 722 "parse.yy"
+#line 730 "parse.yy"
     {
 		append_udp_digits( &current_udp_string,'1','1' );
 		(yyval.ttype) = NULL;
@@ -2974,7 +3024,7 @@ if (vdebug)
     break;
 
   case 69:
-#line 727 "parse.yy"
+#line 735 "parse.yy"
     {
 		append_udp_digits( &current_udp_string,'b','b' );
 		(yyval.ttype) = NULL;
@@ -2982,7 +3032,7 @@ if (vdebug)
     break;
 
   case 70:
-#line 732 "parse.yy"
+#line 740 "parse.yy"
     {
 		append_udp_digits( &current_udp_string,'x','x' );
 		(yyval.ttype) = NULL;
@@ -2990,7 +3040,7 @@ if (vdebug)
     break;
 
   case 71:
-#line 737 "parse.yy"
+#line 745 "parse.yy"
     { 		
 		/* ? and b must be convert different but equivilent characters
 		   otherwise edges cannot be distinguished from levels */
@@ -3006,7 +3056,7 @@ if (vdebug)
     break;
 
   case 77:
-#line 760 "parse.yy"
+#line 768 "parse.yy"
     { syn_warning ("Task definition");
 		  tmp_tree = build_task (check_task ((yyvsp[-1].ttype)));
 		  make_block_decl ((yyvsp[0].ttype), current_scope, tmp_tree);
@@ -3019,7 +3069,7 @@ if (vdebug)
     break;
 
   case 78:
-#line 770 "parse.yy"
+#line 778 "parse.yy"
     { BLOCK_BODY (current_scope) = (yyvsp[-1].ttype);
 		  in_tf = 0;
 		  BLOCK_PORTS (current_scope) = nreverse (BLOCK_PORTS (current_scope));
@@ -3029,7 +3079,7 @@ if (vdebug)
     break;
 
   case 79:
-#line 780 "parse.yy"
+#line 788 "parse.yy"
     { current_scope = build_function (check_function ((yyvsp[-1].ttype)));
 		  make_block_decl ((yyvsp[-1].ttype), current_module, current_scope);
 		  push_scope ();  /* funct name becomes var inside of funct */
@@ -3041,7 +3091,7 @@ if (vdebug)
     break;
 
   case 80:
-#line 789 "parse.yy"
+#line 797 "parse.yy"
     { BLOCK_BODY (current_scope) = (yyvsp[-1].ttype);
 		  in_tf = in_function = 0;
 		  BLOCK_PORTS (current_scope) = nreverse (BLOCK_PORTS (current_scope));
@@ -3051,97 +3101,97 @@ if (vdebug)
     break;
 
   case 81:
-#line 799 "parse.yy"
+#line 807 "parse.yy"
     { (yyval.ttype) = make_reg_spec (NULL_TREE); }
     break;
 
   case 82:
-#line 801 "parse.yy"
+#line 809 "parse.yy"
     { (yyval.ttype) = make_reg_spec ((yyvsp[0].ttype)); }
     break;
 
   case 83:
-#line 803 "parse.yy"
+#line 811 "parse.yy"
     { (yyval.ttype) = make_integer_spec (NULL_TREE); }
     break;
 
   case 84:
-#line 805 "parse.yy"
+#line 813 "parse.yy"
     { (yyval.ttype) = make_real_spec (NULL_TREE); }
     break;
 
   case 85:
-#line 810 "parse.yy"
+#line 818 "parse.yy"
     {}
     break;
 
   case 90:
-#line 826 "parse.yy"
+#line 834 "parse.yy"
     { current_spec = make_param_spec ((yyvsp[0].ttype)); }
     break;
 
   case 91:
-#line 828 "parse.yy"
+#line 836 "parse.yy"
     { BLOCK_DECL (current_scope) =
 			chainon ((yyvsp[-1].ttype), BLOCK_DECL (current_scope));
 		 }
     break;
 
   case 93:
-#line 836 "parse.yy"
+#line 844 "parse.yy"
     { yyerrok;
 		  (yyval.ttype) = chainon ((yyvsp[0].ttype), (yyvsp[-2].ttype));
 		}
     break;
 
   case 95:
-#line 841 "parse.yy"
+#line 849 "parse.yy"
     { yyerrok; }
     break;
 
   case 97:
-#line 847 "parse.yy"
+#line 855 "parse.yy"
     { (yyval.ttype) = make_param_decl (check_non_reg ((yyvsp[-2].ttype)), current_spec, (yyvsp[0].ttype));
 		}
     break;
 
   case 98:
-#line 850 "parse.yy"
+#line 858 "parse.yy"
     { (yyval.ttype) = make_param_decl (check_non_reg ((yyvsp[-2].ttype)), current_spec, (yyvsp[0].ttype));
 		}
     break;
 
   case 99:
-#line 856 "parse.yy"
+#line 864 "parse.yy"
     {}
     break;
 
   case 100:
-#line 861 "parse.yy"
+#line 869 "parse.yy"
     { BLOCK_DECL (current_scope) =
 			chainon ((yyvsp[-1].ttype), BLOCK_DECL (current_scope)); }
     break;
 
   case 101:
-#line 864 "parse.yy"
+#line 872 "parse.yy"
     { BLOCK_DECL (current_scope) =
 			chainon ((yyvsp[-1].ttype), BLOCK_DECL (current_scope)); }
     break;
 
   case 102:
-#line 867 "parse.yy"
+#line 875 "parse.yy"
     { BLOCK_DECL (current_scope) =
 			chainon ((yyvsp[-1].ttype), BLOCK_DECL (current_scope)); }
     break;
 
   case 103:
-#line 874 "parse.yy"
+#line 882 "parse.yy"
     { BLOCK_PORTS (current_scope) =
 			chainon ((yyvsp[-1].ttype), BLOCK_PORTS (current_scope)); }
     break;
 
   case 104:
-#line 882 "parse.yy"
+#line 890 "parse.yy"
     { if (in_tf)
 		    (yyval.ttype) = current_spec = make_reg_spec ((yyvsp[0].ttype));
 		  else
@@ -3151,7 +3201,7 @@ if (vdebug)
     break;
 
   case 105:
-#line 889 "parse.yy"
+#line 897 "parse.yy"
     { function_error;
 		  if (in_tf)
 		    (yyval.ttype) = current_spec = make_reg_spec ((yyvsp[0].ttype));
@@ -3162,7 +3212,7 @@ if (vdebug)
     break;
 
   case 106:
-#line 897 "parse.yy"
+#line 905 "parse.yy"
     { function_error;
 		  if (in_tf)
 		    (yyval.ttype) = current_spec = make_reg_spec ((yyvsp[0].ttype));
@@ -3174,29 +3224,29 @@ if (vdebug)
     break;
 
   case 107:
-#line 909 "parse.yy"
+#line 917 "parse.yy"
     { (yyval.ttype) = make_decl (check_port ((yyvsp[0].ttype)), current_spec, NULL_TREE, NULL_TREE); }
     break;
 
   case 108:
-#line 911 "parse.yy"
+#line 919 "parse.yy"
     { yyerrok;
 		  (yyval.ttype) = chainon (make_decl (check_port ((yyvsp[0].ttype)), current_spec, NULL_TREE, NULL_TREE), (yyvsp[-2].ttype));
 		}
     break;
 
   case 111:
-#line 917 "parse.yy"
+#line 925 "parse.yy"
     { yyerrok; }
     break;
 
   case 113:
-#line 923 "parse.yy"
+#line 931 "parse.yy"
     { current_spec = make_reg_spec ((yyvsp[0].ttype)); }
     break;
 
   case 114:
-#line 925 "parse.yy"
+#line 933 "parse.yy"
     { if (!(yyvsp[0].ttype))
 		    syn_warning ("Integer Range");
 		  current_spec = make_integer_spec ((yyvsp[0].ttype));
@@ -3204,30 +3254,30 @@ if (vdebug)
     break;
 
   case 115:
-#line 930 "parse.yy"
+#line 938 "parse.yy"
     { syn_warning ("TIME");
 		  current_spec = make_time_spec ((yyvsp[0].ttype));
 		}
     break;
 
   case 116:
-#line 937 "parse.yy"
+#line 945 "parse.yy"
     { current_spec = make_real_spec (NULL_TREE); }
     break;
 
   case 117:
-#line 942 "parse.yy"
+#line 950 "parse.yy"
     { syn_warning ("EVENT");
 		  current_spec = make_event_spec (); }
     break;
 
   case 118:
-#line 948 "parse.yy"
+#line 956 "parse.yy"
     { lval_type = LVAL_NEW_NET; }
     break;
 
   case 119:
-#line 953 "parse.yy"
+#line 961 "parse.yy"
     { BLOCK_DECL (current_scope) =
 			chainon ((yyvsp[-1].ttype), BLOCK_DECL (current_scope));
  			lval_type = LVAL_REG;
@@ -3236,7 +3286,7 @@ if (vdebug)
     break;
 
   case 121:
-#line 960 "parse.yy"
+#line 968 "parse.yy"
     { lval_type = LVAL_REG; 
 		  MODULE_ASSIGNMENTS (current_module) =
 			chainon ((yyvsp[-1].ttype), MODULE_ASSIGNMENTS (current_module));
@@ -3245,36 +3295,36 @@ if (vdebug)
     break;
 
   case 122:
-#line 969 "parse.yy"
+#line 977 "parse.yy"
     { (yyval.ttype) = current_spec = make_net_spec ((yyvsp[-2].ntype), (yyvsp[-1].ttype), (yyvsp[0].ttype));
 		  current_delay = (yyvsp[0].ttype);
 		}
     break;
 
   case 123:
-#line 976 "parse.yy"
+#line 984 "parse.yy"
     { syn_warning ("TRIREG net");
 		  sorry ("TRIREG net type is not supported in this version");
 		}
     break;
 
   case 124:
-#line 980 "parse.yy"
+#line 988 "parse.yy"
     { (yyval.ttype) = error_mark_node; }
     break;
 
   case 126:
-#line 986 "parse.yy"
+#line 994 "parse.yy"
     { syn_warning ("SUPPLY0 net"); }
     break;
 
   case 127:
-#line 988 "parse.yy"
+#line 996 "parse.yy"
     { syn_warning ("SUPPLY1 net"); }
     break;
 
   case 129:
-#line 1001 "parse.yy"
+#line 1009 "parse.yy"
     { sorry ("SCALARED keyword not supported; all nets treated as vectored");
 		  NET_SCALARED_ATTR ((yyvsp[0].ttype)) = 1;
 		  (yyval.ttype) = (yyvsp[0].ttype);
@@ -3282,7 +3332,7 @@ if (vdebug)
     break;
 
   case 130:
-#line 1006 "parse.yy"
+#line 1014 "parse.yy"
     { sorry ("VECTORED keyword is not supported; all nets treated as vectored");
 		  NET_VECTORED_ATTR ((yyvsp[0].ttype)) = 1;
 		  (yyval.ttype) = (yyvsp[0].ttype);
@@ -3290,17 +3340,17 @@ if (vdebug)
     break;
 
   case 131:
-#line 1011 "parse.yy"
+#line 1019 "parse.yy"
     { (yyval.ttype) = NULL_TREE; }
     break;
 
   case 132:
-#line 1016 "parse.yy"
+#line 1024 "parse.yy"
     { lval_type = LVAL_NET; }
     break;
 
   case 133:
-#line 1018 "parse.yy"
+#line 1026 "parse.yy"
     { lval_type = LVAL_REG; 
 		  MODULE_ASSIGNMENTS (current_module) =
 			chainon ((yyvsp[-1].ttype), MODULE_ASSIGNMENTS (current_module));
@@ -3308,36 +3358,36 @@ if (vdebug)
     break;
 
   case 134:
-#line 1026 "parse.yy"
+#line 1034 "parse.yy"
     { current_delay = (yyvsp[0].ttype);   /* strength not supported */
 		  (yyval.ttype) = NULL;
 		}
     break;
 
   case 135:
-#line 1033 "parse.yy"
+#line 1041 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[0].ttype), NULL_TREE); }
     break;
 
   case 136:
-#line 1035 "parse.yy"
+#line 1043 "parse.yy"
     { yyerrok;
 		  (yyval.ttype) = tree_cons ((yyvsp[0].ttype), NULL_TREE, (yyvsp[-2].ttype));
 		}
     break;
 
   case 139:
-#line 1041 "parse.yy"
+#line 1049 "parse.yy"
     { yyerrok; }
     break;
 
   case 141:
-#line 1046 "parse.yy"
+#line 1054 "parse.yy"
     { (yyval.ltype) = stmt_lineno; }
     break;
 
   case 142:
-#line 1048 "parse.yy"
+#line 1056 "parse.yy"
     { (yyval.ttype) = build_cont_assign (
 				check_lval ((yyvsp[-3].ttype), lval_type, current_spec),
 				(yyvsp[0].ttype), (yyvsp[-1].ltype), current_delay, current_delay!=0);
@@ -3345,40 +3395,40 @@ if (vdebug)
     break;
 
   case 143:
-#line 1057 "parse.yy"
+#line 1065 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[0].ttype), NULL_TREE); }
     break;
 
   case 144:
-#line 1059 "parse.yy"
+#line 1067 "parse.yy"
     { yyerrok;
 		  (yyval.ttype) = tree_cons ((yyvsp[0].ttype), NULL_TREE, (yyvsp[-2].ttype));
 		}
     break;
 
   case 147:
-#line 1065 "parse.yy"
+#line 1073 "parse.yy"
     { yyerrok; }
     break;
 
   case 149:
-#line 1070 "parse.yy"
+#line 1078 "parse.yy"
     { (yyval.ltype) = stmt_lineno; }
     break;
 
   case 150:
-#line 1072 "parse.yy"
+#line 1080 "parse.yy"
     { (yyval.ttype) = build_cont_assign ((yyvsp[-3].ttype), (yyvsp[0].ttype), (yyvsp[-1].ltype), current_delay,
 			 current_delay!=0); }
     break;
 
   case 151:
-#line 1077 "parse.yy"
+#line 1085 "parse.yy"
     { syn_warning ("DEFPARAM"); }
     break;
 
   case 152:
-#line 1082 "parse.yy"
+#line 1090 "parse.yy"
     { MODULE_DEFPARAMS (current_module) = chainon (
 			build_stmt (ASSIGN_STMT, stmt_lineno, (yyvsp[-2].ttype), (yyvsp[0].ttype)),
 			MODULE_DEFPARAMS (current_module));
@@ -3386,7 +3436,7 @@ if (vdebug)
     break;
 
   case 153:
-#line 1087 "parse.yy"
+#line 1095 "parse.yy"
     {
 		  MODULE_DEFPARAMS (current_module) = chainon (
 			build_stmt (ASSIGN_STMT, stmt_lineno, (yyvsp[-2].ttype), (yyvsp[0].ttype)),
@@ -3395,98 +3445,98 @@ if (vdebug)
     break;
 
   case 155:
-#line 1097 "parse.yy"
+#line 1105 "parse.yy"
     { yyerrok;
 		  (yyval.ttype) = chainon ((yyvsp[0].ttype), (yyvsp[-2].ttype));
 		}
     break;
 
   case 158:
-#line 1103 "parse.yy"
+#line 1111 "parse.yy"
     { yyerrok; }
     break;
 
   case 160:
-#line 1109 "parse.yy"
+#line 1117 "parse.yy"
     { (yyval.ttype) = make_decl (check_reg ((yyvsp[0].ttype)), current_spec, NULL_TREE, NULL_TREE); }
     break;
 
   case 161:
-#line 1111 "parse.yy"
+#line 1119 "parse.yy"
     { (yyval.ttype) = make_decl (check_reg ((yyvsp[-5].ttype)), current_spec, (yyvsp[-3].ttype), (yyvsp[-1].ttype));
 		  syn_warning ("REG/INTEGER arrays");
 		}
     break;
 
   case 162:
-#line 1118 "parse.yy"
+#line 1126 "parse.yy"
     { (yyval.ttype) = make_decl (check_non_reg ((yyvsp[0].ttype)), current_spec, NULL_TREE, NULL_TREE); }
     break;
 
   case 163:
-#line 1120 "parse.yy"
+#line 1128 "parse.yy"
     { (yyval.ttype) = chainon (make_decl (check_non_reg ((yyvsp[0].ttype)), current_spec, NULL_TREE, NULL_TREE), (yyvsp[-2].ttype)); }
     break;
 
   case 164:
-#line 1125 "parse.yy"
+#line 1133 "parse.yy"
     { (yyval.ttype) = make_decl (check_net ((yyvsp[0].ttype)), current_spec, NULL_TREE, NULL_TREE); }
     break;
 
   case 165:
-#line 1127 "parse.yy"
+#line 1135 "parse.yy"
     { (yyval.ttype) = chainon (make_decl (check_net ((yyvsp[0].ttype)), current_spec, NULL_TREE, NULL_TREE), (yyvsp[-2].ttype)); }
     break;
 
   case 166:
-#line 1132 "parse.yy"
+#line 1140 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 167:
-#line 1134 "parse.yy"
+#line 1142 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 168:
-#line 1136 "parse.yy"
+#line 1144 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 169:
-#line 1138 "parse.yy"
+#line 1146 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 170:
-#line 1143 "parse.yy"
+#line 1151 "parse.yy"
     {}
     break;
 
   case 171:
-#line 1145 "parse.yy"
+#line 1153 "parse.yy"
     {
 warning ("Strength specification is not supported and is ignored", NULL_CHAR, NULL_CHAR);
 		}
     break;
 
   case 172:
-#line 1153 "parse.yy"
+#line 1161 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 173:
-#line 1155 "parse.yy"
+#line 1163 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 178:
-#line 1179 "parse.yy"
+#line 1187 "parse.yy"
     { (yyval.ttype) = NULL_TREE;}
     break;
 
   case 180:
-#line 1185 "parse.yy"
+#line 1193 "parse.yy"
     { TREE_OPERAND (range_handle, 0) = (yyvsp[-3].ttype);
 		  TREE_OPERAND (range_handle, 1) = (yyvsp[-1].ttype);
 		  (yyval.ttype) = range_handle;
@@ -3494,59 +3544,59 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 181:
-#line 1201 "parse.yy"
+#line 1209 "parse.yy"
     { current_gatetype = (yyvsp[0].gtype);
 		  in_instantiation = 1;
 		}
     break;
 
   case 182:
-#line 1205 "parse.yy"
+#line 1213 "parse.yy"
     { in_instantiation = 0; }
     break;
 
   case 184:
-#line 1214 "parse.yy"
+#line 1222 "parse.yy"
     { (yyval.gtype) = GATE_OR_TYPE; }
     break;
 
   case 185:
-#line 1216 "parse.yy"
+#line 1224 "parse.yy"
     { syn_warning ("Buffer gate"); }
     break;
 
   case 186:
-#line 1218 "parse.yy"
+#line 1226 "parse.yy"
     { syn_warning ("Bufif gate"); }
     break;
 
   case 187:
-#line 1220 "parse.yy"
+#line 1228 "parse.yy"
     { syn_warning ("CMOS gate"); }
     break;
 
   case 188:
-#line 1222 "parse.yy"
+#line 1230 "parse.yy"
     { syn_warning ("PULL gate"); }
     break;
 
   case 189:
-#line 1224 "parse.yy"
+#line 1232 "parse.yy"
     { syn_warning ("TRAN gate"); }
     break;
 
   case 190:
-#line 1237 "parse.yy"
+#line 1245 "parse.yy"
     { current_delay = NULL_TREE; }
     break;
 
   case 192:
-#line 1243 "parse.yy"
+#line 1251 "parse.yy"
     { current_delay = (yyvsp[0].ttype); }
     break;
 
   case 196:
-#line 1254 "parse.yy"
+#line 1262 "parse.yy"
     { (yyval.ttype) = build_gate_instance (current_gatetype, input_filename, lineno,
                         (yyvsp[-3].ttype), nreverse ((yyvsp[-1].ttype)), current_delay, NULL_TREE);
                   MODULE_INSTANCES (current_module) = chainon ((yyval.ttype),
@@ -3555,7 +3605,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 197:
-#line 1260 "parse.yy"
+#line 1268 "parse.yy"
     { (yyval.ttype) = build_gate_instance (current_gatetype, input_filename, lineno,
                         NULL_TREE, nreverse ((yyvsp[-1].ttype)), current_delay, NULL_TREE);
                   MODULE_INSTANCES (current_module) = chainon ((yyval.ttype),
@@ -3564,7 +3614,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 198:
-#line 1271 "parse.yy"
+#line 1279 "parse.yy"
     { current_instance_module = (yyvsp[-1].ttype);
 		  current_instance_param = (yyvsp[0].ttype);
 		  in_instantiation = 1;
@@ -3572,7 +3622,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 199:
-#line 1276 "parse.yy"
+#line 1284 "parse.yy"
     { current_instance_module = NULL_TREE;
 		  current_instance_param = NULL_TREE;
 		  in_instantiation = 0;
@@ -3580,34 +3630,34 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 200:
-#line 1307 "parse.yy"
+#line 1315 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 201:
-#line 1309 "parse.yy"
+#line 1317 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[0].ttype), NULL_TREE); }
     break;
 
   case 202:
-#line 1311 "parse.yy"
+#line 1319 "parse.yy"
     { (yyval.ttype) = nreverse ((yyvsp[-1].ttype)); }
     break;
 
   case 203:
-#line 1313 "parse.yy"
+#line 1321 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[-1].ttype), NULL_TREE); }
     break;
 
   case 204:
-#line 1315 "parse.yy"
+#line 1323 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[-1].ttype), NULL_TREE);
 		  (yyval.ttype) = tree_cons ((yyvsp[-3].ttype), NULL_TREE, (yyval.ttype));
 		}
     break;
 
   case 205:
-#line 1319 "parse.yy"
+#line 1327 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[-1].ttype), NULL_TREE);
 		  (yyval.ttype) = tree_cons ((yyvsp[-3].ttype), NULL_TREE, (yyval.ttype));
 		  (yyval.ttype) = tree_cons ((yyvsp[-5].ttype), NULL_TREE, (yyval.ttype));
@@ -3615,42 +3665,42 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 206:
-#line 1327 "parse.yy"
+#line 1335 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[0].ttype), NULL_TREE); }
     break;
 
   case 207:
-#line 1329 "parse.yy"
+#line 1337 "parse.yy"
     { (yyval.ttype) = tree_cons ((yyvsp[0].ttype), NULL_TREE, (yyvsp[-2].ttype)); }
     break;
 
   case 208:
-#line 1356 "parse.yy"
+#line 1364 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[0].ttype), NULL_TREE); }
     break;
 
   case 209:
-#line 1358 "parse.yy"
+#line 1366 "parse.yy"
     { (yyval.ttype) = tree_cons ((yyvsp[0].ttype), NULL_TREE, (yyvsp[-2].ttype)); yyerrok; }
     break;
 
   case 212:
-#line 1363 "parse.yy"
+#line 1371 "parse.yy"
     { yyerrok; }
     break;
 
   case 215:
-#line 1376 "parse.yy"
+#line 1384 "parse.yy"
     { yyerrok; }
     break;
 
   case 218:
-#line 1380 "parse.yy"
+#line 1388 "parse.yy"
     { yyerrok; }
     break;
 
   case 220:
-#line 1386 "parse.yy"
+#line 1394 "parse.yy"
     { (yyval.ttype) = build_stmt (INSTANCE_NODE, lineno, check_non_reg ((yyvsp[-3].ttype)),
 				current_instance_module,
 				nreverse ((yyvsp[-1].ttype)), current_instance_param);
@@ -3661,7 +3711,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 221:
-#line 1394 "parse.yy"
+#line 1402 "parse.yy"
     { (yyval.ttype) = build_stmt (INSTANCE_NODE, lineno, NULL_TREE,
 				current_instance_module,
 				nreverse ((yyvsp[-1].ttype)), current_instance_param);
@@ -3671,85 +3721,85 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 225:
-#line 1410 "parse.yy"
+#line 1418 "parse.yy"
     { yyerrok;
 		  (yyval.ttype) = chainon ((yyvsp[0].ttype), (yyvsp[-2].ttype));
 		}
     break;
 
   case 228:
-#line 1419 "parse.yy"
+#line 1427 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[0].ttype), NULL_TREE); }
     break;
 
   case 229:
-#line 1421 "parse.yy"
+#line 1429 "parse.yy"
     { (yyval.ttype) = build_tree_list (NULL_TREE, NULL_TREE); }
     break;
 
   case 231:
-#line 1427 "parse.yy"
+#line 1435 "parse.yy"
     { (yyval.ttype) = chainon ((yyvsp[0].ttype), (yyvsp[-2].ttype)); }
     break;
 
   case 232:
-#line 1432 "parse.yy"
+#line 1440 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[-1].ttype), (yyvsp[-3].ttype)); }
     break;
 
   case 233:
-#line 1434 "parse.yy"
+#line 1442 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 234:
-#line 1442 "parse.yy"
+#line 1450 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 		  syn_warning ("INITIAL"); }
     break;
 
   case 235:
-#line 1445 "parse.yy"
+#line 1453 "parse.yy"
     { (yyval.ttype) = build_stmt (INITIAL_BLOCK, (yyvsp[-1].ltype), (yyvsp[0].ttype)); }
     break;
 
   case 236:
-#line 1449 "parse.yy"
+#line 1457 "parse.yy"
     { (yyval.ltype) = stmt_lineno; }
     break;
 
   case 237:
-#line 1451 "parse.yy"
+#line 1459 "parse.yy"
     { (yyval.ttype) = build_stmt (ALWAYS_BLOCK, (yyvsp[-1].ltype), (yyvsp[0].ttype)); }
     break;
 
   case 239:
-#line 1457 "parse.yy"
+#line 1465 "parse.yy"
     { (yyval.ttype) = build_stmt (NULL_STMT, lineno); }
     break;
 
   case 241:
-#line 1464 "parse.yy"
+#line 1472 "parse.yy"
     { (yyval.ltype) = stmt_lineno; }
     break;
 
   case 242:
-#line 1466 "parse.yy"
+#line 1474 "parse.yy"
     { (yyval.ttype) = build_stmt (IF_STMT, (yyvsp[-5].ltype), (yyvsp[-3].ttype), (yyvsp[-1].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 243:
-#line 1468 "parse.yy"
+#line 1476 "parse.yy"
     { (yyval.ttype) = current_case; }
     break;
 
   case 244:
-#line 1470 "parse.yy"
+#line 1478 "parse.yy"
     { current_case = (yyvsp[0].ttype); }
     break;
 
   case 245:
-#line 1472 "parse.yy"
+#line 1480 "parse.yy"
     { STMT_CASE_EXPR ((yyvsp[-6].ttype)) = (yyvsp[-3].ttype);
 		  STMT_CASE_LIST ((yyvsp[-6].ttype)) = nreverse ((yyvsp[-1].ttype));
 		  current_case = (yyvsp[-7].ttype);
@@ -3758,24 +3808,24 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 246:
-#line 1479 "parse.yy"
+#line 1487 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 		  syn_warning ("FOREVER"); }
     break;
 
   case 247:
-#line 1482 "parse.yy"
+#line 1490 "parse.yy"
     { (yyval.ttype) = build_stmt (FOREVER_STMT, (yyvsp[-1].ltype), (yyvsp[0].ttype)); }
     break;
 
   case 248:
-#line 1485 "parse.yy"
+#line 1493 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 		  syn_warning ("REPEAT"); }
     break;
 
   case 249:
-#line 1488 "parse.yy"
+#line 1496 "parse.yy"
     { (yyval.ttype) = build_stmt (REPEAT_INIT_STMT, (yyvsp[-4].ltype), (yyvsp[0].ttype), (yyvsp[-2].ttype));
 		  tmp_tree = build_stmt (REPEAT_STMT, (yyvsp[-4].ltype), (yyval.ttype), (yyvsp[-2].ttype));
 		  chainon ((yyvsp[0].ttype), tmp_tree);
@@ -3783,23 +3833,23 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 250:
-#line 1494 "parse.yy"
+#line 1502 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 		  syn_warning ("WHILE"); }
     break;
 
   case 251:
-#line 1497 "parse.yy"
+#line 1505 "parse.yy"
     { (yyval.ttype) = build_stmt (WHILE_STMT, (yyvsp[-4].ltype), (yyvsp[0].ttype), (yyvsp[-2].ttype)); }
     break;
 
   case 252:
-#line 1499 "parse.yy"
+#line 1507 "parse.yy"
     { (yyval.ltype) = stmt_lineno; }
     break;
 
   case 253:
-#line 1501 "parse.yy"
+#line 1509 "parse.yy"
     { stmt_lineno = (yyvsp[-8].ltype);
 		  tmp_tree = build_stmt (FOR_STMT, (yyvsp[-8].ltype), (yyvsp[0].ttype), (yyvsp[-2].ttype), (yyvsp[-4].ttype));
 		  STMT_SURROGATE_ATTR (tmp_tree) = 1;
@@ -3810,7 +3860,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 254:
-#line 1510 "parse.yy"
+#line 1518 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 		  syn_warning ("delay control");
 		  function_error;
@@ -3818,33 +3868,33 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 255:
-#line 1515 "parse.yy"
+#line 1523 "parse.yy"
     { (yyval.ttype) = build_stmt (DELAY_STMT, (yyvsp[-1].ltype), (yyvsp[0].ttype), (yyvsp[-2].ttype)); }
     break;
 
   case 256:
-#line 1518 "parse.yy"
+#line 1526 "parse.yy"
     { stmt_lineno = lineno;
 		  function_error;
 		}
     break;
 
   case 257:
-#line 1522 "parse.yy"
+#line 1530 "parse.yy"
     { STMT_BODY ((yyvsp[-2].ttype)) = (yyvsp[0].ttype);
 		  (yyval.ttype) = (yyvsp[-2].ttype);
 		}
     break;
 
   case 258:
-#line 1527 "parse.yy"
+#line 1535 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 		  function_error;
 		}
     break;
 
   case 259:
-#line 1531 "parse.yy"
+#line 1539 "parse.yy"
     { (yyval.ttype) = build_stmt (ASSIGN_DELAY_STMT, (yyvsp[-3].ltype), (yyvsp[-5].ttype),
 			implicit_conversion ((yyvsp[-5].ttype), (yyvsp[-1].ttype)),
 			NULL_TREE, NULL_TREE,
@@ -3853,14 +3903,14 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 260:
-#line 1538 "parse.yy"
+#line 1546 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 		  function_error;
 		}
     break;
 
   case 261:
-#line 1542 "parse.yy"
+#line 1550 "parse.yy"
     { (yyval.ttype) = build_stmt (ASSIGN_EVENT_STMT, (yyvsp[-3].ltype), (yyvsp[-5].ttype),
 			implicit_conversion ((yyvsp[-5].ttype), (yyvsp[-1].ttype)),
 			NULL_TREE, NULL_TREE, (yyvsp[-2].ttype));
@@ -3868,14 +3918,14 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 262:
-#line 1548 "parse.yy"
+#line 1556 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 		  function_error;
 		}
     break;
 
   case 263:
-#line 1552 "parse.yy"
+#line 1560 "parse.yy"
     { (yyval.ttype) = build_stmt (ASSIGN_NONBLK_DELAY_STMT, (yyvsp[-2].ltype), (yyvsp[-4].ttype),
 			implicit_conversion ((yyvsp[-4].ttype), (yyvsp[-1].ttype)),
 			NULL_TREE, NULL_TREE,
@@ -3884,14 +3934,14 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 264:
-#line 1559 "parse.yy"
+#line 1567 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 		  function_error;
 		}
     break;
 
   case 265:
-#line 1563 "parse.yy"
+#line 1571 "parse.yy"
     { (yyval.ttype) = build_stmt (ASSIGN_NONBLK_DELAY_STMT, (yyvsp[-3].ltype), (yyvsp[-5].ttype),
 			implicit_conversion ((yyvsp[-5].ttype), (yyvsp[-1].ttype)),
 			NULL_TREE, NULL_TREE,
@@ -3900,14 +3950,14 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 266:
-#line 1570 "parse.yy"
+#line 1578 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 		  function_error;
 		}
     break;
 
   case 267:
-#line 1574 "parse.yy"
+#line 1582 "parse.yy"
     { (yyval.ttype) = build_stmt (ASSIGN_NONBLK_EVENT_STMT, (yyvsp[-3].ltype), (yyvsp[-5].ttype),
 			implicit_conversion ((yyvsp[-5].ttype), (yyvsp[-1].ttype)),
 			NULL_TREE, NULL_TREE, (yyvsp[-2].ttype));
@@ -3915,7 +3965,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 268:
-#line 1586 "parse.yy"
+#line 1594 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 		  syn_warning ("WAIT");
 		  function_error;
@@ -3923,12 +3973,12 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 269:
-#line 1591 "parse.yy"
+#line 1599 "parse.yy"
     { (yyval.ttype) = build_stmt (WAIT_STMT, (yyvsp[-4].ltype), (yyvsp[0].ttype), (yyvsp[-2].ttype)); }
     break;
 
   case 270:
-#line 1594 "parse.yy"
+#line 1602 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 		  syn_warning ("Event trigger");
 		  function_error;
@@ -3936,51 +3986,51 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 271:
-#line 1599 "parse.yy"
+#line 1607 "parse.yy"
     { (yyval.ttype)= build_stmt (ARROW_STMT, (yyvsp[-2].ltype), check_named_event ((yyvsp[-1].ttype))); }
     break;
 
   case 276:
-#line 1605 "parse.yy"
+#line 1613 "parse.yy"
     { (yyval.ltype) = stmt_lineno; }
     break;
 
   case 277:
-#line 1607 "parse.yy"
+#line 1615 "parse.yy"
     { (yyval.ttype) = build_stmt (DISABLE_STMT, (yyvsp[-2].ltype), (yyvsp[-1].ttype));
 		  HIERARCHICAL_ATTR ((yyval.ttype)) = HIERARCHICAL_ATTR ((yyvsp[-1].ttype));
 		}
     break;
 
   case 278:
-#line 1612 "parse.yy"
+#line 1620 "parse.yy"
     { (yyval.ltype) = stmt_lineno; }
     break;
 
   case 279:
-#line 1614 "parse.yy"
+#line 1622 "parse.yy"
     { (yyval.ttype) = build_stmt (ASSIGN_PROC_STMT, (yyvsp[-4].ltype), (yyvsp[-3].ttype), (yyvsp[-1].ttype), NULL_TREE,
 			NULL_TREE); }
     break;
 
   case 280:
-#line 1618 "parse.yy"
+#line 1626 "parse.yy"
     { (yyval.ltype) = stmt_lineno; }
     break;
 
   case 281:
-#line 1620 "parse.yy"
+#line 1628 "parse.yy"
     { (yyval.ttype) = build_stmt (DEASSIGN_STMT, (yyvsp[-2].ltype), (yyvsp[-1].ttype)); }
     break;
 
   case 282:
-#line 1622 "parse.yy"
+#line 1630 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 				  lval_type = LVAL_REG_NET; }
     break;
 
   case 283:
-#line 1625 "parse.yy"
+#line 1633 "parse.yy"
     { syn_warning ("FORCE");
 		  (yyval.ttype) = build_stmt (FORCE_STMT, (yyvsp[-4].ltype), (yyvsp[-3].ttype), (yyvsp[-1].ttype), NULL_TREE,
 			NULL_TREE, NULL_TREE, NULL_TREE);
@@ -3989,13 +4039,13 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 284:
-#line 1631 "parse.yy"
+#line 1639 "parse.yy"
     { (yyval.ltype) = stmt_lineno;
 				  lval_type = LVAL_REG_NET; }
     break;
 
   case 285:
-#line 1634 "parse.yy"
+#line 1642 "parse.yy"
     { syn_warning ("RELEASE");
 		  (yyval.ttype) = build_stmt (RELEASE_STMT, (yyvsp[-2].ltype), (yyvsp[-1].ttype));
 		  lval_type = LVAL_REG;
@@ -4003,55 +4053,55 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 286:
-#line 1644 "parse.yy"
+#line 1652 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 287:
-#line 1646 "parse.yy"
+#line 1654 "parse.yy"
     { (yyval.ttype) = (yyvsp[0].ttype); }
     break;
 
   case 288:
-#line 1651 "parse.yy"
+#line 1659 "parse.yy"
     { (yyval.ttype) = build_stmt (CASE_STMT, stmt_lineno, NULL_TREE, NULL_TREE, NULL_TREE); }
     break;
 
   case 289:
-#line 1653 "parse.yy"
+#line 1661 "parse.yy"
     { (yyval.ttype) = build_stmt (CASEZ_STMT, stmt_lineno, NULL_TREE, NULL_TREE, NULL_TREE); }
     break;
 
   case 290:
-#line 1655 "parse.yy"
+#line 1663 "parse.yy"
     { (yyval.ttype) = build_stmt (CASEX_STMT, stmt_lineno, NULL_TREE, NULL_TREE, NULL_TREE); }
     break;
 
   case 291:
-#line 1666 "parse.yy"
+#line 1674 "parse.yy"
     { (yyval.ltype) = stmt_lineno; }
     break;
 
   case 292:
-#line 1668 "parse.yy"
+#line 1676 "parse.yy"
     { (yyval.ttype) = build_stmt (ASSIGN_STMT, (yyvsp[-1].ltype), (yyvsp[-3].ttype),
 				implicit_conversion ((yyvsp[-3].ttype), (yyvsp[0].ttype))); }
     break;
 
   case 294:
-#line 1675 "parse.yy"
+#line 1683 "parse.yy"
     { yyerrok;
 		  (yyval.ttype) = chainon ((yyvsp[0].ttype), (yyvsp[-1].ttype));
 		}
     break;
 
   case 297:
-#line 1684 "parse.yy"
+#line 1692 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 298:
-#line 1687 "parse.yy"
+#line 1695 "parse.yy"
     { if (STMT_CASE_DEFAULT (current_case))
 		    error ("More than one 'DEFAULT' within CASE", NULL_CHAR, NULL_CHAR);
 		  STMT_CASE_DEFAULT (current_case) = (yyvsp[0].ttype);
@@ -4059,7 +4109,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 299:
-#line 1692 "parse.yy"
+#line 1700 "parse.yy"
     { if (STMT_CASE_DEFAULT (current_case))
 		    error ("More than one 'DEFAULT' within CASE", NULL_CHAR, NULL_CHAR);
 		  STMT_CASE_DEFAULT (current_case) = (yyvsp[0].ttype);
@@ -4067,17 +4117,17 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 300:
-#line 1700 "parse.yy"
+#line 1708 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[0].ttype), NULL_TREE); }
     break;
 
   case 301:
-#line 1702 "parse.yy"
+#line 1710 "parse.yy"
     { (yyval.ttype) = tree_cons ((yyvsp[0].ttype), NULL_TREE, (yyvsp[-2].ttype)); }
     break;
 
   case 304:
-#line 1709 "parse.yy"
+#line 1717 "parse.yy"
     { if( (yyvsp[0].ttype) != NULL_TREE ) {
 		    (yyval.ttype) = build_tree_list ((yyvsp[0].ttype), NULL_TREE); 
 		  } else {
@@ -4087,22 +4137,22 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 305:
-#line 1716 "parse.yy"
+#line 1724 "parse.yy"
     { (yyval.ttype) = tree_cons ((yyvsp[0].ttype), NULL_TREE, (yyvsp[-2].ttype)); }
     break;
 
   case 306:
-#line 1725 "parse.yy"
+#line 1733 "parse.yy"
     { (yyval.ttype) = NULL_TREE; }
     break;
 
   case 308:
-#line 1731 "parse.yy"
+#line 1739 "parse.yy"
     { (yyval.ttype) = build_stmt (BEGIN_STMT, stmt_lineno); }
     break;
 
   case 309:
-#line 1733 "parse.yy"
+#line 1741 "parse.yy"
     { STMT_BODY ((yyvsp[-2].ttype)) = nreverse
 			(chainon (build_stmt (END_STMT, stmt_lineno), (yyvsp[-1].ttype)));
 		  (yyval.ttype) = (yyvsp[-2].ttype);
@@ -4110,7 +4160,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 310:
-#line 1738 "parse.yy"
+#line 1746 "parse.yy"
     { tmp_tree = make_node (NAMED_BLOCK);
 		  BLOCK_DOWN (current_scope) = chainon (tmp_tree, BLOCK_DOWN (current_scope));
 		  BLOCK_UP (tmp_tree) = current_scope;
@@ -4126,7 +4176,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 311:
-#line 1751 "parse.yy"
+#line 1759 "parse.yy"
     { tmp_tree = build_stmt (END_NAMED_STMT, stmt_lineno,
 			NULL_TREE, STMT_BLOCK ((yyvsp[-3].ttype)));
 		  /* STMT_BEGIN_NAMED_END ($<ttype>4) = tmp_tree; */
@@ -4137,12 +4187,12 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 312:
-#line 1762 "parse.yy"
+#line 1770 "parse.yy"
     { (yyval.ttype) = build_stmt (FORK_STMT, stmt_lineno); }
     break;
 
   case 313:
-#line 1764 "parse.yy"
+#line 1772 "parse.yy"
     { STMT_BODY ((yyvsp[-2].ttype)) = chainon  /* thread JOIN to BEGINNING */
 			(build_stmt (JOIN_STMT, stmt_lineno, NULL_TREE),
 			nreverse ((yyvsp[-1].ttype)));
@@ -4151,7 +4201,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 314:
-#line 1770 "parse.yy"
+#line 1778 "parse.yy"
     { tmp_tree = make_node (NAMED_BLOCK);
 		  BLOCK_DOWN (current_scope) = chainon (tmp_tree, BLOCK_DOWN (current_scope));
 		  BLOCK_UP (tmp_tree) = current_scope;
@@ -4166,7 +4216,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 315:
-#line 1782 "parse.yy"
+#line 1790 "parse.yy"
     { tmp_tree = build_stmt (JOIN_NAMED_STMT, stmt_lineno,
 			NULL_TREE, STMT_BLOCK ((yyvsp[-3].ttype)));
 		  /* STMT_BEGIN_NAMED_END ($<ttype>4) = tmp_tree; */
@@ -4177,36 +4227,36 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 316:
-#line 1793 "parse.yy"
+#line 1801 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 317:
-#line 1795 "parse.yy"
+#line 1803 "parse.yy"
     { yyerrok;
 		  (yyval.ttype) = chainon ((yyvsp[0].ttype), (yyvsp[-1].ttype));
 		}
     break;
 
   case 319:
-#line 1803 "parse.yy"
+#line 1811 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 320:
-#line 1805 "parse.yy"
+#line 1813 "parse.yy"
     { yyerrok;
 		  (yyval.ttype) = tree_cons ((yyvsp[0].ttype), NULL_TREE, (yyvsp[-1].ttype));
 		}
     break;
 
   case 322:
-#line 1813 "parse.yy"
+#line 1821 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 326:
-#line 1824 "parse.yy"
+#line 1832 "parse.yy"
     { syn_warning ("task enable");
 		  function_error;
 		  (yyval.ttype) = build_stmt (TASK_STMT, lineno, IDENTIFIER_POINTER ((yyvsp[-1].ttype)), NULL_TREE);
@@ -4215,7 +4265,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 327:
-#line 1830 "parse.yy"
+#line 1838 "parse.yy"
     { syn_warning ("task enable");
 		  (yyval.ttype) = build_stmt (TASK_STMT, lineno, IDENTIFIER_POINTER ((yyvsp[-4].ttype)), nreverse ((yyvsp[-2].ttype)));
 		  HIERARCHICAL_ATTR ((yyval.ttype)) = HIERARCHICAL_ATTR ((yyvsp[-4].ttype));
@@ -4223,72 +4273,72 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 328:
-#line 1838 "parse.yy"
+#line 1846 "parse.yy"
     { (yyval.ttype) = build_stmt (SYSTASK_STMT, lineno, IDENTIFIER_POINTER ((yyvsp[-1].ttype)), NULL_TREE); }
     break;
 
   case 329:
-#line 1840 "parse.yy"
+#line 1848 "parse.yy"
     { in_systask = 1; }
     break;
 
   case 330:
-#line 1842 "parse.yy"
+#line 1850 "parse.yy"
     { (yyval.ttype) = build_stmt (SYSTASK_STMT, lineno, IDENTIFIER_POINTER ((yyvsp[-5].ttype)), nreverse ((yyvsp[-2].ttype)));
 		  in_systask = 0;
 		}
     break;
 
   case 331:
-#line 1849 "parse.yy"
+#line 1857 "parse.yy"
     { stmt_lineno = lineno; }
     break;
 
   case 332:
-#line 1851 "parse.yy"
+#line 1859 "parse.yy"
     { stmt_lineno = lineno; }
     break;
 
   case 333:
-#line 1856 "parse.yy"
+#line 1864 "parse.yy"
     { (yyval.ttype) = check_lval ((yyvsp[0].ttype), lval_type, current_spec); }
     break;
 
   case 334:
-#line 1858 "parse.yy"
+#line 1866 "parse.yy"
     { (yyval.ttype) = build_bit_ref (
 			check_lval_nocheck ((yyvsp[-3].ttype), lval_type, current_spec), (yyvsp[-1].ttype)); }
     break;
 
   case 335:
-#line 1861 "parse.yy"
+#line 1869 "parse.yy"
     { (yyval.ttype) = build_part_ref (
 			check_lval_nocheck ((yyvsp[-5].ttype), lval_type, current_spec), (yyvsp[-3].ttype), (yyvsp[-1].ttype)); }
     break;
 
   case 336:
-#line 1871 "parse.yy"
+#line 1879 "parse.yy"
     {
 	}
     break;
 
   case 337:
-#line 1874 "parse.yy"
+#line 1882 "parse.yy"
     {}
     break;
 
   case 338:
-#line 1880 "parse.yy"
+#line 1888 "parse.yy"
     {}
     break;
 
   case 339:
-#line 1885 "parse.yy"
+#line 1893 "parse.yy"
     { (yyval.ttype) = NULL; }
     break;
 
   case 340:
-#line 1887 "parse.yy"
+#line 1895 "parse.yy"
     { yyerrok;
 		    (yyval.ttype) = NULL;	
 		//  $$ = chainon ($2, $1);
@@ -4296,7 +4346,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 344:
-#line 1897 "parse.yy"
+#line 1905 "parse.yy"
     {
 	    if( (yyvsp[0].ttype)!=NULL_TREE ) { 
 		STMT_SOURCE_LINE((yyvsp[0].ttype)) = stmt_lineno;
@@ -4308,19 +4358,19 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 345:
-#line 1915 "parse.yy"
+#line 1923 "parse.yy"
     { current_spec = make_param_spec (NULL_TREE); }
     break;
 
   case 346:
-#line 1917 "parse.yy"
+#line 1925 "parse.yy"
     {
 		specify_save_param_list( current_module, (yyvsp[-1].ttype) );
 	 }
     break;
 
   case 347:
-#line 1924 "parse.yy"
+#line 1932 "parse.yy"
     {
 		PATH_CONDITION((yyvsp[-3].ttype)) = (yyvsp[-4].ttype);
 	 	PATH_DELAYS((yyvsp[-3].ttype)) = (yyvsp[-1].ttype);	
@@ -4330,7 +4380,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 348:
-#line 1938 "parse.yy"
+#line 1946 "parse.yy"
     {
 		(yyval.ttype) = build_path( nreverse((yyvsp[-7].ttype)), nreverse((yyvsp[-4].ttype)), (yyvsp[-2].ttype), NULL_TREE, NULL_TREE,
 			(yyvsp[-6].integer), 0, 0 );
@@ -4338,7 +4388,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 349:
-#line 1946 "parse.yy"
+#line 1954 "parse.yy"
     {
 		(yyval.ttype) = build_path( nreverse((yyvsp[-7].ttype)), nreverse((yyvsp[-4].ttype)), (yyvsp[-2].ttype), NULL_TREE, NULL_TREE,
 			(yyvsp[-6].integer), (yyvsp[-8].integer), 0 );
@@ -4346,7 +4396,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 350:
-#line 1954 "parse.yy"
+#line 1962 "parse.yy"
     {
 		(yyval.ttype) = build_path( nreverse((yyvsp[-8].ttype)), nreverse((yyvsp[-5].ttype)), (yyvsp[-2].ttype), NULL_TREE, NULL_TREE,
 			(yyvsp[-7].integer), 0, (yyvsp[-4].integer) );
@@ -4354,7 +4404,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 351:
-#line 1962 "parse.yy"
+#line 1970 "parse.yy"
     {
 		(yyval.ttype) = build_path( nreverse((yyvsp[-8].ttype)), nreverse((yyvsp[-5].ttype)), (yyvsp[-2].ttype), NULL_TREE, NULL_TREE,
 			(yyvsp[-7].integer), (yyvsp[-9].integer), (yyvsp[-4].integer) );
@@ -4362,7 +4412,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 352:
-#line 1968 "parse.yy"
+#line 1976 "parse.yy"
     {
 		(yyval.ttype) = build_path( nreverse((yyvsp[-3].ttype)), nreverse((yyvsp[-1].ttype)), NULL_TREE, NULL_TREE, NULL_TREE,
 			(yyvsp[-2].integer), 0, 0 );
@@ -4370,7 +4420,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 353:
-#line 1974 "parse.yy"
+#line 1982 "parse.yy"
     {
 		(yyval.ttype) = build_path( nreverse((yyvsp[-4].ttype)), nreverse((yyvsp[-1].ttype)), NULL_TREE, NULL_TREE, NULL_TREE,
 			(yyvsp[-2].integer), 0, (yyvsp[-3].integer) );
@@ -4378,80 +4428,80 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 355:
-#line 1982 "parse.yy"
+#line 1990 "parse.yy"
     { yyerrok;
 		  (yyval.ttype) = chainon ((yyvsp[0].ttype), (yyvsp[-2].ttype));
 		}
     break;
 
   case 357:
-#line 1987 "parse.yy"
+#line 1995 "parse.yy"
     { yyerrok; }
     break;
 
   case 360:
-#line 1993 "parse.yy"
+#line 2001 "parse.yy"
     { yyerrok;
 		  (yyval.ttype) = chainon ((yyvsp[0].ttype), (yyvsp[-2].ttype));
 		}
     break;
 
   case 362:
-#line 1998 "parse.yy"
+#line 2006 "parse.yy"
     { yyerrok; }
     break;
 
   case 364:
-#line 2003 "parse.yy"
+#line 2011 "parse.yy"
     {
 		(yyval.ttype) = build_tree_list( check_input_port((yyvsp[0].ttype)), NULL_TREE );
 	}
     break;
 
   case 365:
-#line 2007 "parse.yy"
+#line 2015 "parse.yy"
     {
 		(yyval.ttype) = build_tree_list( build_bit_ref (check_input_port((yyvsp[-3].ttype)), (yyvsp[-1].ttype)), NULL_TREE ); 
 	}
     break;
 
   case 366:
-#line 2011 "parse.yy"
+#line 2019 "parse.yy"
     {
 		(yyval.ttype) = build_tree_list( build_part_ref (check_input_port((yyvsp[-5].ttype)), (yyvsp[-3].ttype), (yyvsp[-1].ttype)), NULL_TREE ); 
 	}
     break;
 
   case 367:
-#line 2017 "parse.yy"
+#line 2025 "parse.yy"
     {
 		(yyval.ttype) = build_tree_list( check_output_port((yyvsp[0].ttype)), NULL_TREE );
 	}
     break;
 
   case 368:
-#line 2021 "parse.yy"
+#line 2029 "parse.yy"
     {
 		(yyval.ttype) = build_tree_list( build_bit_ref (check_output_port((yyvsp[-3].ttype)), (yyvsp[-1].ttype)), NULL_TREE ); 
 	}
     break;
 
   case 369:
-#line 2025 "parse.yy"
+#line 2033 "parse.yy"
     {
 		(yyval.ttype) = build_tree_list( build_part_ref (check_output_port((yyvsp[-5].ttype)), (yyvsp[-3].ttype), (yyvsp[-1].ttype)), NULL_TREE ); 
 	}
     break;
 
   case 371:
-#line 2032 "parse.yy"
+#line 2040 "parse.yy"
     {
 		(yyval.ttype) = chainon( (yyvsp[-3].ttype), (yyvsp[-1].ttype) );
 	}
     break;
 
   case 372:
-#line 2037 "parse.yy"
+#line 2045 "parse.yy"
     {
 		tree t;
 		t = chainon( (yyvsp[-5].ttype), (yyvsp[-3].ttype) );
@@ -4460,7 +4510,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 373:
-#line 2045 "parse.yy"
+#line 2053 "parse.yy"
     {
 		tree t;
 		t = chainon( (yyvsp[-11].ttype), (yyvsp[-9].ttype) );
@@ -4472,175 +4522,175 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 374:
-#line 2056 "parse.yy"
+#line 2064 "parse.yy"
     {
 		(yyval.ttype) = build_tree_list((yyvsp[0].ttype),NULL_TREE);
 	}
     break;
 
   case 375:
-#line 2062 "parse.yy"
+#line 2070 "parse.yy"
     {	
 		(yyval.integer) = 1;
 	}
     break;
 
   case 376:
-#line 2066 "parse.yy"
+#line 2074 "parse.yy"
     {	
 		(yyval.integer) = -1;
 	}
     break;
 
   case 377:
-#line 2072 "parse.yy"
+#line 2080 "parse.yy"
     {
 		(yyval.integer) = FALSE;
 	}
     break;
 
   case 378:
-#line 2076 "parse.yy"
+#line 2084 "parse.yy"
     {
 		(yyval.integer) = TRUE;
 	}
     break;
 
   case 381:
-#line 2090 "parse.yy"
+#line 2098 "parse.yy"
     {
 		(yyval.integer) = 1;
 	}
     break;
 
   case 382:
-#line 2094 "parse.yy"
+#line 2102 "parse.yy"
     {
 		(yyval.integer) = -1;
 	}
     break;
 
   case 383:
-#line 2100 "parse.yy"
+#line 2108 "parse.yy"
     {
 		(yyval.ttype) = 0;
 	}
     break;
 
   case 384:
-#line 2104 "parse.yy"
+#line 2112 "parse.yy"
     {
 		(yyval.ttype) = (yyvsp[-1].ttype);
 	}
     break;
 
   case 385:
-#line 2112 "parse.yy"
+#line 2120 "parse.yy"
     {
 		(yyval.ttype) = build_timing_statement( SETUP, (yyvsp[-7].ttype), (yyvsp[-5].ttype), (yyvsp[-3].ttype), NULL_TREE, (yyvsp[-2].ttype) );
 	}
     break;
 
   case 386:
-#line 2117 "parse.yy"
+#line 2125 "parse.yy"
     {
 		(yyval.ttype) = build_timing_statement( HOLD, (yyvsp[-7].ttype), (yyvsp[-5].ttype), (yyvsp[-3].ttype), NULL_TREE, (yyvsp[-2].ttype) );
 	}
     break;
 
   case 387:
-#line 2122 "parse.yy"
+#line 2130 "parse.yy"
     {
 		(yyval.ttype) = build_timing_statement( PERIOD, (yyvsp[-5].ttype), NULL_TREE, (yyvsp[-3].ttype), NULL_TREE, (yyvsp[-2].ttype) );
 	}
     break;
 
   case 388:
-#line 2127 "parse.yy"
+#line 2135 "parse.yy"
     {
 		(yyval.ttype) = build_timing_statement( WIDTH, (yyvsp[-4].ttype), NULL_TREE, (yyvsp[-2].ttype), NULL_TREE, NULL_TREE );
 	}
     break;
 
   case 389:
-#line 2132 "parse.yy"
+#line 2140 "parse.yy"
     {
 		(yyval.ttype) = build_timing_statement( WIDTH, (yyvsp[-7].ttype), NULL_TREE, (yyvsp[-5].ttype), (yyvsp[-3].ttype), (yyvsp[-2].ttype) );
 	}
     break;
 
   case 390:
-#line 2137 "parse.yy"
+#line 2145 "parse.yy"
     {
 		(yyval.ttype) = build_timing_statement( SKEW, (yyvsp[-7].ttype), (yyvsp[-5].ttype), (yyvsp[-3].ttype), NULL_TREE, (yyvsp[-2].ttype) );
 	}
     break;
 
   case 391:
-#line 2142 "parse.yy"
+#line 2150 "parse.yy"
     {
 		(yyval.ttype) = build_timing_statement( RECOVERY, (yyvsp[-7].ttype), (yyvsp[-5].ttype), (yyvsp[-3].ttype), NULL_TREE, (yyvsp[-2].ttype) );
 	}
     break;
 
   case 392:
-#line 2147 "parse.yy"
+#line 2155 "parse.yy"
     {
 		(yyval.ttype) = build_timing_statement( SETUPHOLD, (yyvsp[-9].ttype), (yyvsp[-7].ttype), (yyvsp[-5].ttype), (yyvsp[-3].ttype), (yyvsp[-2].ttype) );
 	}
     break;
 
   case 393:
-#line 2152 "parse.yy"
+#line 2160 "parse.yy"
     {
 		(yyval.ttype) = NULL_TREE;
 	}
     break;
 
   case 394:
-#line 2158 "parse.yy"
+#line 2166 "parse.yy"
     {
 		(yyval.ttype) = 0;
 	}
     break;
 
   case 395:
-#line 2162 "parse.yy"
+#line 2170 "parse.yy"
     {
 		(yyval.ttype) = (yyvsp[0].ttype);
 	}
     break;
 
   case 397:
-#line 2171 "parse.yy"
+#line 2179 "parse.yy"
     { 
 		(yyval.ttype) = build_timing_event( (yyvsp[-1].integer), (yyvsp[0].ttype), NULL_TREE );
 	}
     break;
 
   case 398:
-#line 2176 "parse.yy"
+#line 2184 "parse.yy"
     { 
 		(yyval.ttype) = build_timing_event( (yyvsp[-3].integer), (yyvsp[-2].ttype), (yyvsp[0].ttype) );
 	}
     break;
 
   case 399:
-#line 2182 "parse.yy"
+#line 2190 "parse.yy"
     {
 		(yyval.ttype) = build_timing_event( (yyvsp[-1].integer), (yyvsp[0].ttype), NULL_TREE );
 	}
     break;
 
   case 400:
-#line 2187 "parse.yy"
+#line 2195 "parse.yy"
     {
 		(yyval.ttype) = build_timing_event( (yyvsp[-3].integer), (yyvsp[-2].ttype), (yyvsp[0].ttype) );
 	}
     break;
 
   case 401:
-#line 2193 "parse.yy"
+#line 2201 "parse.yy"
     {
 		extern unsigned int alledgeMask;
 		(yyval.integer) = alledgeMask;
@@ -4648,7 +4698,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 402:
-#line 2198 "parse.yy"
+#line 2206 "parse.yy"
     {
 		extern unsigned int posedgeMask;
 		(yyval.integer) = posedgeMask;
@@ -4656,7 +4706,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 403:
-#line 2203 "parse.yy"
+#line 2211 "parse.yy"
     {
 		extern unsigned int negedgeMask;
 		(yyval.integer) = negedgeMask;
@@ -4664,14 +4714,14 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 404:
-#line 2208 "parse.yy"
+#line 2216 "parse.yy"
     {  	extern int enable_edge_digit;
 		enable_edge_digit = TRUE; 
 	}
     break;
 
   case 405:
-#line 2212 "parse.yy"
+#line 2220 "parse.yy"
     { 
 		extern int enable_edge_digit;
 		enable_edge_digit = FALSE;
@@ -4680,7 +4730,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 406:
-#line 2220 "parse.yy"
+#line 2228 "parse.yy"
     {
 		extern unsigned int posedgeMask;
 		(yyval.integer) = posedgeMask;
@@ -4688,7 +4738,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 407:
-#line 2225 "parse.yy"
+#line 2233 "parse.yy"
     {
 		extern unsigned int negedgeMask;
 		(yyval.integer) = negedgeMask;
@@ -4696,14 +4746,14 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 408:
-#line 2230 "parse.yy"
+#line 2238 "parse.yy"
     {  	extern int enable_edge_digit;
 		enable_edge_digit = TRUE; 
 	}
     break;
 
   case 409:
-#line 2234 "parse.yy"
+#line 2242 "parse.yy"
     { 
 		extern int enable_edge_digit;
 		enable_edge_digit = FALSE;
@@ -4712,7 +4762,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 410:
-#line 2242 "parse.yy"
+#line 2250 "parse.yy"
     {
 		extern unsigned int edge_mask[4][4];
 		(yyval.integer) = edge_mask[(yyvsp[0].double_digit)[0]][(yyvsp[0].double_digit)[1]];
@@ -4720,7 +4770,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 411:
-#line 2247 "parse.yy"
+#line 2255 "parse.yy"
     {
 		extern unsigned int edge_mask[4][4];
 		(yyval.integer) = (yyvsp[0].integer) | edge_mask[(yyvsp[-2].double_digit)[0]][(yyvsp[-2].double_digit)[1]];
@@ -4728,63 +4778,63 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 412:
-#line 2252 "parse.yy"
+#line 2260 "parse.yy"
     {
 		(yyval.integer) = 0;
 	}
     break;
 
   case 414:
-#line 2259 "parse.yy"
+#line 2267 "parse.yy"
     { (yyval.ttype) = (yyvsp[-1].ttype); }
     break;
 
   case 415:
-#line 2261 "parse.yy"
+#line 2269 "parse.yy"
     { (yyval.ttype) = build_unary_op (BIT_NOT_EXPR, (yyvsp[0].ttype)); }
     break;
 
   case 416:
-#line 2263 "parse.yy"
+#line 2271 "parse.yy"
     { (yyval.ttype) = build_binary_op (EQ_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 417:
-#line 2265 "parse.yy"
+#line 2273 "parse.yy"
     { (yyval.ttype) = build_binary_op (EQ_CASE_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 418:
-#line 2267 "parse.yy"
+#line 2275 "parse.yy"
     { (yyval.ttype) = build_binary_op (NE_CASE_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 419:
-#line 2269 "parse.yy"
+#line 2277 "parse.yy"
     { (yyval.ttype) = build_binary_op (NE_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 420:
-#line 2273 "parse.yy"
+#line 2281 "parse.yy"
     { (yyval.ttype) = check_rval ((yyvsp[0].ttype)); }
     break;
 
   case 421:
-#line 2277 "parse.yy"
+#line 2285 "parse.yy"
     {
 		(yyval.ttype) = check_one_bit_constant((yyvsp[0].ttype));
 	}
     break;
 
   case 422:
-#line 2281 "parse.yy"
+#line 2289 "parse.yy"
     {
 		(yyval.ttype) = check_one_bit_constant((yyvsp[0].ttype));
 	}
     break;
 
   case 423:
-#line 2288 "parse.yy"
+#line 2296 "parse.yy"
     { 
 		check_input_port((yyvsp[0].ttype));
 		(yyval.ttype) = check_rval ((yyvsp[0].ttype));
@@ -4792,7 +4842,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 424:
-#line 2293 "parse.yy"
+#line 2301 "parse.yy"
     { 
 		check_input_port((yyvsp[-3].ttype));
 		(yyval.ttype) = build_bit_ref ( check_rval_nocheck ((yyvsp[-3].ttype)), (yyvsp[-1].ttype));
@@ -4800,7 +4850,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 425:
-#line 2298 "parse.yy"
+#line 2306 "parse.yy"
     { 
 		check_input_port((yyvsp[-5].ttype));
 		(yyval.ttype) = build_part_ref ( check_rval_nocheck ((yyvsp[-5].ttype)), (yyvsp[-3].ttype), (yyvsp[-1].ttype));
@@ -4808,7 +4858,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 426:
-#line 2311 "parse.yy"
+#line 2319 "parse.yy"
     { (yyval.ttype) = make_node (CONCAT_REF);
 		  CONCAT_LIST ((yyval.ttype)) = (yyvsp[-1].ttype);
 		  concat_labels ((yyval.ttype));
@@ -4816,27 +4866,27 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 427:
-#line 2319 "parse.yy"
+#line 2327 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[0].ttype), NULL_TREE); }
     break;
 
   case 428:
-#line 2321 "parse.yy"
+#line 2329 "parse.yy"
     { (yyval.ttype) = build_tree_list ((yyvsp[0].ttype), NULL_TREE); }
     break;
 
   case 429:
-#line 2323 "parse.yy"
+#line 2331 "parse.yy"
     { (yyval.ttype) = tree_cons ((yyvsp[0].ttype), NULL_TREE, (yyvsp[-2].ttype)); }
     break;
 
   case 430:
-#line 2325 "parse.yy"
+#line 2333 "parse.yy"
     { (yyval.ttype) = tree_cons ((yyvsp[0].ttype), NULL_TREE, (yyvsp[-2].ttype)); }
     break;
 
   case 437:
-#line 2339 "parse.yy"
+#line 2347 "parse.yy"
     { if (!TREE_CONSTANT_ATTR ((yyvsp[0].ttype))) {
 		    error ("Illegal non-constant expression", NULL_CHAR, NULL_CHAR);
 		    (yyval.ttype) = error_mark_node;
@@ -4847,7 +4897,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 439:
-#line 2351 "parse.yy"
+#line 2359 "parse.yy"
     { switch (delay_type) {
 		    case (MIN_DELAY):  (yyval.ttype) = (yyvsp[-4].ttype); break;
 		    case (TYP_DELAY):  (yyval.ttype) = (yyvsp[-2].ttype); break;
@@ -4857,7 +4907,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 440:
-#line 2361 "parse.yy"
+#line 2369 "parse.yy"
     { switch (delay_type) {
 		    case (MIN_DELAY):  (yyval.ttype) = (yyvsp[-4].ttype); break;
 		    case (TYP_DELAY):  (yyval.ttype) = (yyvsp[-2].ttype); break;
@@ -4867,212 +4917,212 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 442:
-#line 2372 "parse.yy"
+#line 2380 "parse.yy"
     { (yyval.ttype) = (yyvsp[0].ttype); }
     break;
 
   case 443:
-#line 2374 "parse.yy"
+#line 2382 "parse.yy"
     { (yyval.ttype) = build_unary_op (NEGATE_EXPR, (yyvsp[0].ttype)); }
     break;
 
   case 444:
-#line 2376 "parse.yy"
+#line 2384 "parse.yy"
     { (yyval.ttype) = build_unary_op (TRUTH_NOT_EXPR, (yyvsp[0].ttype)); }
     break;
 
   case 445:
-#line 2378 "parse.yy"
+#line 2386 "parse.yy"
     { (yyval.ttype) = build_unary_op (BIT_NOT_EXPR, (yyvsp[0].ttype)); }
     break;
 
   case 446:
-#line 2380 "parse.yy"
+#line 2388 "parse.yy"
     { (yyval.ttype) = build_unary_op (AND_REDUCE_EXPR, (yyvsp[0].ttype)); }
     break;
 
   case 447:
-#line 2382 "parse.yy"
+#line 2390 "parse.yy"
     { (yyval.ttype) = build_unary_op (NAND_REDUCE_EXPR, (yyvsp[0].ttype)); }
     break;
 
   case 448:
-#line 2384 "parse.yy"
+#line 2392 "parse.yy"
     { (yyval.ttype) = build_unary_op (OR_REDUCE_EXPR, (yyvsp[0].ttype)); }
     break;
 
   case 449:
-#line 2386 "parse.yy"
+#line 2394 "parse.yy"
     { (yyval.ttype) = build_unary_op (NOR_REDUCE_EXPR, (yyvsp[0].ttype)); }
     break;
 
   case 450:
-#line 2388 "parse.yy"
+#line 2396 "parse.yy"
     { (yyval.ttype) = build_unary_op (XOR_REDUCE_EXPR, (yyvsp[0].ttype)); }
     break;
 
   case 451:
-#line 2390 "parse.yy"
+#line 2398 "parse.yy"
     { (yyval.ttype) = build_unary_op (XNOR_REDUCE_EXPR, (yyvsp[0].ttype)); }
     break;
 
   case 452:
-#line 2392 "parse.yy"
+#line 2400 "parse.yy"
     { (yyval.ttype) = build_binary_op (PLUS_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 453:
-#line 2394 "parse.yy"
+#line 2402 "parse.yy"
     { (yyval.ttype) = build_binary_op (MINUS_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 454:
-#line 2396 "parse.yy"
+#line 2404 "parse.yy"
     { (yyval.ttype) = build_binary_op (MULT_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 455:
-#line 2398 "parse.yy"
+#line 2406 "parse.yy"
     { syn_warning ("Division operator"); }
     break;
 
   case 456:
-#line 2400 "parse.yy"
+#line 2408 "parse.yy"
     { (yyval.ttype) = build_binary_op (DIV_EXPR, (yyvsp[-3].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 457:
-#line 2402 "parse.yy"
+#line 2410 "parse.yy"
     { syn_warning ("Modulus operator"); }
     break;
 
   case 458:
-#line 2404 "parse.yy"
+#line 2412 "parse.yy"
     { (yyval.ttype) = build_binary_op (MOD_EXPR, (yyvsp[-3].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 459:
-#line 2406 "parse.yy"
+#line 2414 "parse.yy"
     { (yyval.ttype) = build_binary_op (EQ_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 460:
-#line 2408 "parse.yy"
+#line 2416 "parse.yy"
     { (yyval.ttype) = build_binary_op (NE_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 461:
-#line 2410 "parse.yy"
+#line 2418 "parse.yy"
     { syn_warning ("Case equality"); }
     break;
 
   case 462:
-#line 2412 "parse.yy"
+#line 2420 "parse.yy"
     { (yyval.ttype) = build_binary_op (EQ_CASE_EXPR, (yyvsp[-3].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 463:
-#line 2414 "parse.yy"
+#line 2422 "parse.yy"
     { syn_warning ("Case inequality"); }
     break;
 
   case 464:
-#line 2416 "parse.yy"
+#line 2424 "parse.yy"
     { (yyval.ttype) = build_binary_op (NE_CASE_EXPR, (yyvsp[-3].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 465:
-#line 2418 "parse.yy"
+#line 2426 "parse.yy"
     { (yyval.ttype) = build_binary_op (TRUTH_ANDIF_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 466:
-#line 2420 "parse.yy"
+#line 2428 "parse.yy"
     { (yyval.ttype) = build_binary_op (TRUTH_ORIF_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 467:
-#line 2422 "parse.yy"
+#line 2430 "parse.yy"
     { (yyval.ttype) = build_binary_op (LT_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 468:
-#line 2424 "parse.yy"
+#line 2432 "parse.yy"
     { (yyval.ttype) = build_binary_op (LE_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 469:
-#line 2426 "parse.yy"
+#line 2434 "parse.yy"
     { (yyval.ttype) = build_binary_op (GT_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 470:
-#line 2428 "parse.yy"
+#line 2436 "parse.yy"
     { (yyval.ttype) = build_binary_op (GE_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 471:
-#line 2430 "parse.yy"
+#line 2438 "parse.yy"
     { (yyval.ttype) = build_binary_op (BIT_AND_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 472:
-#line 2432 "parse.yy"
+#line 2440 "parse.yy"
     { (yyval.ttype) = build_binary_op (BIT_OR_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 473:
-#line 2434 "parse.yy"
+#line 2442 "parse.yy"
     { (yyval.ttype) = build_binary_op (BIT_XOR_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 474:
-#line 2436 "parse.yy"
+#line 2444 "parse.yy"
     { (yyval.ttype) = build_binary_op (BIT_XNOR_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 475:
-#line 2438 "parse.yy"
+#line 2446 "parse.yy"
     { (yyval.ttype) = build_binary_op (LSHIFT_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 476:
-#line 2440 "parse.yy"
+#line 2448 "parse.yy"
     { (yyval.ttype) = build_binary_op (RSHIFT_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 477:
-#line 2442 "parse.yy"
+#line 2450 "parse.yy"
     { (yyval.ttype) = build_cond_expr ((yyvsp[-4].ttype), (yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 481:
-#line 2466 "parse.yy"
+#line 2474 "parse.yy"
     { (yyval.ttype) = check_rval ((yyvsp[0].ttype)); }
     break;
 
   case 482:
-#line 2468 "parse.yy"
+#line 2476 "parse.yy"
     { (yyval.ttype) = build_bit_ref (check_rval_nocheck ((yyvsp[-3].ttype)), (yyvsp[-1].ttype)); }
     break;
 
   case 483:
-#line 2470 "parse.yy"
+#line 2478 "parse.yy"
     { (yyval.ttype) = build_part_ref (check_rval_nocheck ((yyvsp[-5].ttype)), (yyvsp[-3].ttype), (yyvsp[-1].ttype)); }
     break;
 
   case 486:
-#line 2474 "parse.yy"
+#line 2482 "parse.yy"
     { (yyval.ttype) = (yyvsp[-1].ttype); }
     break;
 
   case 487:
-#line 2476 "parse.yy"
+#line 2484 "parse.yy"
     { (yyval.ttype) = error_mark_node; }
     break;
 
   case 488:
-#line 2509 "parse.yy"
+#line 2517 "parse.yy"
     { (yyval.ttype) = make_node (CONCAT_REF);
 		  CONCAT_LIST ((yyval.ttype)) = (yyvsp[-1].ttype);
 		  concat_labels ((yyval.ttype));
@@ -5080,7 +5130,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 489:
-#line 2514 "parse.yy"
+#line 2522 "parse.yy"
     { (yyval.ttype) = make_node (CONCAT_REP_REF);
 		  CONCAT_LIST ((yyval.ttype)) = (yyvsp[-2].ttype);
 		  CONCAT_EXPR ((yyval.ttype)) = (yyvsp[-4].ttype);
@@ -5089,7 +5139,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 490:
-#line 2523 "parse.yy"
+#line 2531 "parse.yy"
     { (yyval.ttype) = build_function_call ((yyvsp[-3].ttype), nreverse ((yyvsp[-1].ttype)));
 		  HIERARCHICAL_ATTR ((yyval.ttype)) = HIERARCHICAL_ATTR ((yyvsp[-3].ttype));
                   UNKNOWN_TYPE_ATTR ((yyval.ttype)) = 1;
@@ -5097,19 +5147,19 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 491:
-#line 2529 "parse.yy"
+#line 2537 "parse.yy"
     { (yyval.ttype) = build_nt (SYSFUNCTION_REF, IDENTIFIER_POINTER ((yyvsp[-3].ttype)),
 			nreverse ((yyvsp[-1].ttype)), NULL_TREE, NULL_TREE, lineno, input_filename); }
     break;
 
   case 492:
-#line 2533 "parse.yy"
+#line 2541 "parse.yy"
     { (yyval.ttype) = build_nt (SYSFUNCTION_REF, IDENTIFIER_POINTER ((yyvsp[0].ttype)),
 			NULL_TREE, NULL_TREE, NULL_TREE, lineno, input_filename); }
     break;
 
   case 493:
-#line 2543 "parse.yy"
+#line 2551 "parse.yy"
     {
 		  syn_warning ("Hierachical name");
 		/*  hierarchical_list = link_tree_cons ($1, NULL_TREE, hierarchical_list); */
@@ -5120,24 +5170,24 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 496:
-#line 2557 "parse.yy"
+#line 2565 "parse.yy"
     { (yyval.ttype) = get_identifier ("or"); }
     break;
 
   case 497:
-#line 2576 "parse.yy"
+#line 2584 "parse.yy"
     { (yyval.ttype) = NULL_TREE; }
     break;
 
   case 499:
-#line 2582 "parse.yy"
+#line 2590 "parse.yy"
     { (yyval.ttype) = build_nt (DELAY_EXPR, (yyvsp[0].ttype), (yyvsp[0].ttype), NULL_TREE);
  		  TREE_LABEL ((yyval.ttype)) = 1;
 		}
     break;
 
   case 500:
-#line 2586 "parse.yy"
+#line 2594 "parse.yy"
     { (yyval.ttype) = check_rval ((yyvsp[0].ttype));
 		  (yyval.ttype) = build_nt (DELAY_EXPR, (yyval.ttype), (yyval.ttype), NULL_TREE);
 		  TREE_LABEL ((yyval.ttype)) = 1;
@@ -5145,53 +5195,53 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 501:
-#line 2591 "parse.yy"
+#line 2599 "parse.yy"
     { (yyval.ttype) = (yyvsp[-1].ttype); }
     break;
 
   case 502:
-#line 2600 "parse.yy"
+#line 2608 "parse.yy"
     { (yyval.ttype) = build_nt (DELAY_EXPR, (yyvsp[0].ttype), (yyvsp[0].ttype), NULL_TREE);
 		  TREE_LABEL ((yyval.ttype)) = 1;
 		}
     break;
 
   case 503:
-#line 2604 "parse.yy"
+#line 2612 "parse.yy"
     { (yyval.ttype) = build_nt (DELAY_EXPR, (yyvsp[-2].ttype), (yyvsp[0].ttype), NULL_TREE);
 		  TREE_LABEL ((yyval.ttype)) = 2;
 		}
     break;
 
   case 504:
-#line 2608 "parse.yy"
+#line 2616 "parse.yy"
     { (yyval.ttype) = build_nt (DELAY_EXPR, (yyvsp[-4].ttype), (yyvsp[-2].ttype), (yyvsp[0].ttype));
 		  TREE_LABEL ((yyval.ttype)) = 3;
 		}
     break;
 
   case 505:
-#line 2615 "parse.yy"
+#line 2623 "parse.yy"
     { (yyval.ttype) = (yyvsp[0].ttype); }
     break;
 
   case 506:
-#line 2617 "parse.yy"
+#line 2625 "parse.yy"
     { (yyval.ttype) = check_rval ((yyvsp[0].ttype)); }
     break;
 
   case 507:
-#line 2619 "parse.yy"
+#line 2627 "parse.yy"
     { (yyval.ttype) = (yyvsp[-1].ttype); }
     break;
 
   case 508:
-#line 2623 "parse.yy"
+#line 2631 "parse.yy"
     { in_event = 1; }
     break;
 
   case 509:
-#line 2625 "parse.yy"
+#line 2633 "parse.yy"
     {if (!HIERARCHICAL_ATTR ((yyvsp[0].ttype)) &&
 			TREE_CODE (IDENT_CURRENT_DECL ((yyvsp[0].ttype))) == EVENT_DECL)
 		    (yyval.ttype) = build_stmt (EVENT_STMT, lineno, NULL_TREE,
@@ -5205,18 +5255,18 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 510:
-#line 2635 "parse.yy"
+#line 2643 "parse.yy"
     { in_event = 1; }
     break;
 
   case 511:
-#line 2637 "parse.yy"
+#line 2645 "parse.yy"
     { (yyval.ttype) = build_stmt (EVENT_STMT, lineno, NULL_TREE, (yyvsp[-1].ttype));
 		  in_event = 0; }
     break;
 
   case 512:
-#line 2643 "parse.yy"
+#line 2651 "parse.yy"
     { /*if (TREE_CODE ($1) == EVENT_DECL)
 		    $$ = build_tree_list ($1, NULL_TREE);
 		  else */
@@ -5226,39 +5276,39 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     break;
 
   case 513:
-#line 2650 "parse.yy"
+#line 2658 "parse.yy"
     { (yyval.ttype) = build_tree_list 
 			(build_unary_op (POSEDGE_EXPR, (yyvsp[0].ttype)), NULL_TREE); }
     break;
 
   case 514:
-#line 2653 "parse.yy"
+#line 2661 "parse.yy"
     { (yyval.ttype) = build_tree_list 
 			(build_unary_op (NEGEDGE_EXPR, (yyvsp[0].ttype)), NULL_TREE); }
     break;
 
   case 515:
-#line 2656 "parse.yy"
+#line 2664 "parse.yy"
     { (yyval.ttype) = chainon ((yyvsp[-2].ttype), (yyvsp[0].ttype)); }
     break;
 
   case 516:
-#line 2665 "parse.yy"
+#line 2673 "parse.yy"
     { yyerrok; }
     break;
 
   case 517:
-#line 2670 "parse.yy"
+#line 2678 "parse.yy"
     { yyerrok; }
     break;
 
   case 518:
-#line 2672 "parse.yy"
+#line 2680 "parse.yy"
     { yyerrok; }
     break;
 
   case 519:
-#line 2677 "parse.yy"
+#line 2685 "parse.yy"
     { yyerrok; }
     break;
 
@@ -5266,7 +5316,7 @@ warning ("Strength specification is not supported and is ignored", NULL_CHAR, NU
     }
 
 /* Line 1037 of yacc.c.  */
-#line 5270 "parse.cc"
+#line 5320 "parse.cc"
 
   yyvsp -= yylen;
   yyssp -= yylen;
@@ -5494,7 +5544,7 @@ yyreturn:
 }
 
 
-#line 2680 "parse.yy"
+#line 2688 "parse.yy"
 
 void
 eat_block (short token)

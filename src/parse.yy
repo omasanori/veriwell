@@ -569,16 +569,22 @@ port_reference
 
 module_item
 	: parameter_declaration
+	{}
 	| port_declaration
+	{}
 	| net_declaration
+	{}
 	| static_declaration
+	{}
 	| gate_declaration
 	| UDP_or_module_instantiation
-/*	| UDP_instantiation */
-/*	| module_instantiation */
+	{}
 	| parameter_override
+	{}
 	| continuous_assign
+	{}
 	| specify_block
+	{}
 	| initial_statement
 		{ BLOCK_BODY (current_module) = tree_cons ($1,
 			(tree)INITIAL_CODE, BLOCK_BODY (current_module));
@@ -588,7 +594,9 @@ module_item
 			(tree)ALWAYS_CODE, BLOCK_BODY (current_module));
 		}
 	| task
+	{}
 	| function
+	{}
 	;
 /*
 UDP
