@@ -2,12 +2,6 @@ if USE_LXT
    LXTLIB=../lxt/liblxt.la
    ZLIB=-lz
 endif
-libveriwell_la_CPPFLAGS = -DBINDIR=\"$(bindir)\" \
-			 -DLIBDIR=\"$(libdir)\" \
-			 -DINCLUDEDIR=\"$(includedir)\" \
-			 -DCFLAGS="\"$(CFLAGS)\"" \
-			 -DLDFLAGS="\"$(LDFLAGS)\"" \
-			 -DLIBS="\"$(LIBS) $(ZLIB)\""
 nobase_include_HEADERS = veriuser.h acc_user.h veriuser.c
 
 bin_PROGRAMS = veriwell
@@ -40,5 +34,15 @@ libveriwell_la_LDFLAGS = -version-info 0:0:0
 libveriwell_la_LIBADD =  $(LXTLIB) ../replace/libreplace.la
 
 AM_YFLAGS = -y -d
+
+BUILT_SOURCES = build.h
+CLEANFILES    = build.h
+build.h: Makefile
+	echo '#define BINDIR "$(bindir)"' >$@
+	echo '#define LIBDIR "$(libdir)"' >>$@
+	echo '#define INCLUDEDIR "$(includedir)"' >>$@
+	echo '#define CFLAGS "$(CFLAGS)"' >>$@
+	echo '#define LDFLAGS "$(LDFLAGS)"' >>$@
+	echo '#define LIBS "$(LIBS) $(ZLIB)"' >>$@
 
 

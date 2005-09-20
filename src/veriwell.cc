@@ -48,6 +48,7 @@
 #include "acc_user.h"
 #include "pli.h"
 #include "systask.h"
+#include "build.h"
 
 int dump_it = 0;
 FILE *dumpfile;
