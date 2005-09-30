@@ -50,3 +50,7 @@
 	* fixed parsers so they work with older versions of bision
 	* fixed vfscanf configuration check 
 	* changed revision number to 2.8.4
+
+2005-09-29	Mark Hummel
+	* added space and speed option keywords to lxt systasks
+

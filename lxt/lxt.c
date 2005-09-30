@@ -50,6 +50,8 @@
  *  nosequence
  *  design=name
  *  depth=#
+ *  speed
+ *  space
  */
 
 
@@ -75,6 +77,7 @@ struct lxt_s {
     int	             enabled;
     int	             sequence;
     char*            design;
+    int		     compress;
     unsigned         incSize;
     struct lt_trace* t;
     int	             inited;
@@ -85,7 +88,7 @@ struct lxt_s {
     int		     hunk;
 };
 typedef struct lxt_s lxt_t, *lxt_p;
-lxt_t lxt = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+lxt_t lxt = { 0, 0, 0, 0, 1, 100*1024*1024, 0, 0, 0, 0, 0, 0, 0 };
 
 static void lxt_close();
 static void lxt_enable( int on );
@@ -153,6 +156,20 @@ int lxt_recordvars( int data, int reason )
 
 	ginstance = tf_getinstance();
 	/*
+	 * parse options first
+	 */
+	for( i = 1; i <= tf_nump(); ++i ) {
+	    handle object;
+	    if( tf_typep(i) == tf_nullparam ) {
+		continue;
+	    }
+	    if( tf_typep(i) == tf_string ) {
+		char* str = acc_fetch_tfarg_str(i);
+		lxt_option( str );
+		continue;
+	    } 
+	}
+	/*
 	 * on first call, initialize structure
 	 */
 	if( !lxt.inited ) {
@@ -164,8 +181,6 @@ int lxt_recordvars( int data, int reason )
 		continue;
 	    }
 	    if( tf_typep(i) == tf_string ) {
-		char* str = acc_fetch_tfarg_str(i);
-		lxt_option( str );
 		continue;
 	    } 
 	    object = acc_handle_tfarg(i);
@@ -416,6 +431,10 @@ static void lxt_option( char* str )
 	len -= strlen( eq );
     } else if( !strncmp( str, "incsize", len ) ) {
 	lxt.incSize = atoi( eq+1 );
+    } else if( !strncmp( str, "speed", len ) ) {
+	lxt.compress = 0;
+    } else if( !strncmp( str, "space", len ) ) {
+	lxt.compress = 1;
     } else if( !strncmp( str, "sequence", len ) ) {
 	lxt.sequence = 1;
     } else if( !strncmp( str, "nosequence", len ) ) {
@@ -661,13 +680,13 @@ static void lxt_init()
 	return;
     }
     lt_set_clock_compress( lxt.t );
-    lt_set_chg_compress( lxt.t ); 
+    if( lxt.compress ) {
+	lt_set_chg_compress( lxt.t ); 
+    }
     lxt.inited     = 1;
-    lxt.sequence   = 0;
     lxt.enabled    = 1;
     lxt.updateList = 0;
     lxt.eventList  = 0;
-    lxt.incSize    = 100*1024*1024;
     lxt.hunk	   = 0;
 
     lt_set_initial_value( lxt.t, 'x' );

@@ -37,11 +37,13 @@ event xevent;
 real  xyz;
 
 initial begin
-	$lxt_recordvars();
+	$lxt_recordvars("speed");
 	xyz = 0.0001;
 	#1
 	clk = 0;
 	count = 0;
+	#500000 $lxt_recordoff();
+	#500000 $lxt_recordon();
 	#10000000 $finish;
 end
 

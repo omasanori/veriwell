@@ -815,6 +815,8 @@ void CmdlineHelp()
     printf(" $lxt_recordvar options               Start waveform dump\n\n");
     printf("Lxt Options:\n");
     printf("   incsize=<file_size>  Specify incremental file size in bytes\n");
+    printf("   space                optimize for space\n");
+    printf("   speed                optimize for speed\n");
     printf("   sequence             Record 0 time signal changes\n");
     printf("   nosequence           Do not record 0 time signal changes\n");
     printf("   design=<name>        Specify design name\n");
