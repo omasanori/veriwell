@@ -88,7 +88,7 @@ struct lxt_s {
     int		     hunk;
 };
 typedef struct lxt_s lxt_t, *lxt_p;
-lxt_t lxt = { 0, 0, 0, 0, 1, 100*1024*1024, 0, 0, 0, 0, 0, 0, 0 };
+static lxt_t lxt = { 0, 0, 0, 0, 1, 100*1024*1024, 0, 0, 0, 0, 0, 0, 0 };
 
 static void lxt_close();
 static void lxt_enable( int on );
@@ -738,7 +738,9 @@ static void lxt_incinit()
 	return;
     }
     lt_set_clock_compress( lxt.t );
-    lt_set_chg_compress( lxt.t ); 
+    if( lxt.compress ) {
+	lt_set_chg_compress( lxt.t ); 
+    }
     lxt.updateList = 0;
     lxt.eventList  = 0;
     lt_set_initial_value( lxt.t, 'x' );
