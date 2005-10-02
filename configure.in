@@ -135,6 +135,15 @@ if test X"$ac_cv_enable_lxt" = Xyes; then
         exit 1;
     fi
 fi
+if test X"$ac_cv_enable_lxt2" = Xyes; then
+    if test X"$ac_cv_lib_z_gzwrite" = Xno; then
+        echo ""
+        echo "*** Error: libz not found. lxt2 waveform dumping"
+        echo "    cannot be built. Rerun configure with --disable-lxt2."
+        echo ""
+        exit 1;
+    fi
+fi
 
 VL_LIB_READLINE
 if test ! "$HAVE_LIBREADLINE" = 1; then

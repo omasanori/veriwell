@@ -56,6 +56,8 @@ am__liblxt_la_SOURCES_DIST = lxt.c lxt_write.c lxt_write.h lxt2.c \
 @USE_LXT2_TRUE@am__objects_2 = lxt2.lo lxt2_write.lo
 am_liblxt_la_OBJECTS = $(am__objects_1) $(am__objects_2)
 liblxt_la_OBJECTS = $(am_liblxt_la_OBJECTS)
+@USE_LXT2_TRUE@am_liblxt_la_rpath =
+@USE_LXT_TRUE@am_liblxt_la_rpath =
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__depfiles_maybe = depfiles
@@ -178,8 +180,10 @@ sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 @USE_LXT_TRUE@LXTSOURCE = lxt.c lxt_write.c lxt_write.h
+@USE_LXT2_TRUE@LXTLIB = liblxt.la
+@USE_LXT_TRUE@LXTLIB = liblxt.la
 @USE_LXT2_TRUE@LXT2SOURCE = lxt2.c lxt2_write.c lxt2_write.h
-noinst_LTLIBRARIES = liblxt.la
+noinst_LTLIBRARIES = $(LXTLIB)
 liblxt_la_SOURCES = $(LXTSOURCE) $(LXT2SOURCE)
 liblxt_la_LDFLAGS = -version-info 0:0:0
 AM_CFLAGS = -I $(top_srcdir)/src
@@ -228,7 +232,7 @@ clean-noinstLTLIBRARIES:
 	  rm -f "$${dir}/so_locations"; \
 	done
 liblxt.la: $(liblxt_la_OBJECTS) $(liblxt_la_DEPENDENCIES) 
-	$(LINK)  $(liblxt_la_LDFLAGS) $(liblxt_la_OBJECTS) $(liblxt_la_LIBADD) $(LIBS)
+	$(LINK) $(am_liblxt_la_rpath) $(liblxt_la_LDFLAGS) $(liblxt_la_OBJECTS) $(liblxt_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

@@ -1,6 +1,11 @@
 if USE_LXT
    ZLIB=-lz
    BZ2LIB=-lbz2
+   LIBLXT = $(top_builddir)/lxt/liblxt.la
+endif
+if USE_LXT2
+   ZLIB=-lz
+   LIBLXT = $(top_builddir)/lxt/liblxt.la
 endif
 nobase_include_HEADERS = veriuser.h acc_user.h veriuser.c
 
@@ -33,7 +38,7 @@ libveriwell_la_SOURCES = parse.yy sdfparse.yy sdfcpars.yy multdiv.cc \
 		   systask.h timescal.h trace.h tree.h udp.h usertask.h \
 		   verisys.h veriuser.h veriwell.h v.h vtypes.h tree.def
 libveriwell_la_LDFLAGS = -version-info 0:0:0
-libveriwell_la_LIBADD =  $(top_builddir)/lxt/liblxt.la $(top_builddir)/replace/libreplace.la
+libveriwell_la_LIBADD =  $(LIBLXT) $(top_builddir)/replace/libreplace.la
 
 AM_YFLAGS = -y -d
 

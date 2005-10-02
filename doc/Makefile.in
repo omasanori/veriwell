@@ -159,7 +159,8 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 EXTRA_DIST = veriwell.1
 man_MANS = veriwell.1
-DISTCLEANFILES = veriwell.1
+
+#DISTCLEANFILES = veriwell.1
 MAINTAINERCLEANFILES = Makefile.in 
 all: all-am
 
@@ -309,7 +310,6 @@ clean-generic:
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
-	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -375,8 +375,8 @@ uninstall-man: uninstall-man1
 	uninstall-man1
 
 
-@USE_HELP2MAN_TRUE@veriwell.1: $(top_builddir)/src/veriwell
-@USE_HELP2MAN_TRUE@	help2man -N $< > $@
+@USE_HELP2MAN_TRUE@veriwell.1: $(top_srcdir)/src/veriwell.cc
+@USE_HELP2MAN_TRUE@	help2man -N $(top_builddir)/src/veriwell > $@
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

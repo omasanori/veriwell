@@ -63,7 +63,10 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" \
 	"$(DESTDIR)$(includedir)"
 libLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(lib_LTLIBRARIES)
-libveriwell_la_DEPENDENCIES = $(top_builddir)/lxt/liblxt.la \
+@USE_LXT2_FALSE@@USE_LXT_TRUE@am__DEPENDENCIES_1 =  \
+@USE_LXT2_FALSE@@USE_LXT_TRUE@	$(top_builddir)/lxt/liblxt.la
+@USE_LXT2_TRUE@am__DEPENDENCIES_1 = $(top_builddir)/lxt/liblxt.la
+libveriwell_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(top_builddir)/replace/libreplace.la
 am_libveriwell_la_OBJECTS = parse.lo sdfparse.lo sdfcpars.lo \
 	multdiv.lo print.lo usertask.lo flags.lo store.lo nsched.lo \
@@ -77,9 +80,9 @@ binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_veriwell_OBJECTS = defaultveriuser.$(OBJEXT)
 veriwell_OBJECTS = $(am_veriwell_OBJECTS)
-am__DEPENDENCIES_1 =
-veriwell_DEPENDENCIES = libveriwell.la $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+am__DEPENDENCIES_2 =
+veriwell_DEPENDENCIES = libveriwell.la $(am__DEPENDENCIES_2) \
+	$(am__DEPENDENCIES_2)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__depfiles_maybe = depfiles
@@ -215,8 +218,11 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
+@USE_LXT2_TRUE@ZLIB = -lz
 @USE_LXT_TRUE@ZLIB = -lz
 @USE_LXT_TRUE@BZ2LIB = -lbz2
+@USE_LXT2_TRUE@LIBLXT = $(top_builddir)/lxt/liblxt.la
+@USE_LXT_TRUE@LIBLXT = $(top_builddir)/lxt/liblxt.la
 nobase_include_HEADERS = veriuser.h acc_user.h veriuser.c
 veriwell_SOURCES = defaultveriuser.cc
 veriwell_LDADD = $(vl_cv_lib_readline) libveriwell.la $(ZLIB) $(BZ2LIB)
@@ -242,7 +248,7 @@ libveriwell_la_SOURCES = parse.yy sdfparse.yy sdfcpars.yy multdiv.cc \
 		   verisys.h veriuser.h veriwell.h v.h vtypes.h tree.def
 
 libveriwell_la_LDFLAGS = -version-info 0:0:0
-libveriwell_la_LIBADD = $(top_builddir)/lxt/liblxt.la $(top_builddir)/replace/libreplace.la
+libveriwell_la_LIBADD = $(LIBLXT) $(top_builddir)/replace/libreplace.la
 AM_YFLAGS = -y -d
 BUILT_SOURCES = build.h
 CLEANFILES = build.h
