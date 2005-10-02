@@ -805,14 +805,24 @@ void CmdlineHelp()
     printf(" --libs                  Libraries used\n");
     printf(" All other options are tested for arguments and ignored\n");
     printf("\nExamples:\n");
-    printf("If lxt support is compiled in the following system" 
-	   " tasks are supported:\n\n");
+    printf("The following system tasks are supported:\n\n");
+#ifdef HAVE_LXT
     printf(" $lxt_recordon                        Enable waveform dump\n");
     printf(" $lxt_recordoff                       Disable waveform dump\n");
     printf(" $lxt_recordclose                     End waveform dump\n");
     printf(" $lxt_recordfile filename options     Set filename and options\n");
     printf(" $lxt_recordsetup options             Set options\n");
     printf(" $lxt_recordvar options               Start waveform dump\n\n");
+#endif
+#ifdef HAVE_LXT2
+    printf(" $lxt2_recordon                        Enable waveform dump\n");
+    printf(" $lxt2_recordoff                       Disable waveform dump\n");
+    printf(" $lxt2_recordclose                     End waveform dump\n");
+    printf(" $lxt2_recordfile filename options     Set filename and options\n");
+    printf(" $lxt2_recordsetup options             Set options\n");
+    printf(" $lxt2_recordvar options               Start waveform dump\n\n");
+#endif
+#if defined(HAVE_LXT) || defined(HAVE_LXT2)
     printf("Lxt Options:\n");
     printf("   incsize=<file_size>  Specify incremental file size in bytes\n");
     printf("   space                optimize for space\n");
@@ -821,6 +831,7 @@ void CmdlineHelp()
     printf("   nosequence           Do not record 0 time signal changes\n");
     printf("   design=<name>        Specify design name\n");
     printf("   depth=<depth>        Specify extraction depth\n");
+#endif
     printf("\nReport bugs at <http://sourceforge.net/projects/veriwell>\n");
 }
 

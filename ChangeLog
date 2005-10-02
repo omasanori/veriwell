@@ -54,3 +54,14 @@
 2005-09-29	Mark Hummel
 	* added space and speed option keywords to lxt systasks
 
+2005-10-01	Mark Hummel
+	* added lxt2 support
+	* updated to latest lxt library code
+	* lxt 'space' option now uses bzip2 compression
+	* automatically build man page when help2man is available
+	* added --disable-lxt configure switch
+	* cleaned up build process a bit
+	* checking in bootstrapped files so CVS image can be built
+	  without automake/autoconf tools
+	* bumped revision to 2.8.5
+

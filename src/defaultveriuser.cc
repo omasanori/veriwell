@@ -35,14 +35,23 @@ extern "C" {
     int lxt_recordclose( int data, int reason );
     int lxt_recordfile( int data, int reason );
     int lxt_recordsetup( int data, int reason );
+    int lxt2_recordvars( int data, int reason );
+    int lxt2_recordon( int data, int reason );
+    int lxt2_recordoff( int data, int reason );
+    int lxt2_recordclose( int data, int reason );
+    int lxt2_recordfile( int data, int reason );
+    int lxt2_recordsetup( int data, int reason );
 }
 
 char *veriuser_version_str = ""
 #ifdef HAVE_LXT
-    "lxt support compiled in\n\n"
+    "lxt  support compiled in\n"
+#endif
+#ifdef HAVE_LXT2
+    "lxt2 support compiled in\n\n"
 #endif
 ;
-int (*endofcompile_routines[]) () = {
+int (*endofcompile_routines[]) () = {
 	/*** my_eoc_routine, ***/
     0	  /*** final entry must be 0 ***/
 };
@@ -55,6 +64,14 @@ s_tfcell veriusertfs[] = {
   { usertask, 0, lxt_recordclose, 0, lxt_recordclose, lxt_recordclose, "$lxt_recordclose" },
   { usertask, 0, lxt_recordfile, 0, lxt_recordfile, lxt_recordfile, "$lxt_recordfile" },
   { usertask, 0, lxt_recordsetup, 0, lxt_recordsetup, lxt_recordsetup, "$lxt_recordsetup" },
+#endif
+#ifdef HAVE_LXT2
+  { usertask, 0, lxt2_recordvars, 0, lxt2_recordvars, lxt2_recordvars, "$lxt2_recordvars" },
+  { usertask, 0, lxt2_recordon, 0, lxt2_recordon, lxt2_recordon, "$lxt2_recordon" },
+  { usertask, 0, lxt2_recordoff, 0, lxt2_recordoff, lxt2_recordoff, "$lxt2_recordoff" },
+  { usertask, 0, lxt2_recordclose, 0, lxt2_recordclose, lxt2_recordclose, "$lxt2_recordclose" },
+  { usertask, 0, lxt2_recordfile, 0, lxt2_recordfile, lxt2_recordfile, "$lxt2_recordfile" },
+  { usertask, 0, lxt2_recordsetup, 0, lxt2_recordsetup, lxt2_recordsetup, "$lxt2_recordsetup" },
 #endif
     {0}	
 };

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2001 Tony Bybell.
+ * Copyright (c) 2001-3 Tony Bybell.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -22,10 +22,125 @@
 
 #include "lxt_write.h"
 
+/************************ splay ************************/
+
+static int dslxt_success;
+
+static dslxt_Tree * dslxt_splay (char *i, dslxt_Tree * t) {
+/* Simple top down splay, not requiring i to be in the tree t.  */
+/* What it does is described above.                             */
+    dslxt_Tree N, *l, *r, *y;
+    int dir;
+
+    dslxt_success = 0;
+
+    if (t == NULL) return t;
+    N.left = N.right = NULL;
+    l = r = &N;
+
+    for (;;) {
+	dir = strcmp(i, t->item);
+	if (dir < 0) {
+	    if (t->left == NULL) break;
+	    if (strcmp(i, t->left->item)<0) {
+		y = t->left;                           /* rotate right */
+		t->left = y->right;
+		y->right = t;
+		t = y;
+		if (t->left == NULL) break;
+	    }
+	    r->left = t;                               /* link right */
+	    r = t;
+	    t = t->left;
+	} else if (dir > 0) {
+	    if (t->right == NULL) break;
+	    if (strcmp(i, t->right->item)>0) {
+		y = t->right;                          /* rotate left */
+		t->right = y->left;
+		y->left = t;
+		t = y;
+		if (t->right == NULL) break;
+	    }
+	    l->right = t;                              /* link left */
+	    l = t;
+	    t = t->right;
+	} else {
+	    dslxt_success=1;
+	    break;
+	}
+    }
+    l->right = t->left;                                /* assemble */
+    r->left = t->right;
+    t->left = N.right;
+    t->right = N.left;
+    return t;
+}
+
+
+static dslxt_Tree * dslxt_insert(char *i, dslxt_Tree * t, unsigned int val) {
+/* Insert i into the tree t, unless it's already there.    */
+/* Return a pointer to the resulting tree.                 */
+    dslxt_Tree * n;
+    int dir;
+
+    n = (dslxt_Tree *) calloc (1, sizeof (dslxt_Tree));
+    if (n == NULL) {
+	fprintf(stderr, "dslxt_insert: ran out of memory, exiting.\n");
+	exit(255);
+    }
+    n->item = i;
+    n->val  = val;
+    if (t == NULL) {
+	n->left = n->right = NULL;
+	return n;
+    }
+    t = dslxt_splay(i,t);
+    dir = strcmp(i,t->item);
+    if (dir<0) {
+	n->left = t->left;
+	n->right = t;
+	t->left = NULL;
+	return n;
+    } else if (dir>0) {
+	n->right = t->right;
+	n->left = t;
+	t->right = NULL;
+	return n;
+    } else { /* We get here if it's already in the tree */
+             /* Don't add it again                      */
+	free(n);
+	return t;
+    }
+}
+
+#if 0
+/* unused for now but delete is here for completeness   */
+static dslxt_Tree * dslxt_delete(char *i, dslxt_Tree * t) {
+/* Deletes i from the tree if it's there.               */
+/* Return a pointer to the resulting tree.              */
+    dslxt_Tree * x;
+    if (t==NULL) return NULL;
+    t = dslxt_splay(i,t);
+    if (!strcmp(i, t->item)) {               /* found it */
+	if (t->left == NULL) {
+	    x = t->right;
+	} else {
+	    x = dslxt_splay(i, t->left);
+	    x->right = t->right;
+	}
+	free(t);
+	return x;
+    }
+    return t;                         /* It wasn't there */
+}
+#endif
+
+/************************ splay ************************/
+
 /*
  * functions which emit various big endian
  * data to a file
- */ 
+ */
 static int lt_emit_u8(struct lt_trace *lt, int value)
 {
 unsigned char buf[1];
@@ -106,7 +221,7 @@ return(nmemb);
 static int lt_emit_string(struct lt_trace *lt, char *value)
 {
 int rc=1;
-do  
+do
 	{
         rc&=lt_emit_u8(lt, *value);
         } while(*(value++));
@@ -119,7 +234,7 @@ return(rc);
  * data to a file.  (lt->position needs to be
  * fixed up on gzclose so the tables don't
  * get out of sync!)
- */ 
+ */
 static int lt_emit_u8z(struct lt_trace *lt, int value)
 {
 unsigned char buf[1];
@@ -206,9 +321,108 @@ return(nmemb);
 static int lt_emit_stringz(struct lt_trace *lt, char *value)
 {
 int rc=1;
-do  
+do
 	{
         rc&=lt_emit_u8z(lt, *value);
+        } while(*(value++));
+return(rc);
+}
+
+/*
+ * bz2functions which emit various big endian
+ * data to a file.  (lt->position needs to be
+ * fixed up on BZ2_bzclose so the tables don't
+ * get out of sync!)
+ */
+static int lt_emit_u8bz(struct lt_trace *lt, int value)
+{
+unsigned char buf[1];
+int nmemb;
+
+buf[0] = value & 0xff;
+nmemb=BZ2_bzwrite(lt->zhandle, buf, 1);
+lt->zpackcount++;
+lt->position++;
+return(nmemb);
+}
+
+
+static int lt_emit_u16bz(struct lt_trace *lt, int value)
+{
+unsigned char buf[2];
+int nmemb;
+
+buf[0] = (value>>8) & 0xff;
+buf[1] = value & 0xff;
+nmemb = BZ2_bzwrite(lt->zhandle, buf, 2);
+lt->zpackcount+=2;
+lt->position+=2;
+return(nmemb);
+}
+
+
+static int lt_emit_u24bz(struct lt_trace *lt, int value)
+{
+unsigned char buf[3];
+int nmemb;
+
+buf[0] = (value>>16) & 0xff;
+buf[1] = (value>>8) & 0xff;
+buf[2] = value & 0xff;
+nmemb=BZ2_bzwrite(lt->zhandle, buf, 3);
+lt->zpackcount+=3;
+lt->position+=3;
+return(nmemb);
+}
+
+
+static int lt_emit_u32bz(struct lt_trace *lt, int value)
+{
+unsigned char buf[4];
+int nmemb;
+
+buf[0] = (value>>24) & 0xff;
+buf[1] = (value>>16) & 0xff;
+buf[2] = (value>>8) & 0xff;
+buf[3] = value & 0xff;
+nmemb=BZ2_bzwrite(lt->zhandle, buf, 4);
+
+lt->zpackcount+=4;
+lt->position+=4;
+return(nmemb);
+}
+
+
+static int lt_emit_u64bz(struct lt_trace *lt, int valueh, int valuel)
+{
+int rc;
+
+if((rc=lt_emit_u32bz(lt, valueh)))
+	{
+	rc=lt_emit_u32bz(lt, valuel);
+	}
+
+return(rc);
+}
+
+
+static int lt_emit_doublebz(struct lt_trace *lt, double value)
+{
+int nmemb;
+
+nmemb=BZ2_bzwrite(lt->zhandle, &value, sizeof(double)/sizeof(char));
+lt->zpackcount+=(sizeof(double)/sizeof(char));
+lt->position+=(sizeof(double)/sizeof(char));;
+return(nmemb);
+}
+
+
+static int lt_emit_stringbz(struct lt_trace *lt, char *value)
+{
+int rc=1;
+do
+	{
+        rc&=lt_emit_u8bz(lt, *value);
         } while(*(value++));
 return(rc);
 }
@@ -219,8 +433,9 @@ return(rc);
  */
 static void lt_set_zmode(struct lt_trace *lt, int mode)
 {
-if(!mode)
+switch(mode)
 	{
+	case LT_ZMODE_NONE:
 	lt->lt_emit_u8 = lt_emit_u8;
 	lt->lt_emit_u16 = lt_emit_u16;
 	lt->lt_emit_u24 = lt_emit_u24;
@@ -228,9 +443,9 @@ if(!mode)
 	lt->lt_emit_u64 = lt_emit_u64;
 	lt->lt_emit_double = lt_emit_double;
 	lt->lt_emit_string = lt_emit_string;
-	}
-	else
-	{
+	break;
+
+	case LT_ZMODE_GZIP:
 	lt->lt_emit_u8 = lt_emit_u8z;
 	lt->lt_emit_u16 = lt_emit_u16z;
 	lt->lt_emit_u24 = lt_emit_u24z;
@@ -238,6 +453,17 @@ if(!mode)
 	lt->lt_emit_u64 = lt_emit_u64z;
 	lt->lt_emit_double = lt_emit_doublez;
 	lt->lt_emit_string = lt_emit_stringz;
+	break;
+
+	case LT_ZMODE_BZIP2:
+	lt->lt_emit_u8 = lt_emit_u8bz;
+	lt->lt_emit_u16 = lt_emit_u16bz;
+	lt->lt_emit_u24 = lt_emit_u24bz;
+	lt->lt_emit_u32 = lt_emit_u32bz;
+	lt->lt_emit_u64 = lt_emit_u64bz;
+	lt->lt_emit_double = lt_emit_doublebz;
+	lt->lt_emit_string = lt_emit_stringbz;
+	break;
 	}
 }
 
@@ -261,7 +487,7 @@ for(p=s;*p;p++)
                 {
                 h=h^(g>>24);
                 h=h^g;
-                }   
+                }
         }
 
 h^=h2;						/* combine the two hashes */
@@ -288,17 +514,17 @@ struct lt_symbol *temp;
 
 hv=lt_hash(s);
 if(!(temp=lt->sym[hv])) return(NULL); /* no hash entry, add here wanted to add */
-	
+
 while(temp)
         {
         if(!strcmp(temp->name,s))
                 {
-                return(temp); /* in table already */    
+                return(temp); /* in table already */
                 }
         if(!temp->next) break;
         temp=temp->next;
         }
-	
+
 return(NULL); /* not found, add here if you want to add*/
 }
 
@@ -323,13 +549,13 @@ if(lt->compress_fac_str)
 	lt_emit_u16z(lt, i);
 	lt_emit_stringz(lt, str+i);
         free(lt->compress_fac_str);
-        } 
+        }
         else
         {
 	lt_emit_u16z(lt, 0);
 	lt_emit_stringz(lt, str);
         }
-         
+
 lt->compress_fac_str = (char *) malloc((lt->compress_fac_len=len)+1);
 strcpy(lt->compress_fac_str, str);
 }
@@ -365,10 +591,10 @@ while(lastch!=s->name)
 	{
 	if(*lastch=='[')
 		{
-		*lastch=0x00;	
+		*lastch=0x00;
 		return;
 		}
-	lastch--;	
+	lastch--;
 	}
 return;
 }
@@ -381,22 +607,36 @@ int i;
 if((lt)&&(lt->numfacs))
 	{
 	struct lt_symbol *s = lt->symchain;
-	if((lt->sorted_facs = (struct lt_symbol **)calloc(lt->numfacs, sizeof(struct lt_symbol *))))
+	char is_interlaced_trace = (lt->sorted_facs==NULL);
+
+	if(!lt->sorted_facs)
 		{
-		if(lt->do_strip_brackets)
-		for(i=0;i<lt->numfacs;i++)
+		if((lt->sorted_facs = (struct lt_symbol **)calloc(lt->numfacs, sizeof(struct lt_symbol *))))
 			{
-			lt->sorted_facs[i] = s;
-			strip_brack(s);
-			s=s->symchain;
+			if(lt->do_strip_brackets)
+			for(i=0;i<lt->numfacs;i++)
+				{
+				lt->sorted_facs[i] = s;
+				strip_brack(s);
+				s=s->symchain;
+				}
+			else
+			for(i=0;i<lt->numfacs;i++)
+				{
+				lt->sorted_facs[i] = s;
+				s=s->symchain;
+				}
+			qsort((void *)lt->sorted_facs, lt->numfacs, sizeof(struct lt_symbol *), lt_compare);
+
+			for(i=0;i<lt->numfacs;i++)
+				{
+				lt->sorted_facs[i]->facnum = i;
+				}
 			}
-		else	
-		for(i=0;i<lt->numfacs;i++)
-			{
-			lt->sorted_facs[i] = s;
-			s=s->symchain;
-			}	
-		qsort((void *)lt->sorted_facs, lt->numfacs, sizeof(struct lt_symbol *), lt_compare);
+		}
+
+	if(lt->sorted_facs)
+		{
 		lt->facname_offset=lt->position;
 
 		lt_emit_u32(lt, lt->numfacs);		/* uncompressed */
@@ -408,16 +648,15 @@ if((lt)&&(lt->numfacs))
 		lt->zpackcount = 0;
 		for(i=0;i<lt->numfacs;i++)
 			{
-			lt->sorted_facs[i]->facnum = i;
 		 	lt_compress_fac(lt, lt->sorted_facs[i]->name);
 			}
 		free(lt->compress_fac_str); lt->compress_fac_str=NULL;
 		lt->compress_fac_len=0;
 		lt->zfacname_predec_size = lt->zpackcount;
-	
+
 		gzclose(lt->zhandle);
-		fseek(lt->handle, 0L, SEEK_END);
-		lt->position=ftell(lt->handle);
+		fseeko(lt->handle, 0L, SEEK_END);
+		lt->position=ftello(lt->handle);
 		lt->zfacname_size = lt->position - lt->zfacname_size;
 
 		lt->zhandle = gzdopen(dup(fileno(lt->handle)), "wb9");
@@ -442,28 +681,32 @@ if((lt)&&(lt->numfacs))
 			}
 
 		gzclose(lt->zhandle);
-		fseek(lt->handle, 0L, SEEK_END);
-		lt->position=ftell(lt->handle);
+		fseeko(lt->handle, 0L, SEEK_END);
+		lt->position=ftello(lt->handle);
 		lt->zfacgeometry_size = lt->position - lt->facgeometry_offset;
-		lt->zhandle = gzdopen(dup(fileno(lt->handle)), "wb9");
 
-		lt->sync_table_offset = lt->position;
-		for(i=0;i<lt->numfacs;i++)
+		if(is_interlaced_trace)
 			{
-			lt_emit_u32z(lt, lt->sorted_facs[i]->last_change);
-			}
+			lt->zhandle = gzdopen(dup(fileno(lt->handle)), "wb9");
 
-		gzclose(lt->zhandle); lt->zhandle = NULL;
-		fseek(lt->handle, 0L, SEEK_END);
-		lt->position=ftell(lt->handle);
-		lt->zsync_table_size = lt->position - lt->sync_table_offset;
+			lt->sync_table_offset = lt->position;
+			for(i=0;i<lt->numfacs;i++)
+				{
+				lt_emit_u32z(lt, lt->sorted_facs[i]->last_change);
+				}
+
+			gzclose(lt->zhandle); lt->zhandle = NULL;
+			fseeko(lt->handle, 0L, SEEK_END);
+			lt->position=ftello(lt->handle);
+			lt->zsync_table_size = lt->position - lt->sync_table_offset;
+			}
 		}
 	}
 }
 
 
-/* 
- * initialize the trace and get back and lt context
+/*
+ * initialize the trace and get back an lt context
  */
 struct lt_trace *lt_init(const char *name)
 {
@@ -482,7 +725,7 @@ if(!(lt->handle=fopen(name, "wb")))
 	lt->initial_value = -1;				/* if a user sets this it will have a different POSITIVE val */
 	lt->timescale = -256;				/* will be in range of -128<=x<=127 if set */
 
-	lt_set_zmode(lt, 0);
+	lt_set_zmode(lt, LT_ZMODE_NONE);
 
 	lt->mintime=ULLDescriptor(1);
 	lt->maxtime=ULLDescriptor(0);
@@ -509,25 +752,6 @@ if(numtrans<0)
 	return;
 	}
 
-if(last_change_delta >= 256*65536)
-	{
-	numbytes = 3;
-	}
-else
-if(last_change_delta >= 65536)
-	{
-	numbytes = 2;
-	}
-else
-if(last_change_delta >= 256)
-	{
-	numbytes = 1;
-	}
-else
-	{
-	numbytes = 0;
-	}
-
 if(numtrans >= 256*65536)
 	{
 	numbytes_trans = 3;
@@ -547,15 +771,50 @@ else
 	numbytes_trans = 0;
 	}
 
-tag = (numbytes<<4) + 0xC + numbytes_trans;	/* yields xC..xF */
-
-lt->lt_emit_u8(lt, tag);
-switch(numbytes&3)
+if(!lt->numfacs_bytes)
 	{
-	case 0: lt->lt_emit_u8(lt, last_change_delta); break;
-	case 1: lt->lt_emit_u16(lt, last_change_delta); break;
-	case 2: lt->lt_emit_u24(lt, last_change_delta); break;
-	case 3: lt->lt_emit_u32(lt, last_change_delta); break;
+	if(last_change_delta >= 256*65536)
+		{
+		numbytes = 3;
+		}
+	else
+	if(last_change_delta >= 65536)
+		{
+		numbytes = 2;
+		}
+	else
+	if(last_change_delta >= 256)
+		{
+		numbytes = 1;
+		}
+	else
+		{
+		numbytes = 0;
+		}
+
+	tag = (numbytes<<4) + 0xC + numbytes_trans;	/* yields xC..xF */
+
+	lt->lt_emit_u8(lt, tag);
+	switch(numbytes&3)
+		{
+		case 0: lt->lt_emit_u8(lt, last_change_delta); break;
+		case 1: lt->lt_emit_u16(lt, last_change_delta); break;
+		case 2: lt->lt_emit_u24(lt, last_change_delta); break;
+		case 3: lt->lt_emit_u32(lt, last_change_delta); break;
+		}
+	}
+	else
+	{
+	tag = 0xC + numbytes_trans;	/* yields C..F */
+
+	switch(lt->numfacs_bytes)
+		{
+		case 1: lt->lt_emit_u8(lt, s->facnum); break;
+		case 2: lt->lt_emit_u16(lt, s->facnum); break;
+		case 3: lt->lt_emit_u24(lt, s->facnum); break;
+		case 4: lt->lt_emit_u32(lt, s->facnum); break;
+		}
+	lt->lt_emit_u8(lt, tag);
 	}
 
 s->last_change = start_position;
@@ -572,7 +831,7 @@ switch(numbytes_trans&3)
 	case 3: lt->lt_emit_u32(lt, numtrans); break;
 	}
 
-/* printf("Clock finish for '%s' at %Ld ending with '%c' for %d repeats over a switch delta of %d\n", 
+/* printf("Clock finish for '%s' at %Ld ending with '%c' for %d repeats over a switch delta of %d\n",
 	s->name, lt->timeval, s->clk_prevval, s->clk_numtrans - LT_CLKPACK, s->clk_delta); */
 s->clk_prevtrans = ULLDescriptor(~0);
 s->clk_numtrans = 0;
@@ -593,25 +852,6 @@ if(numtrans<0)
 	return;
 	}
 
-if(last_change_delta >= 256*65536)
-	{
-	numbytes = 3;
-	}
-else
-if(last_change_delta >= 65536)
-	{
-	numbytes = 2;
-	}
-else
-if(last_change_delta >= 256)
-	{
-	numbytes = 1;
-	}
-else
-	{
-	numbytes = 0;
-	}
-
 if(numtrans >= 256*65536)
 	{
 	numbytes_trans = 3;
@@ -631,16 +871,52 @@ else
 	numbytes_trans = 0;
 	}
 
-tag = (numbytes<<4) + 0xC + numbytes_trans;	/* yields xC..xF */
-
-lt->lt_emit_u8(lt, tag);
-switch(numbytes&3)
+if(!lt->numfacs_bytes)
 	{
-	case 0: lt->lt_emit_u8(lt, last_change_delta); break;
-	case 1: lt->lt_emit_u16(lt, last_change_delta); break;
-	case 2: lt->lt_emit_u24(lt, last_change_delta); break;
-	case 3: lt->lt_emit_u32(lt, last_change_delta); break;
+	if(last_change_delta >= 256*65536)
+		{
+		numbytes = 3;
+		}
+	else
+	if(last_change_delta >= 65536)
+		{
+		numbytes = 2;
+		}
+	else
+	if(last_change_delta >= 256)
+		{
+		numbytes = 1;
+		}
+	else
+	{
+	numbytes = 0;
 	}
+
+	tag = (numbytes<<4) + 0xC + numbytes_trans;	/* yields xC..xF */
+
+	lt->lt_emit_u8(lt, tag);
+	switch(numbytes&3)
+		{
+		case 0: lt->lt_emit_u8(lt, last_change_delta); break;
+		case 1: lt->lt_emit_u16(lt, last_change_delta); break;
+		case 2: lt->lt_emit_u24(lt, last_change_delta); break;
+		case 3: lt->lt_emit_u32(lt, last_change_delta); break;
+		}
+	}
+	else
+	{
+	tag = 0xC + numbytes_trans;	/* yields C..F */
+
+	switch(lt->numfacs_bytes)
+		{
+		case 1: lt->lt_emit_u8(lt, s->facnum); break;
+		case 2: lt->lt_emit_u16(lt, s->facnum); break;
+		case 3: lt->lt_emit_u24(lt, s->facnum); break;
+		case 4: lt->lt_emit_u32(lt, s->facnum); break;
+		}
+	lt->lt_emit_u8(lt, tag);
+	}
+
 
 s->last_change = start_position;
 
@@ -656,10 +932,84 @@ switch(numbytes_trans&3)
 	case 3: lt->lt_emit_u32(lt, numtrans); break;
 	}
 
-/* printf("Clock finish for '%s' at %Ld ending with '%08x' for %d repeats over a switch delta of %Ld\n", 
+/* printf("Clock finish for '%s' at %Ld ending with '%08x' for %d repeats over a switch delta of %Ld\n",
 	s->name, lt->timeval, s->clk_prevval, s->clk_numtrans - LT_CLKPACK_M, s->clk_delta); */
 s->clk_prevtrans = ULLDescriptor(~0);
 s->clk_numtrans = 0;
+}
+
+
+/*
+ * recurse through dictionary
+ */
+static void lt_recurse_dictionary(struct lt_trace *lt, dslxt_Tree *ds)
+{
+if(ds->left) lt_recurse_dictionary(lt, ds->left);
+lt->sorted_dict[ds->val] = ds;
+if(ds->right) lt_recurse_dictionary(lt, ds->right);
+}
+
+static void lt_recurse_dictionary_free(struct lt_trace *lt, dslxt_Tree *ds)
+{
+dslxt_Tree *lft = ds->left;
+dslxt_Tree *rgh = ds->right;
+
+if(lft) lt_recurse_dictionary_free(lt, lft);
+free(ds->item); free(ds);
+if(rgh) lt_recurse_dictionary_free(lt, rgh);
+}
+
+static int lt_dictval_compare(const void *v1, const void *v2)
+{
+dslxt_Tree *s1 = *(dslxt_Tree **)v1;
+dslxt_Tree *s2 = *(dslxt_Tree **)v2;
+
+if(s1->val > s2->val) return(1); else return(-1);	/* they're *never* equal */
+}
+
+static void lt_finalize_dictionary(struct lt_trace *lt)
+{
+int i;
+
+lt->sorted_dict = calloc(lt->num_dict_entries, sizeof(dslxt_Tree *));
+
+lt->dictionary_offset=lt->position;
+
+lt_emit_u32(lt, lt->num_dict_entries);		/* uncompressed */
+lt_emit_u32(lt, lt->dict_string_mem_required - lt->num_dict_entries);	/* uncompressed : minus because leading '1' is implied so its stripped */
+lt_emit_u32(lt, lt->dict16_offset);		/* uncompressed */
+lt_emit_u32(lt, lt->dict24_offset);		/* uncompressed */
+lt_emit_u32(lt, lt->dict32_offset);		/* uncompressed */
+lt_emit_u32(lt, lt->mindictwidth);		/* uncompressed */
+fflush(lt->handle);
+
+#if 0
+fprintf(stderr, "*** dictionary_offset = %08x\n", lt->dictionary_offset);
+fprintf(stderr, "*** num_dict_entries = %d\n", lt->num_dict_entries);
+#endif
+
+lt->zdictionary_size = lt->position;
+lt->zhandle = gzdopen(dup(fileno(lt->handle)), "wb9");
+
+lt_recurse_dictionary(lt, lt->dict);
+qsort((void *)lt->sorted_dict, lt->num_dict_entries, sizeof(struct dsTree **), lt_dictval_compare);
+
+for(i=0;i<lt->num_dict_entries;i++)
+	{
+	dslxt_Tree *ds = lt->sorted_dict[i];
+	/* fprintf(stderr, "%8d) '%s'\n", ds->val, ds->item); */
+	lt_emit_stringz(lt, ds->item+1);
+	}
+
+gzclose(lt->zhandle);
+fseeko(lt->handle, 0L, SEEK_END);
+lt->position=ftello(lt->handle);
+lt->zdictionary_size = lt->position - lt->zdictionary_size;
+
+free(lt->sorted_dict); lt->sorted_dict = NULL;
+
+lt_recurse_dictionary_free(lt, lt->dict);
+lt->dict = NULL;
 }
 
 
@@ -687,26 +1037,35 @@ if(lt)
                                 if(s->clk_numtrans > LT_CLKPACK_M) lt_flushclock_m(lt, s);
                                 }
                                 else
-                                {   
+                                {
                                 if(s->clk_numtrans > LT_CLKPACK) lt_flushclock(lt, s);
                                 }
                         }
-                         
-                s=s->symchain;
-		}	
 
-	if(lt->zmode)
+                s=s->symchain;
+		}
+
+	lt_set_dumpon(lt);	/* in case it was turned off */
+
+	if(lt->zmode!=LT_ZMODE_NONE)
 		{
 		lt->chg_table_size = lt->position - lt->change_field_offset;
-		gzclose(lt->zhandle); lt->zhandle = NULL;
-		fseek(lt->handle, 0L, SEEK_END);
-		lt->position=ftell(lt->handle);
 
-		lt_set_zmode(lt, 0);
+		switch(lt->zmode)
+			{
+			case LT_ZMODE_GZIP: 	gzclose(lt->zhandle); break;
+			case LT_ZMODE_BZIP2:	BZ2_bzclose(lt->zhandle); break;
+			}
+		lt->zhandle = NULL;
+		fseeko(lt->handle, 0L, SEEK_END);
+		lt->position=ftello(lt->handle);
+
+		lt_set_zmode(lt, LT_ZMODE_NONE);
 		lt->zchg_table_size = lt->position - lt->change_field_offset;
 		}
 
 	lt_emitfacs(lt);
+	if(lt->dict) lt_finalize_dictionary(lt);
 
 	if(lt->timebuff)
 		{
@@ -742,7 +1101,7 @@ if(lt)
 		while(t)
 			{
 			lt_emit_u32z(lt, t->position - lastposition); lastposition = t->position;
-			t=t->next;			
+			t=t->next;
 			}
 
 		t=lt->timehead;
@@ -752,9 +1111,9 @@ if(lt)
 				{
 				lxttime_t delta = t->timeval - lasttime;
 				lt_emit_u64z(lt, (int)(delta>>32), (int)delta); lasttime = t->timeval;
-				
+
 				t2=t->next;
-				free(t);			
+				free(t);
 				t=t2;
 				}
 			}
@@ -763,22 +1122,22 @@ if(lt)
 			while(t)
 				{
 				lt_emit_u32z(lt, (int)(t->timeval - lasttime)); lasttime = t->timeval;
-				
+
 				t2=t->next;
-				free(t);			
+				free(t);
 				t=t2;
 				}
-	
+
 			lt->timehead = lt->timecurr = NULL;
 			}
 
 		gzclose(lt->zhandle); lt->zhandle = NULL;
-		fseek(lt->handle, 0L, SEEK_END);
-		lt->position=ftell(lt->handle);
+		fseeko(lt->handle, 0L, SEEK_END);
+		lt->position=ftello(lt->handle);
 		lt->ztime_table_size = lt->position - lt->ztime_table_size;
 		}
 
-	if(lt->initial_value>=0) 
+	if(lt->initial_value>=0)
 		{
 		lt->initial_value_offset = lt->position;
 		lt_emit_u8(lt, lt->initial_value);
@@ -793,10 +1152,33 @@ if(lt)
 	if(lt->double_used)
 		{
 		lt->double_test_offset = lt->position;
-		lt_emit_double(lt, 3.14159);		
+		lt_emit_double(lt, 3.14159);
 		}
 
+	if(lt->dumpoffcount)
+		{
+		struct lt_timetrail *ltt = lt->dumpoffhead;
+		struct lt_timetrail *ltt2;
+
+		lt->exclude_offset = lt->position;
+		lt_emit_u32(lt, lt->dumpoffcount);
+
+		while(ltt)
+			{
+			lt_emit_u64(lt, (int)((ltt->timeval)>>32), (int)ltt->timeval);
+			ltt2 = ltt;
+			ltt=ltt->next;
+			free(ltt2);
+			}
+
+		lt->dumpoffhead = lt->dumpoffcurr = NULL;
+		lt->dumpoffcount = 0;
+		}
+
+	/* prefix */
 	lt_emit_u8(lt, LT_SECTION_END);
+
+	/* Version 1 */
 	if(lt->change_field_offset) { lt_emit_u32(lt, lt->change_field_offset); lt_emit_u8(lt, LT_SECTION_CHG); }
 	if(lt->sync_table_offset) { lt_emit_u32(lt, lt->sync_table_offset); lt_emit_u8(lt, LT_SECTION_SYNC_TABLE); }
 	if(lt->facname_offset) { lt_emit_u32(lt, lt->facname_offset); lt_emit_u8(lt, LT_SECTION_FACNAME); }
@@ -815,22 +1197,31 @@ if(lt)
 	if(lt->chg_table_size) { lt_emit_u32(lt, lt->chg_table_size); lt_emit_u8(lt, LT_SECTION_ZCHG_PREDEC_SIZE); }
 	if(lt->zchg_table_size) { lt_emit_u32(lt, lt->zchg_table_size); lt_emit_u8(lt, LT_SECTION_ZCHG_SIZE); }
 
+	/* Version 4 adds */
+	if(lt->dictionary_offset) { lt_emit_u32(lt, lt->dictionary_offset); lt_emit_u8(lt, LT_SECTION_ZDICTIONARY); }
+	if(lt->zdictionary_size) { lt_emit_u32(lt, lt->zdictionary_size); lt_emit_u8(lt, LT_SECTION_ZDICTIONARY_SIZE); }
+
+	/* Version 5 adds */
+	if(lt->exclude_offset) { lt_emit_u32(lt, lt->exclude_offset); lt_emit_u8(lt, LT_SECTION_EXCLUDE_TABLE); }
+
+	/* suffix */
 	lt_emit_u8(lt, LT_TRLID);
 
 	if(lt->symchain)
 		{
 		struct lt_symbol *s = lt->symchain;
 		struct lt_symbol *s2;
-		
+
 		while(s)
 			{
 			free(s->name);
-			s2=s->next;
+			s2=s->symchain;
 			free(s);
 			s=s2;
 			}
 		}
-	
+
+	free(lt->sorted_facs);
 	fclose(lt->handle);
 	free(lt);
 	}
@@ -859,6 +1250,8 @@ struct lt_symbol *s;
 int len;
 int flagcnt;
 
+if((!lt)||(lt->sorted_facs)) return(NULL);
+
 flagcnt = ((flags&LT_SYM_F_INTEGER)!=0) + ((flags&LT_SYM_F_DOUBLE)!=0) + ((flags&LT_SYM_F_STRING)!=0);
 
 if((flagcnt>1)||(!lt)||(!name)||(lt_symfind(lt, name))) return (NULL);
@@ -880,7 +1273,9 @@ if(!flagcnt)
 
 s->symchain = lt->symchain;
 lt->symchain = s;
+
 lt->numfacs++;
+
 if((len=strlen(name)) > lt->longestname) lt->longestname = len;
 lt->numfacbytes += (len+1);
 
@@ -898,6 +1293,8 @@ int bitlen;
 int flagcnt;
 
 if((!lt)||(!existing_name)||(!alias)||(!(s=lt_symfind(lt, existing_name)))||(lt_symfind(lt, alias))) return (NULL);
+
+if(lt->sorted_facs) return(NULL);
 
 while(s->aliased_to)	/* find root alias */
 	{
@@ -929,7 +1326,7 @@ return(sa);
 }
 
 
-/* 
+/*
  * set current time
  */
 int lt_inc_time_by_delta(struct lt_trace *lt, unsigned int timeval)
@@ -968,7 +1365,7 @@ if(lt)
 				else
 				{
 				free(trl);
-				goto bail;				
+				goto bail;
 				}
 			}
 			else
@@ -1022,9 +1419,9 @@ void lt_set_chg_compress(struct lt_trace *lt)
 {
 if(lt)
 	{
-	if((!lt->zmode)&&(!lt->emitted))
+	if((lt->zmode==LT_ZMODE_NONE)&&(!lt->emitted))
 		{
-		lt_set_zmode(lt, lt->zmode = 1);
+		lt_set_zmode(lt, lt->zmode = LT_ZMODE_GZIP);
 		fflush(lt->handle);
 		lt->zhandle = gzdopen(dup(fileno(lt->handle)), "wb9");
 		}
@@ -1032,6 +1429,82 @@ if(lt)
 }
 
 
+/*
+ * sets change dictionary compression
+ */
+void lt_set_dict_compress(struct lt_trace *lt, unsigned int minwidth)
+{
+if((lt)&&(!lt->emitted))
+	{
+	lt->dictmode = 1;
+
+	if(minwidth>1)
+		{
+		lt->mindictwidth = minwidth;
+		}
+	}
+}
+
+/*
+ * sets change interlace
+ */
+void lt_set_no_interlace(struct lt_trace *lt)
+{
+if((lt)&&(!lt->emitted)&&(!lt->sorted_facs))
+	{
+	if(lt->zmode==LT_ZMODE_NONE)		/* this mode implies BZIP2 compression! */
+		{
+		lt_set_zmode(lt, lt->zmode = LT_ZMODE_BZIP2);
+		fflush(lt->handle);
+		lt->zhandle = BZ2_bzdopen(dup(fileno(lt->handle)), "wb9");
+		}
+
+	if((lt->sorted_facs = (struct lt_symbol **)calloc(lt->numfacs, sizeof(struct lt_symbol *))))
+		{
+		struct lt_symbol *s = lt->symchain;
+		int i;
+
+		if(lt->do_strip_brackets)
+		for(i=0;i<lt->numfacs;i++)
+			{
+			lt->sorted_facs[i] = s;
+			strip_brack(s);
+			s=s->symchain;
+			}
+		else
+		for(i=0;i<lt->numfacs;i++)
+			{
+			lt->sorted_facs[i] = s;
+			s=s->symchain;
+			}
+		qsort((void *)lt->sorted_facs, lt->numfacs, sizeof(struct lt_symbol *), lt_compare);
+
+		for(i=0;i<lt->numfacs;i++)
+			{
+			lt->sorted_facs[i]->facnum = i;
+			}
+
+		if(lt->numfacs >= 256*65536)
+			{
+			lt->numfacs_bytes = 4;
+			}
+		else
+		if(lt->numfacs >= 65536)
+			{
+			lt->numfacs_bytes = 3;
+			}
+		else
+		if(lt->numfacs >= 256)
+			{
+			lt->numfacs_bytes = 2;
+			}
+		else
+			{
+			lt->numfacs_bytes = 1;
+			}
+		}
+	}
+}
 
 
 /*
@@ -1043,12 +1516,12 @@ if(lt)
 	{
 	int tag;
 	switch(value)
-		{		
+		{
 		case '0':	tag = 0; break;
 		case '1':	tag = 1; break;
-		case 'Z':	
+		case 'Z':
 		case 'z':	tag = 2; break;
-		case 'X':	
+		case 'X':
 		case 'x':	tag = 3; break;
 		case 'H':
 		case 'h':	tag = 4; break;
@@ -1128,6 +1601,24 @@ static int lt_optimask[]=
 };
 
 
+static char *lt_expand_integer_to_bits(int len, int value)
+{
+static char s[33];
+char *p = s;
+int i;
+
+len--;
+
+for(i=0;i<=len;i++)
+	{
+	*(p++) = '0' | ((value & (1<<(len-i)))!=0);
+	}
+*p = 0;
+
+return(s);
+}
+
+
 int lt_emit_value_int(struct lt_trace *lt, struct lt_symbol *s, unsigned int row, int value)
 {
 int rc=0;
@@ -1151,11 +1642,15 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 	if((len>1)&&(len<=32))
 		{
 		int ivalue = value;
+		int delta1, delta2;
 		s->clk_mask <<= 1;
 		s->clk_mask |= 1;
 
-		if(((s->clk_mask&0x1f)==0x1f) && ((ivalue - s->clk_prevval1)==(s->clk_prevval1 - s->clk_prevval3)) &&
-			((s->clk_prevval - s->clk_prevval2)==(s->clk_prevval2 - s->clk_prevval4)))
+		if(     ((s->clk_mask&0x1f)==0x1f) && 
+			( (delta1=(ivalue         - s->clk_prevval1) & lt_optimask[s->len]) == ((s->clk_prevval1 - s->clk_prevval3) & lt_optimask[s->len]) ) &&
+			( (delta2=(s->clk_prevval - s->clk_prevval2) & lt_optimask[s->len]) == ((s->clk_prevval2 - s->clk_prevval4) & lt_optimask[s->len]) ) &&
+			( (delta1==delta2) || ((!delta1)&&(!delta2)) )
+			)
 			{
 			if(s->clk_prevtrans==ULLDescriptor(~0))
 				{
@@ -1316,24 +1811,38 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 		int optimized1 = ((value&lt_optimask[len])==lt_optimask[len]);
 		int optimized  = optimized0|optimized1;
 
-		if(optimized)
+		if(!lt->numfacs_bytes)
 			{
-			tag = (numbytes<<4) | (3+optimized1);	/* for x3 and x4 cases */
+			if(optimized)
+				{
+				tag = (numbytes<<4) | (3+optimized1);	/* for x3 and x4 cases */
+				}
+				else
+				{
+				tag = (numbytes<<4);
+				}
+
+			lt->lt_emit_u8(lt, tag);
+			switch(numbytes&3)
+				{
+				case 0: lt->lt_emit_u8(lt, last_change_delta); break;
+				case 1: lt->lt_emit_u16(lt, last_change_delta); break;
+				case 2: lt->lt_emit_u24(lt, last_change_delta); break;
+				case 3: lt->lt_emit_u32(lt, last_change_delta); break;
+				}
 			}
 			else
 			{
-			tag = (numbytes<<4);
+			switch(lt->numfacs_bytes)
+				{
+				case 1: lt->lt_emit_u8(lt, s->facnum); break;
+				case 2: lt->lt_emit_u16(lt, s->facnum); break;
+				case 3: lt->lt_emit_u24(lt, s->facnum); break;
+				case 4: lt->lt_emit_u32(lt, s->facnum); break;
+				}
+			lt->lt_emit_u8(lt, optimized ? (3+optimized1) : 0);
 			}
 
-		lt->lt_emit_u8(lt, tag);
-		switch(numbytes&3)
-			{
-			case 0: lt->lt_emit_u8(lt, last_change_delta); break;
-			case 1: lt->lt_emit_u16(lt, last_change_delta); break;
-			case 2: lt->lt_emit_u24(lt, last_change_delta); break;
-			case 3: lt->lt_emit_u32(lt, last_change_delta); break;
-			}
-	
 		s->last_change = start_position;
 
 		if(s->rows>0)
@@ -1368,6 +1877,65 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 
 		if(!optimized)
 			{
+			if((lt->dictmode)&&(len>lt->mindictwidth))
+				{
+				char *vpnt_orig = lt_expand_integer_to_bits(len, value);
+				char *vpnt = vpnt_orig;
+
+				while ( (*vpnt == '0') && (*(vpnt+1)) ) vpnt++;
+
+				lt->dict = dslxt_splay (vpnt, lt->dict);
+				if(!dslxt_success)
+					{
+					unsigned int vlen = strlen(vpnt)+1;
+					char *vcopy = (char *)malloc(vlen);
+
+					strcpy(vcopy, vpnt);
+					lt->dict_string_mem_required += vlen;
+					lt->dict = dslxt_insert(vcopy, lt->dict, lt->num_dict_entries);
+
+					if(!lt->dict16_offset)
+						{
+						if(lt->num_dict_entries==256) lt->dict16_offset = lt->position;
+						}
+					else
+					if(!lt->dict24_offset)
+						{
+						if(lt->num_dict_entries==65536) lt->dict24_offset = lt->position;
+						}
+					else
+					if(!lt->dict32_offset)
+						{
+						if(lt->num_dict_entries==(256*65536)) lt->dict32_offset = lt->position;
+						}
+
+					lt->num_dict_entries++;
+					}
+
+				if(lt->dict24_offset)
+					{
+					if(lt->dict32_offset)
+						{
+						lt->lt_emit_u32(lt, lt->dict->val);
+						}
+						else
+						{
+						lt->lt_emit_u24(lt, lt->dict->val);
+						}
+					}
+				else
+					{
+					if(lt->dict16_offset)
+						{
+						lt->lt_emit_u16(lt, lt->dict->val);
+						}
+						else
+						{
+						lt->lt_emit_u8(lt, lt->dict->val);
+						}
+					}
+				}
+			else
 			if(len<9)
 				{
 				value <<= (8-len);
@@ -1385,14 +1953,14 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 				value <<= (24-len);
 				rc=lt->lt_emit_u24(lt, value);
 				}
-			else			
+			else
 				{
 				value <<= (32-len);
 				rc=lt->lt_emit_u32(lt, value);
 				}
 			}
-		}	
-	
+		}
+
 	if(lt->timebuff)
 		{
 		lt->timechangecount++;
@@ -1434,37 +2002,50 @@ if((s->flags)&LT_SYM_F_DOUBLE)
 	int numbytes;				/* number of bytes to store value minus one */
 	unsigned int last_change_delta = lt->position - s->last_change - 2;
 
-	if(last_change_delta >= 256*65536)
+	if(!lt->numfacs_bytes)
 		{
-		numbytes = 3;
-		}
-	else
-	if(last_change_delta >= 65536)
-		{
-		numbytes = 2;
-		}
-	else
-	if(last_change_delta >= 256)
-		{
-		numbytes = 1;
-		}
-	else
-		{
-		numbytes = 0;
-		}
+		if(last_change_delta >= 256*65536)
+			{
+			numbytes = 3;
+			}
+		else
+		if(last_change_delta >= 65536)
+			{
+			numbytes = 2;
+			}
+		else
+		if(last_change_delta >= 256)
+			{
+			numbytes = 1;
+			}
+		else
+			{
+			numbytes = 0;
+			}
 
-	start_position = lt->position;
-	tag = (numbytes<<4);
-	lt->lt_emit_u8(lt, tag);
-	switch(numbytes&3)
-		{
-		case 0: lt->lt_emit_u8(lt, last_change_delta); break;
-		case 1: lt->lt_emit_u16(lt, last_change_delta); break;
-		case 2: lt->lt_emit_u24(lt, last_change_delta); break;
-		case 3: lt->lt_emit_u32(lt, last_change_delta); break;
-		}
+		start_position = lt->position;
+		s->last_change = start_position;
 
-	s->last_change = start_position;
+		tag = (numbytes<<4);
+		lt->lt_emit_u8(lt, tag);
+		switch(numbytes&3)
+			{
+			case 0: lt->lt_emit_u8(lt, last_change_delta); break;
+			case 1: lt->lt_emit_u16(lt, last_change_delta); break;
+			case 2: lt->lt_emit_u24(lt, last_change_delta); break;
+			case 3: lt->lt_emit_u32(lt, last_change_delta); break;
+			}
+		}
+		else
+		{
+		switch(lt->numfacs_bytes)
+			{
+			case 1: lt->lt_emit_u8(lt, s->facnum); break;
+			case 2: lt->lt_emit_u16(lt, s->facnum); break;
+			case 3: lt->lt_emit_u24(lt, s->facnum); break;
+			case 4: lt->lt_emit_u32(lt, s->facnum); break;
+			}
+		}
 
 	if(s->rows>0)
 		{
@@ -1497,7 +2078,7 @@ if((s->flags)&LT_SYM_F_DOUBLE)
 		}
 
 	rc=lt->lt_emit_double(lt, value);
-	
+
 	if(lt->timebuff)
 		{
 		lt->timechangecount++;
@@ -1539,37 +2120,50 @@ if((s->flags)&LT_SYM_F_STRING)
 	int numbytes;				/* number of bytes to store value minus one */
 	unsigned int last_change_delta = lt->position - s->last_change - 2;
 
-	if(last_change_delta >= 256*65536)
+	if(lt->numfacs_bytes)
 		{
-		numbytes = 3;
-		}
-	else
-	if(last_change_delta >= 65536)
-		{
-		numbytes = 2;
-		}
-	else
-	if(last_change_delta >= 256)
-		{
-		numbytes = 1;
-		}
-	else
-		{
-		numbytes = 0;
-		}
+		if(last_change_delta >= 256*65536)
+			{
+			numbytes = 3;
+			}
+		else
+		if(last_change_delta >= 65536)
+			{
+			numbytes = 2;
+			}
+		else
+		if(last_change_delta >= 256)
+			{
+			numbytes = 1;
+			}
+		else
+			{
+			numbytes = 0;
+			}
 
-	start_position = lt->position;
-	tag = (numbytes<<4);
-	lt->lt_emit_u8(lt, tag);
-	switch(numbytes&3)
-		{
-		case 0: lt->lt_emit_u8(lt, last_change_delta); break;
-		case 1: lt->lt_emit_u16(lt, last_change_delta); break;
-		case 2: lt->lt_emit_u24(lt, last_change_delta); break;
-		case 3: lt->lt_emit_u32(lt, last_change_delta); break;
-		}
+		start_position = lt->position;
+		s->last_change = start_position;
 
-	s->last_change = start_position;
+		tag = (numbytes<<4);
+		lt->lt_emit_u8(lt, tag);
+		switch(numbytes&3)
+			{
+			case 0: lt->lt_emit_u8(lt, last_change_delta); break;
+			case 1: lt->lt_emit_u16(lt, last_change_delta); break;
+			case 2: lt->lt_emit_u24(lt, last_change_delta); break;
+			case 3: lt->lt_emit_u32(lt, last_change_delta); break;
+			}
+		}
+		else
+		{
+		switch(lt->numfacs_bytes)
+			{
+			case 1: lt->lt_emit_u8(lt, s->facnum); break;
+			case 2: lt->lt_emit_u16(lt, s->facnum); break;
+			case 3: lt->lt_emit_u24(lt, s->facnum); break;
+			case 4: lt->lt_emit_u32(lt, s->facnum); break;
+			}
+		}
 
 	if(s->rows>0)
 		{
@@ -1602,7 +2196,7 @@ if((s->flags)&LT_SYM_F_STRING)
 		}
 
 	rc=lt->lt_emit_string(lt, value);
-	
+
 	if(lt->timebuff)
 		{
 		lt->timechangecount++;
@@ -1657,6 +2251,7 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 		int ivalue = 0;
 		int i;
 		char *pnt = value;
+		int delta1, delta2;
 
 		for(i=0;i<len;i++)
 			{
@@ -1681,8 +2276,11 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 		s->clk_mask <<= 1;
 		s->clk_mask |= legal;
 
-		if(((s->clk_mask&0x1f)==0x1f) && ((ivalue - s->clk_prevval1)==(s->clk_prevval1 - s->clk_prevval3)) &&
-			((s->clk_prevval - s->clk_prevval2)==(s->clk_prevval2 - s->clk_prevval4)))
+		if(     ((s->clk_mask&0x1f)==0x1f) && 
+			( (delta1=(ivalue         - s->clk_prevval1) & lt_optimask[s->len]) == ((s->clk_prevval1 - s->clk_prevval3) & lt_optimask[s->len]) ) &&
+			( (delta2=(s->clk_prevval - s->clk_prevval2) & lt_optimask[s->len]) == ((s->clk_prevval2 - s->clk_prevval4) & lt_optimask[s->len]) ) &&
+			( (delta1==delta2) || ((!delta1)&&(!delta2)) )
+			)
 			{
 			if(s->clk_prevtrans==ULLDescriptor(~0))
 				{
@@ -1710,7 +2308,7 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 						s->clk_prevval1 = s->clk_prevval;
 						s->clk_prevval  = ivalue;
 
-						/* printf("Clock value '%08x' for '%s' [len=%d] at %Ld (#%d)\n", 
+						/* printf("Clock value '%08x' for '%s' [len=%d] at %Ld (#%d)\n",
 							ivalue, s->name, len, lt->timeval, s->clk_numtrans); */
 						return(1);
 						}
@@ -1839,12 +2437,12 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 	while((ch=*(pnt++)))
 		{
 		switch(ch)
-			{		
+			{
 			case '0':
 			case '1':	mvl|=LT_MVL_2; break;
-			case 'Z':	
-			case 'z':	
-			case 'X':	
+			case 'Z':
+			case 'z':
+			case 'X':
 			case 'x':	mvl|=LT_MVL_4; break;
 			default:	mvl|=LT_MVL_9; break;
 			}
@@ -1853,13 +2451,13 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 		}
 
 	switch(prevch)
-		{		
+		{
 		case 0x00:	tagadd = 0; break;
 		case '0':	tagadd = 3; break;
 		case '1':	tagadd = 4; break;
-		case 'Z':	
+		case 'Z':
 		case 'z':	tagadd = 5; break;
-		case 'X':	
+		case 'X':
 		case 'x':	tagadd = 6; break;
 		case 'H':
 		case 'h':	tagadd = 7; break;
@@ -1875,21 +2473,43 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 	if(mvl)
 		{
 		start_position = lt->position;
-		if(tagadd)
+
+		if(!lt->numfacs_bytes)
 			{
-			tag = (numbytes<<4) + tagadd;
+			if(tagadd)
+				{
+				tag = (numbytes<<4) + tagadd;
+				}
+				else
+				{
+				tag = (numbytes<<4) + ((mvl&LT_MVL_9)? 2 : ((mvl&LT_MVL_4)? 1 : 0));
+				}
+			lt->lt_emit_u8(lt, tag);
+			switch(numbytes&3)
+				{
+				case 0: lt->lt_emit_u8(lt, last_change_delta); break;
+				case 1: lt->lt_emit_u16(lt, last_change_delta); break;
+				case 2: lt->lt_emit_u24(lt, last_change_delta); break;
+				case 3: lt->lt_emit_u32(lt, last_change_delta); break;
+				}
 			}
 			else
 			{
-			tag = (numbytes<<4) + ((mvl&LT_MVL_9)? 2 : ((mvl&LT_MVL_4)? 1 : 0));
-			}
-		lt->lt_emit_u8(lt, tag);
-		switch(numbytes&3)
-			{
-			case 0: lt->lt_emit_u8(lt, last_change_delta); break;
-			case 1: lt->lt_emit_u16(lt, last_change_delta); break;
-			case 2: lt->lt_emit_u24(lt, last_change_delta); break;
-			case 3: lt->lt_emit_u32(lt, last_change_delta); break;
+			switch(lt->numfacs_bytes)
+				{
+				case 1: lt->lt_emit_u8(lt, s->facnum); break;
+				case 2: lt->lt_emit_u16(lt, s->facnum); break;
+				case 3: lt->lt_emit_u24(lt, s->facnum); break;
+				case 4: lt->lt_emit_u32(lt, s->facnum); break;
+				}
+			if(tagadd)
+				{
+				lt->lt_emit_u8(lt, tagadd);
+				}
+				else
+				{
+				lt->lt_emit_u8(lt, (mvl&LT_MVL_9)? 2 : ((mvl&LT_MVL_4)? 1 : 0) );
+				}
 			}
 
 		s->last_change = start_position;
@@ -1934,8 +2554,65 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 				int outval = 0;
 				int thisval= 0;
 
-				pnt = value;				
+				pnt = value;
 
+				if((lt->dictmode)&&(len>lt->mindictwidth))
+					{
+					char *vpnt = value;
+					while ( (*vpnt == '0') && (*(vpnt+1)) ) vpnt++;
+
+					lt->dict = dslxt_splay (vpnt, lt->dict);
+					if(!dslxt_success)
+						{
+						unsigned int vlen = strlen(vpnt)+1;
+						char *vcopy = (char *)malloc(vlen);
+
+						strcpy(vcopy, vpnt);
+						lt->dict_string_mem_required += vlen;
+						lt->dict = dslxt_insert(vcopy, lt->dict, lt->num_dict_entries);
+
+						if(!lt->dict16_offset)
+							{
+							if(lt->num_dict_entries==256) lt->dict16_offset = lt->position;
+							}
+						else
+						if(!lt->dict24_offset)
+							{
+							if(lt->num_dict_entries==65536) lt->dict24_offset = lt->position;
+							}
+						else
+						if(!lt->dict32_offset)
+							{
+							if(lt->num_dict_entries==(256*65536)) lt->dict32_offset = lt->position;
+							}
+
+						lt->num_dict_entries++;
+						}
+
+					if(lt->dict24_offset)
+						{
+						if(lt->dict32_offset)
+							{
+							lt->lt_emit_u32(lt, lt->dict->val);
+							}
+							else
+							{
+							lt->lt_emit_u24(lt, lt->dict->val);
+							}
+						}
+					else
+						{
+						if(lt->dict16_offset)
+							{
+							lt->lt_emit_u16(lt, lt->dict->val);
+							}
+							else
+							{
+							lt->lt_emit_u8(lt, lt->dict->val);
+							}
+						}
+					}
+				else
 				for(i=0;i<len;i++)
 					{
 					if(*pnt)
@@ -1946,8 +2623,8 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 					outval |= (thisval<<bitpos);
 					bitpos--;
 					if((bitpos==-1)||(i==len-1))
-						{					
-						lt->lt_emit_u8(lt, outval); 
+						{
+						lt->lt_emit_u8(lt, outval);
 						outval = 0;
 						bitpos = 7;
 						}
@@ -1961,7 +2638,7 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 				int outval = 0;
 				int thisval= 0;
 
-				pnt = value;				
+				pnt = value;
 
 				for(i=0;i<len;i++)
 					{
@@ -1980,8 +2657,8 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 					outval |= (thisval<<bitpos);
 					bitpos-=2;
 					if((bitpos==-2)||(i==len-1))
-						{					
-						lt->lt_emit_u8(lt, outval); 
+						{
+						lt->lt_emit_u8(lt, outval);
 						outval = 0;
 						bitpos = 6;
 						}
@@ -1995,7 +2672,7 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 				int outval = 0;
 				int thisval= 0;
 
-				pnt = value;				
+				pnt = value;
 
 				for(i=0;i<len;i++)
 					{
@@ -2024,8 +2701,8 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 					outval |= (thisval<<bitpos);
 					bitpos-=4;
 					if((bitpos==-4)||(i==len-1))
-						{					
-						lt->lt_emit_u8(lt, outval); 
+						{
+						lt->lt_emit_u8(lt, outval);
 						outval = 0;
 						bitpos = 4;
 						}
@@ -2035,7 +2712,7 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 
 		rc=1;
 		}
-	
+
 	if(lt->timebuff)
 		{
 		lt->timechangecount++;
@@ -2054,4 +2731,45 @@ if(!(s->flags&(LT_SYM_F_DOUBLE|LT_SYM_F_STRING)))
 	}
 
 return(rc);
+}
+
+
+/*
+ * blackout functions
+ */
+void lt_set_dumpoff(struct lt_trace *lt)
+{
+if((lt)&&(!lt->dumpoff_active))
+	{
+	struct lt_timetrail *ltt = calloc(1, sizeof(struct lt_timetrail));
+
+	ltt->timeval = lt->timeval;
+	if(lt->dumpoffhead)
+		{
+		lt->dumpoffcurr->next = ltt;
+		lt->dumpoffcurr = ltt;
+		}
+		else
+		{
+		lt->dumpoffhead = lt->dumpoffcurr = ltt;
+		}
+
+	lt->dumpoff_active = 1;
+	lt->dumpoffcount++;
+	}
+}
+
+void lt_set_dumpon(struct lt_trace *lt)
+{
+if((lt)&&(lt->dumpoff_active))
+	{
+	struct lt_timetrail *ltt = calloc(1, sizeof(struct lt_timetrail));
+
+	ltt->timeval = lt->timeval;
+
+	lt->dumpoffcurr->next = ltt;
+	lt->dumpoffcurr = ltt;
+
+	lt->dumpoff_active = 0;
+	}
 }

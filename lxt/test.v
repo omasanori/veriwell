@@ -37,6 +37,7 @@ event xevent;
 real  xyz;
 
 initial begin
+//	$lxt2_recordvars("space");
 	$lxt_recordvars("speed");
 	xyz = 0.0001;
 	#1
