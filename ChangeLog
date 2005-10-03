@@ -59,7 +59,7 @@
 	* updated to latest lxt library code
 	* lxt 'space' option now uses bzip2 compression
 	* automatically build man page when help2man is available
-	* added --disable-lxt configure switch
+	* added --disable-lxt2 configure switch
 	* cleaned up build process a bit
 	* checking in bootstrapped files so CVS image can be built
 	  without automake/autoconf tools
