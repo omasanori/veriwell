@@ -98,7 +98,6 @@ then
         echo ""
 fi
 
-#AC_PROG_YACC
 AC_CHECK_PROGS([YACC],[bison],[none])
 if test "$YACC" = "none"
 then
@@ -116,34 +115,11 @@ fi
 # Checks for libraries.
 AC_CHECK_LIB([z], [gzwrite], [AC_DEFINE(HAVE_LIBZ,[],
 	[Define to 1 if you have the `z' library (-lz).])])
+AM_CONDITIONAL( [BUILD_LIBZ], [test "$ac_cv_lib_z_gzwrite" = no])
 AC_CHECK_LIB([bz2], [BZ2_bzwrite], [AC_DEFINE(HAVE_LIBBZ2,[],
 	[Define to 1 if you have the `bz2' library (-lbz2).])])
+AM_CONDITIONAL( [BUILD_LIBBZ2], [test "$ac_cv_lib_bz2_BZ2_bzwrite" = no])
 
-if test X"$ac_cv_enable_lxt" = Xyes; then
-    if test X"$ac_cv_lib_z_gzwrite" = Xno; then
-        echo ""
-        echo "*** Error: libz not found. lxt waveform dumping"
-        echo "    cannot be built. Rerun configure with --disable-lxt."
-        echo ""
-        exit 1;
-    fi
-    if test X"$ac_cv_lib_z_BZ2_bzwrite" = Xno; then
-        echo ""
-        echo "*** Error: libbz2 not found. lxt waveform dumping"
-        echo "    cannot be built. Rerun configure with --disable-lxt."
-        echo ""
-        exit 1;
-    fi
-fi
-if test X"$ac_cv_enable_lxt2" = Xyes; then
-    if test X"$ac_cv_lib_z_gzwrite" = Xno; then
-        echo ""
-        echo "*** Error: libz not found. lxt2 waveform dumping"
-        echo "    cannot be built. Rerun configure with --disable-lxt2."
-        echo ""
-        exit 1;
-    fi
-fi
 
 VL_LIB_READLINE
 if test ! "$HAVE_LIBREADLINE" = 1; then
@@ -184,5 +160,5 @@ then
     AC_DEFINE([HAVE_LXT2],1,[Set to one if lxt2 library should be used])
 fi
 
-AC_CONFIG_FILES([Makefile] [replace/Makefile] [src/Makefile] [lxt/Makefile] [doc/Makefile])
+AC_CONFIG_FILES([Makefile] [replace/Makefile] [replace/libz/Makefile] [replace/libbz2/Makefile] [src/Makefile] [lxt/Makefile] [doc/Makefile])
 AC_OUTPUT

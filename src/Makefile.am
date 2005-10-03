@@ -1,10 +1,15 @@
-if USE_LXT
+if BUILD_LIBZ
+else
    ZLIB=-lz
+endif
+if BUILD_LIBBZ2
+else
    BZ2LIB=-lbz2
+endif
+if USE_LXT
    LIBLXT = $(top_builddir)/lxt/liblxt.la
 endif
 if USE_LXT2
-   ZLIB=-lz
    LIBLXT = $(top_builddir)/lxt/liblxt.la
 endif
 nobase_include_HEADERS = veriuser.h acc_user.h veriuser.c

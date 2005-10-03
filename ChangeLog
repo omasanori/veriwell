@@ -64,4 +64,5 @@
 	* checking in bootstrapped files so CVS image can be built
 	  without automake/autoconf tools
 	* bumped revision to 2.8.5
+	* added libz and libbz2 replacement libraries
 
