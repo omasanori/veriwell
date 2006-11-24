@@ -102,7 +102,7 @@ void open_include(char *filename)
     File *include;
     char *include_name;
 
-    if (incdir) {
+    if (incdir && *incdir) { // amitrupu_fix: when no +incdir given
 	char *p;
 	char *tmpdir;
 
