@@ -291,7 +291,7 @@ static int compiler_directive_or_macro(char *token)
 		commentCount = 0;
 	    }
 	    if (*p == '`') {
-		char *definition = p;
+		int definitionOffset = p - token_buffer; // amitrupu_fix: nested `define
 		for (*p = fin->fgetc();
 		     isalnum(*p) || *p == '_' || *p == '$';
 		     *p = fin->fgetc()) {
@@ -301,6 +301,7 @@ static int compiler_directive_or_macro(char *token)
 		}
 		fin->fungetc(*p);
 		*p = 0;
+		char *definition = token_buffer + definitionOffset;
 		expand_macro(definition);
 /*fin__  = fin; */
 		depth++;
