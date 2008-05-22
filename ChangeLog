@@ -66,3 +66,11 @@
 	* bumped revision to 2.8.5
 	* added libz and libbz2 replacement libraries
 
+2008-5-22	Mark Hummel
+	* Fixed bug 1716620: self referential wire assignment is not correctly evaluated
+	* Fixed bug 1716620: constant express arguments to primitives was not
+	  correctly propagated at time 0
+	* Note these bugs were previously fixed but not entered in Change Log
+		o 1593388: Veriwell fails to compile deep recursive macros
+		o 1591959: Veriwell gets seg fault for `include with no
+		+incdir
