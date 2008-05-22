@@ -275,7 +275,6 @@ void initialize_gates(void)
     tree gate;
     enum logical_value was_output;
 
-
     for (gate = PeekGate(); gate; gate = PeekGate()) {
 	ASSERT(TREE_CODE(gate) == GATE_INSTANCE);
 	RemoveGate(gate);
@@ -286,6 +285,22 @@ void initialize_gates(void)
 	if (was_output != X) {
 	    handle_gate(gate);
 	}
+        /*
+         * Create an scb and schedule to run at time 0.
+         * Link all inputs on a marker chain to cause
+         * all input to reevaluated.
+         */
+	SCB* scb = BuildSCB(gate, NOLIST);
+	scb->here.marker = NULL;
+        for (tree t = GATE_INPUT_LIST(gate); t; t = TREE_CHAIN(t)) {
+ 	    Marker* marker = (Marker *) xmalloc(sizeof(Marker));
+	    marker->next = scb->here.marker;
+	    scb->here.marker = marker;
+	    marker->scb = (SCB*)gate;
+	    marker->flags = (enum marker_flags) (M_PRIM|M_FIXED);
+	    marker->expr.arg = t;
+	}
+	Schedule(0,scb,0);
     }
 }
 
@@ -1300,12 +1315,12 @@ void xnor_exec(struct Marker *marker)
 
 void buf_exec(struct Marker *marker)
 {
+    ASSERT(marker != NULL);
     tree gate = (tree) marker->scb;
     tree arg;
     enum logical_value in_new, in_old, out_new, out_old;
     nbits_t nbits;
 
-    ASSERT(marker != NULL);
     ASSERT(gate != NULL);
 
 /* This is the arg expression, code, and last value */

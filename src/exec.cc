@@ -1040,6 +1040,15 @@ tree exec_(tree pc)
 		}
 	    }
 	    break;
+	case GATE_INSTANCE:
+	    {
+		SCB* scb = readylist;
+		if( scb->here.marker ) {
+		    NotifyEvent( scb->here.marker, ZERO, 0 );
+		}
+		pc = dispatch_pc(FREE_LIST);
+	    }
+	    break;
 
 	case 0:
 	    printf_error_V("Attempt to execute NULL instruction!\n");

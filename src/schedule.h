@@ -89,6 +89,7 @@ typedef struct SCB {
 	struct SCB *scb;	/* In case there are many SCBs waiting on the same event */
 	struct context_member *fork_list;	/* If at fork, point to members */
 	union tree_node *decl;	/* for nonblock assigns */
+	Marker*  marker;	/* used for gate intialization */
     } here;			/* This is valid while waiting at a particular place */
 } SCB;
 
