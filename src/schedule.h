@@ -64,6 +64,7 @@ extern struct SCB *timelist;
 extern struct SCB *timelist_currentTail;
 extern struct SCB *netlist;
 extern struct SCB *freelist;
+extern struct SCB *retrigger;
 
 enum eMode { RUN, WAIT };
 

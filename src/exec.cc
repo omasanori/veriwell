@@ -556,6 +556,7 @@ tree exec_(tree pc)
 	    }
 	    do_net_eval(pc, 0, NULL_TREE);
 	    TRACE(pc, pc, *(R - 1), 1, 1);
+            retrigger = NULL;
 	    store(pc, pc);
 	    /* Calculate output port seperately and only if connected */
 	    if ((PORT_OUTPUT_ATTR(pc) ||
@@ -566,7 +567,15 @@ tree exec_(tree pc)
 	    if (!readylist) {
 		fatal("Caught it!", NULL_CHAR);
 	    }
-	    new_pc = suspend_current_process();
+            if( retrigger ) {
+                retrigger = NULL;
+                ASSERT( readylist == retrigger );
+                readylist->time = CurrentTime;
+                new_pc = dispatch_pc(TIME_LIST);
+            } else {
+                new_pc = suspend_current_process();
+            }
+
 	    TRACE(pc, new_pc, NULL_GROUP, 0, 0);
 	    break;
 

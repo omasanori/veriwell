@@ -48,6 +48,7 @@ SCB *netlist_last = NULL;	/* Points to last SCB on net list */
 SCB *readylist = NULL;		/* List of SCBs previously waiting for an event */
 SCB *readylist_last = NULL;	/* Points to last SCB on ready list */
 SCB *freelist = NULL;		/* List of available SCBs (eg. fork/join) */
+SCB *retrigger = NULL;          /* set if scb was retrigger while active */
 
 tree deferred_markers = NULL_TREE;
 
@@ -350,8 +351,11 @@ void ScheduleNet(Marker * marker, enum logical_value state)
 /* If there is no delay, schedule on net list, else put on time list.
    Note that in the case of inouts, we could be working with our own
    net in which case, we're finished. */
+
 	if (!delay) {
-	    if (scb->list != NET_LIST && scb != readylist) {
+            if (scb == readylist) {
+                retrigger = scb;
+            } else if (scb->list != NET_LIST) {
 		REMOVE_LIST_SCB(scb);
 //  if (!readylist)
 //    fatal ("Caught it in schedulenet1");
