@@ -811,6 +811,8 @@ void udp_exec(struct Marker *marker)
     }
 
     /* seq. udps require the output value to be written into the state vector */
+//printf( "MDH: s=%d a=%d in_o=%d in_n=%d out_o=%d in_o=%d\n",
+//	state, arg_number, in_old, in_new, out_old, out_new);
 
     if (out_new != out_old) {
 	delay_t delay;

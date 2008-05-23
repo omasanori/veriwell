@@ -74,3 +74,4 @@
 		o 1593388: Veriwell fails to compile deep recursive macros
 		o 1591959: Veriwell gets seg fault for `include with no
 		+incdir
+	* Fixed initialization issue with UDPs and constant args

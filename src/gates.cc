@@ -288,8 +288,12 @@ void initialize_gates(void)
         /*
          * Create an scb and schedule to run at time 0.
          * Link all inputs on a marker chain to cause
-         * all input to reevaluated.
+         * all input to reevaluated. Don't do for
+         * upd's
          */
+    	if( TREE_TYPE(gate) == GATE_UDP_TYPE ) {
+	    continue;
+	}
 	SCB* scb = BuildSCB(gate, NOLIST);
 	scb->here.marker = NULL;
         for (tree t = GATE_INPUT_LIST(gate); t; t = TREE_CHAIN(t)) {
@@ -498,6 +502,13 @@ void pass3_gate(tree gate)
 	    int i;
 	    int count;
 	    int state;
+    	    tree udp_def = GATE_UDP_DEF(gate);
+    	    ASSERT(udp_def);
+    	    ASSERT(TREE_CODE(udp_def) == MODULE_BLOCK);
+    	    ASSERT(UDP_ATTR(udp_def));
+    	    tree udp_table = UDP_TABLE(udp_def);
+    	    ASSERT(udp_table != NULL_TREE);
+    	    ASSERT(TREE_CODE(udp_table) == UDP_TABLE_NODE);
 
 	    state = 0;
 	    if (UDP_REG_NAME(GATE_UDP_DEF(gate)) != NULL_TREE) {
@@ -520,20 +531,54 @@ void pass3_gate(tree gate)
 	       one or more of the inputs, so don't assume X. */
 	    stack_allocate();	/* Let eval_ work */
 	    for (arg = GATE_INPUT_LIST(gate); arg; arg = TREE_CHAIN(arg)) {
-		g = eval_(TREE_EXPR_CODE(arg), &nbits);	/* need to re-eval */
-		switch (VAL_TO_STATE(g)) {
-		case ZERO:
-		    break;
-		case ONE:
-		    state += int_power(3, GATE_INPUT_NUMBER(arg)) * 1;
-		    break;
-		case X:
-		case Z:
 		    state += int_power(3, GATE_INPUT_NUMBER(arg)) * 2;
-		    break;
-		}
 	    }
 	    GATE_STATE(gate) = state;
+	    for (arg = GATE_INPUT_LIST(gate); arg; arg = TREE_CHAIN(arg)) {
+    		int arg_number = GATE_INPUT_NUMBER(arg);
+    	    	char* table = UDP_TABLE_ARRAY(udp_table, arg_number);
+    	    	ASSERT(table != NULL);
+		g = eval_(TREE_EXPR_CODE(arg), &nbits);	/* need to re-eval */
+		enum logical_value in_new = VAL_TO_STATE(g);
+		enum logical_value in_old = GATE_IN(arg);
+		enum logical_value out_old = GATE_OUTPUT(gate);
+		enum logical_value out_new;
+		ASSERT( in_old == X );
+		if( in_new == Z ) {
+		    in_new = X;
+		}
+	        if( in_new == in_old ) {
+		    continue;
+		}
+    		/* calculate new output value */
+    		state += deltaTable[arg_number][in_old][in_new];
+    		SET_GATE_IN(arg, in_new);
+    		switch (out_old) {
+    		case ZERO:
+		        out_new = (enum logical_value) 
+						(table[state] & 0x3);
+			break;
+    		case ONE:
+			out_new = (enum logical_value) 
+						((table[state] >> 2) & 0x3);
+			break;
+    		case X:
+			out_new = (enum logical_value) 
+					((table[state] >> 4) & 0x3);
+			break;
+    		case Z:
+    		default:
+			ASSERT(FALSE);
+    		}
+		if( out_old != out_new &&
+		    UDP_REG_NAME(udp_def) != NULL_TREE) {
+	        } else {
+		    GATE_OUTPUT(gate) = out_new;
+		}
+	        GATE_STATE(gate) = state;
+	    }
+
+
 	}
 	break;
 
