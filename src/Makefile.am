@@ -34,6 +34,7 @@ libveriwell_la_SOURCES = parse.yy sdfparse.yy sdfcpars.yy multdiv.cc \
 		   sdfclex.cc decl.cc io.cc pass3.cc trace.cc dumpvar.cc \
 		   lex.cc pli.cc tree.cc sdflex.cc eval.cc macro.cc \
 		   udp.cc exec.cc  specify.cc v.gpe plihacks.cc \
+		   random.cc \
 		   acc_user.h check.h copy.h decl.h dumpvar.h eval.h \
 		   exec.h flags.h gates.h glue.h io.h lex.h macro.h \
 		   multdiv.h nsched.h obstack.h parse.h pass2.h pass3.h \
@@ -41,7 +42,8 @@ libveriwell_la_SOURCES = parse.yy sdfparse.yy sdfcpars.yy multdiv.cc \
 		   scope.h sdfclex.h sdfcpars.h \
 		   sdf.h sdflex.h sdfparse.h specify.h store.h strobe.h \
 		   systask.h timescal.h trace.h tree.h udp.h usertask.h \
-		   verisys.h veriuser.h veriwell.h v.h vtypes.h tree.def
+		   verisys.h veriuser.h veriwell.h v.h vtypes.h tree.def \
+		   random.h
 libveriwell_la_LDFLAGS = -version-info 0:0:0
 libveriwell_la_LIBADD =  $(LIBLXT) $(top_builddir)/replace/libreplace.la
 

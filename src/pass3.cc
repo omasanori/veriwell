@@ -1282,6 +1282,13 @@ int pass3_assignment(tree node)
 			      &STMT_ASSIGN_EVENT_LIST(node),
 			      M_CONT, node, lval);
 
+	/* create temporary storage for force value */
+	tree tmp = make_node(TMP_DECL);
+	STMT_FORCE_TMP_DECL(node) = tmp;
+	TREE_NBITS(tmp) = TREE_NBITS(STMT_ASSIGN_RVAL(node));
+	TREE_CHAIN(tmp) = tmp;
+	pass3_decl(tmp);
+
 	/* Generate a marker for the lval, thread it in at the beginning 
 	   and make the last market point to the new first marker.
 	   Note that all the markers point back to the continuous assignment.
@@ -1295,6 +1302,7 @@ int pass3_assignment(tree node)
 	       point to the original node. */
 	    BuildMarker(lval, &marker_info);
 	    marker_info.first->expr.tree = node;
+	    marker_info.first->flags = (marker_flags)(M_FORCE | marker_info.first->flags);
 	    marker_info.first->link = STMT_ASSIGN_EVENT_LIST(node);
 	    STMT_ASSIGN_EVENT_LIST(node) = marker_info.first;
 	    if (last)

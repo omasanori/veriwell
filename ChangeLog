@@ -75,3 +75,8 @@
 		o 1591959: Veriwell gets seg fault for `include with no
 		+incdir
 	* Fixed initialization issue with UDPs and constant args
+2008-5-24	Mark Hummel	
+	* Fixed bug 1293467: force a reg with $random
+	* Don't reseed random number generator with time. 
+	* Change random number generator to alogrithm in spec.
+	

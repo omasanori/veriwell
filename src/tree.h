@@ -1221,13 +1221,14 @@ struct tree_stmt {
 #define STMT_ASSIGN_RVAL_CODE(NODE) ((NODE)->assign.rval_code)
 
 #define STMT_ASSIGN_EVENT_LIST(NODE) ((NODE)->assign.event_list)
-#define STMT_ASSIGN_DELAY(NODE) ((NODE)->assign.delay)
-#define STMT_ASSIGN_EVENT(NODE) ((NODE)->assign.delay)
+#define STMT_ASSIGN_DELAY(NODE) ((NODE)->assign.arg1.delay)
+#define STMT_ASSIGN_EVENT(NODE) ((NODE)->assign.arg1.delay)
 
 #define STMT_ASSIGN_TMP(NODE) ((NODE)->assign.tmp)
 #define STMT_ASSIGN_TMPCODE(NODE) ((NODE)->assign.tmp_code)
 
 #define STMT_ASSIGN_SCB(NODE) ((NODE)->assign.scb)
+#define STMT_FORCE_TMP_DECL(NODE) ((NODE)->assign.arg1.tmp)
 /* If the following changes, change all calls to build_stmt(ASSIGN...) */
 
 struct tree_assign {
@@ -1240,7 +1241,10 @@ struct tree_assign {
     union tree_node **rval_code;
     struct Marker *event_list;
 //  void *event_list;
-    union tree_node *delay;	/* used for cont assign and intra-asgn timing */
+    union {
+       union tree_node *delay;	/* used for cont assign and intra-asgn timing */
+       union tree_node *tmp;    /* used for temp storage */
+    } arg1;
     union tree_node *tmp;	/* saved rval for intra-asgn and non blk */
     union tree_node **tmp_code;
     union tree_node *repeat_count;

@@ -505,6 +505,9 @@ tree exec_(tree pc)
 	    }
 	    thread_all_markers(STMT_ASSIGN_EVENT_LIST(pc));
 	    eval(STMT_ASSIGN_RVAL_CODE(pc));
+	    /* store force value for later use */
+	    store(STMT_FORCE_TMP_DECL(pc), pc);
+	    eval_1(STMT_FORCE_TMP_DECL(pc));
 	    TRACE(pc, pc, *(R - 1), 1, 1);
 	    store(STMT_ASSIGN_LVAL(pc), pc);
 	    TRACE(pc, TREE_CHAIN(pc), NULL_GROUP, 0, 0);
@@ -528,7 +531,8 @@ tree exec_(tree pc)
 		store(t1, pc);	/* and store it */
 	    }
 
-	    TRACE(pc, TREE_CHAIN(pc), NULL_GROUP, 0, 0) break;
+	    TRACE(pc, TREE_CHAIN(pc), NULL_GROUP, 0, 0);
+	    break;
 
 	case ASSIGN_CONT_STMT:
 	    if (CMPTIME64(&CurrentTime, &(readylist->time))) {
@@ -1069,13 +1073,27 @@ tree exec_(tree pc)
    a assign_cont_stmt node.  If there is a delay in the sourced net,
    put its SCB onto the time list. */
 
-void do_net_assignment(tree pc)
+void do_net_assignment(tree pc, int force )
 {
     tree net;
 
-    eval(STMT_ASSIGN_RVAL_CODE(pc));
+    /* 
+     * if this is a force and activation is caused by
+     * net or varible being changed, don't reevaluate
+     * rval, used cached value.
+     */
+    if (force) {
+	eval_1(STMT_FORCE_TMP_DECL(pc));
+    } else {
+        eval(STMT_ASSIGN_RVAL_CODE(pc));
+	if( TREE_CODE(pc) == ASSIGN_PROC_STMT ||
+	    TREE_CODE(pc) == FORCE_STMT ) {
+	    store( STMT_FORCE_TMP_DECL(pc),pc );
+	    eval_1(STMT_FORCE_TMP_DECL(pc));
+	}
+    }
     if (in_simulation && (trace_flag || single_trace_flag)) {
-	printf_V("** Triggering Continuous Assignment:\n");
+	printf_V("** Triggering Continuous Assignment(force=%d):\n", force);
 	trace_stmt(pc, *(R - 1), 1, 0);
     }
     store(STMT_ASSIGN_LVAL(pc), pc);

@@ -62,7 +62,6 @@ void checkdate(void);
 void __main_v(int argc, char **argv);
 void print_info(void);
 void finish(void);
-void put_out(int w, FILE * file);
 unsigned long mem_avail(void);
 void heap_test(char *msg);
 void init_verilog(void);

@@ -41,6 +41,7 @@ struct monitor_info;
 enum which_list { NOLIST =
 	1, READY_LIST, EVENT_LIST, TIME_LIST, NET_LIST, FREE_LIST };
 enum marker_flags {
+    M_FORCE = 0x1000,		/* used by self referential force */
     M_PRIM_FAST = 0x800,	/* Fast Primitive (no need to re-eval) */
     M_PRIM = 0x400,		/* Primitive marker */
     M_IDLE = 0x200,		/* Schedule for idle at end of simulation time */

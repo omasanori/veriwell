@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <ctype.h>
+#include <limits.h>
 #include "vtypes.h"
 #include "tree.h"
 #include "lex.h"
@@ -52,6 +53,7 @@
 #include "pli.h"
 #include "systask.h"
 #include "usertask.h"
+#include "random.h"
 
 
 int systime_once = 0;		/* initialize the following only once */
@@ -168,6 +170,7 @@ struct sysfunction_info sysfunction_info[] = {
 };
 
 tree current_tf_instance;	/* node of systask being executed or compiled */
+int seed = 1;			/* seed for random number generator */
 
 extern s_tfcell veriusertfs[];	/* Hooks into user tfs */
 extern s_tfcell verisystfs[];	/* Hooks into internal tfs */
@@ -1433,18 +1436,22 @@ void exec_sysfunc(tree node, nbits_t nbits)
 	    break;
 	}
     case F_RANDOM:
-	if (FUNC_REF_INASSIGN(node)) {	/* seed present? */
-	    eval_1(FUNC_REF_INASSIGN(node));
-	    srand((unsigned) AVAL(*--R));
-	    g = *R;
-	    AVAL(g) = ((int) rand() << 16) + rand();	/* new seed */
-	    *++R = g + 1;
-	    store(FUNC_REF_INASSIGN(node), node);
+	{
+	    if (FUNC_REF_INASSIGN(node)) {	/* seed present? */
+	        eval_1(FUNC_REF_INASSIGN(node));
+	        seed = AVAL(*--R);
+	        g = *R;
+	    }
+	    int result = rtl_dist_uniform (&seed, INT_MIN, INT_MAX);
+	    if (FUNC_REF_INASSIGN(node)) {	/* seed present? */
+	        AVAL(g) = (unsigned)seed;
+	        *++R = g + 1;
+	        store(FUNC_REF_INASSIGN(node), node);
+	    }
+	    AVAL(DECL_STORAGE(sysrand_return)) = result;
+	    BVAL(DECL_STORAGE(sysrand_return)) = 0;
+	    eval_nbits(sysrand_return, nbits);
 	}
-	AVAL(DECL_STORAGE(sysrand_return)) =
-	    ((int) rand() << 16) + rand();
-	BVAL(DECL_STORAGE(sysrand_return)) = 0;
-	eval_nbits(sysrand_return, nbits);
 	break;
     case F_TEST_PLUSARGS:
 	eval((tree *) TREE_PURPOSE(FUNC_REF_INASSIGN(node)));

@@ -537,7 +537,7 @@ void NotifyEvent(Marker * marker, enum logical_value state, int deferred)
 		Schedule(eval_delay(marker->delay, state), scb,
 			 marker->flags & M_CONT);
 	} else if ((marker->flags & M_CONT)) {
-	    do_net_assignment(marker->expr.tree);
+	    do_net_assignment(marker->expr.tree, (marker->flags & M_FORCE));
 	}
 
 	/* If there is a ref to a net (from a cont assignment), schedule it

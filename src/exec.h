@@ -31,7 +31,7 @@ tree exit_context(struct SCB *scb);
 tree unwind_context(struct context_member *context);
 void disable_context(struct context_member *context);
 tree deassign(tree lval, enum tree_code code);
-void do_net_assignment(tree pc);
+void do_net_assignment(tree pc, int force=0);
 void initialize_cont_assignments(void);
 void net_exec(tree pc);
 void exec_history();

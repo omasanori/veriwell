@@ -889,7 +889,6 @@ void __main_v(int argc, char **argv)
 
     globalArgc = argc;
     globalArgv = argv;
-    srand((unsigned) time(NULL));
     progname = argv[0];
     if (argc == 1) {		/* print the standard "bad command line" */
 	CmdlineHelp();
@@ -917,7 +916,7 @@ void print_info(void)
     if (warningcount != 1) {
 	printf_V("%c", (int) 's');
     }
-    printf_V("Compile time = %.1f, Load time = %.1f,"
+    printf_V(", Compile time = %.1f, Load time = %.1f,"
 	     " Simulation time = %.1f\n",
 	     (double) clock_compile / CPS, (double) clock_load / CPS,
 	     (double) clock_simulate / CPS);
@@ -929,16 +928,6 @@ void finish()
     printf_V("\nNormal exit\n");
     printf_V("Thank you for using %s\n", VERIWELL);
     shell_exit(0);
-}
-
-void put_out(int w, FILE * file)
-{
-    int ww;
-    ww = w << 5;
-    ww += rand() % 32;
-    ww += (rand() % 2) << 15;
-    putc(*((unsigned char *) &(ww)), file);
-    putc(*((unsigned char *) &(ww) + 1), file);
 }
 
 unsigned long mem_avail()
