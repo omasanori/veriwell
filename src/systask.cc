@@ -170,7 +170,7 @@ struct sysfunction_info sysfunction_info[] = {
 };
 
 tree current_tf_instance;	/* node of systask being executed or compiled */
-int seed = 1;			/* seed for random number generator */
+int seed = 0;			/* seed for random number generator */
 
 extern s_tfcell veriusertfs[];	/* Hooks into user tfs */
 extern s_tfcell verisystfs[];	/* Hooks into internal tfs */
