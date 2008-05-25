@@ -170,7 +170,7 @@ struct sysfunction_info sysfunction_info[] = {
 };
 
 tree current_tf_instance;	/* node of systask being executed or compiled */
-int seed = 0;			/* seed for random number generator */
+int globalSeed = 0;		/* seed for random number generator */
 
 extern s_tfcell veriusertfs[];	/* Hooks into user tfs */
 extern s_tfcell verisystfs[];	/* Hooks into internal tfs */
@@ -1437,16 +1437,18 @@ void exec_sysfunc(tree node, nbits_t nbits)
 	}
     case F_RANDOM:
 	{
+	    int result;
 	    if (FUNC_REF_INASSIGN(node)) {	/* seed present? */
+	        int seed;
 	        eval_1(FUNC_REF_INASSIGN(node));
 	        seed = AVAL(*--R);
 	        g = *R;
-	    }
-	    int result = rtl_dist_uniform (&seed, INT_MIN, INT_MAX);
-	    if (FUNC_REF_INASSIGN(node)) {	/* seed present? */
+	        result = rtl_dist_uniform (&seed, INT_MIN, INT_MAX);
 	        AVAL(g) = (unsigned)seed;
 	        *++R = g + 1;
 	        store(FUNC_REF_INASSIGN(node), node);
+	    } else {
+	        result = rtl_dist_uniform (&globalSeed, INT_MIN, INT_MAX);
 	    }
 	    AVAL(DECL_STORAGE(sysrand_return)) = result;
 	    BVAL(DECL_STORAGE(sysrand_return)) = 0;
