@@ -850,6 +850,13 @@ void PhaseII()
 void PhaseIII()
 {
     pass3_tree(top_level);
+    /*
+     * allocate extra size for sysfunctions
+     * - mdh ??? doesn't appear as easy as this
+     *   as this seem to create memory corruption issues
+     */
+//    max_label += 64;
+//    stack_size += 1024;
     stack_allocate();
 }
 

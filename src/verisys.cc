@@ -45,6 +45,7 @@ int pmisc(int user, int reason);
 
 
 #include "sdf.h"
+#include "random.h"
 
 
 #include "plihacks.h"
@@ -70,6 +71,18 @@ s_tfcell verisystfs[] = {
     {usertask, 0, 0, 0, setvalue_call, 0, "$$testsetvalue"},
 
     {usertask, 0, sdf_check, 0, sdf_call, sdf_misc, "$sdf_annotate"},
+    {userfunction, 0, dist_uniform, dist_uniform, dist_uniform, 
+						0, "$dist_uniform"},
+    {userfunction, 0, dist_normal, dist_normal, dist_normal, 
+						0, "$dist_normal"},
+    {userfunction, 0, dist_exponential, dist_exponential, dist_exponential, 
+						0, "$dist_exponential"},
+    {userfunction, 0, dist_poisson, dist_poisson, dist_poisson, 0, 
+						"$dist_poisson"},
+    {userfunction, 0, dist_chi_square, dist_chi_square, dist_chi_square, 
+						0, "$dist_chi_square"},
+    {userfunction, 0, dist_t, dist_t, dist_t, 0, "$dist_t"},
+    {userfunction, 0, dist_erlang, dist_erlang, dist_erlang, 0, "$dist_erlang"},
 
 
     {0}	/*** final entry must be 0 ***/

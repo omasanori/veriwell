@@ -27,6 +27,8 @@
 enum convert_to { eNONE, eREAL, eINT };
 
 extern tree dump;		// common dump block
+extern ngroups_t stack_size;
+extern int max_label;
 
 
 //      public exports

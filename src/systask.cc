@@ -1728,8 +1728,6 @@ disp_common(tree node, enum radii default_radix, int is_file,
 		is_integer = TREE_INTEGER_ATTR(t1);
 		val = eval_(TREE_EXPR_CODE(t), &nbits);
 		if (TREE_REAL_ATTR(TREE_EXPR(t))) {
-//        AVAL (val) = REAL_ (val);
-//        BVAL (val) = 0;
 		    print_datum_file(handle, val, (nbits_t) 0, nbits,
 				     FLOAT_, is_integer, fill_space, "%g");
 		} else {

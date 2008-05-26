@@ -1,3 +1,21 @@
+/*****************************************************************************
+ * Copyright 1994-2008, Elliot Mednick and Mark Hummel
+ * This file is part of Veriwell.
+ *
+ * Veriwell is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * Veriwell is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *****************************************************************************/
 /*
  * Algorithm for probabilistic distribution functions.
  *
@@ -5,6 +23,8 @@
  */
 #include <limits.h>
 #include <math.h>
+#include <veriuser.h>
+#include <acc_user.h>
 
 static double uniform( int *seed, int start, int end );
 static double normal( int *seed, int mean, int deviation);
@@ -369,4 +389,326 @@ erlangian(int* seed,int k,int mean)
     return(x);
 }
 
+/*
+ * pli interfaces
+ */
+/********************************************
+ * dist_uniform
+ *******************************************/
+int dist_uniform(int user, int reason)
+{
+    const char name[] = "dist_uniform";
+    const int ARG_COUNT = 3;
+    int result = 0;
+    int argCount = tf_nump();
+    handle args[ARG_COUNT];
+
+    acc_initialize();
+
+    switch( reason ) {
+    case reason_sizetf:
+	result = 32;
+	break;
+    case reason_checktf: {
+	    if( argCount != ARG_COUNT ) {
+	        tf_error("illegal number of arguments to %s", name);
+	    }
+    	    for (int i = 1; i <= argCount; i++) {
+	        args[i-1] = acc_handle_tfarg(i);	
+	        if( acc_error_flag ) {
+	            tf_error("illegal argument #%d to %s", i, name);
+	        }
+	    }
+	    if( acc_fetch_type(args[0]) != accReg &&
+		acc_fetch_type(args[0]) != accTimeVar && 
+		acc_fetch_type(args[0]) != accIntVar ) {
+	        tf_error("illegal argument 0 to %s", name);
+	    }	
+        } break;
+    case reason_calltf: {
+	    int seed = acc_fetch_tfarg_int(1);
+	    int imin = acc_fetch_tfarg_int(2);
+	    int imax = acc_fetch_tfarg_int(3);
+	    int value = rtl_dist_uniform(&seed, imin, imax);
+	    tf_putp(1,seed);
+	    tf_putp(0,value);
+	} break;
+    } 
+
+    acc_close();
+    return result;
+}
+/********************************************
+ * dist_normal
+ *******************************************/
+int dist_normal(int user, int reason)
+{
+    const char name[] = "dist_normal";
+    const int ARG_COUNT = 3;
+    int result = 0;
+    int argCount = tf_nump();
+    handle args[ARG_COUNT];
+
+    acc_initialize();
+
+    switch( reason ) {
+    case reason_sizetf:
+	result = 32;
+	break;
+    case reason_checktf: {
+	    if( argCount != ARG_COUNT ) {
+	        tf_error("illegal number of arguments to %s", name);
+	    }
+    	    for (int i = 1; i <= argCount; i++) {
+	        args[i-1] = acc_handle_tfarg(i);	
+	        if( acc_error_flag ) {
+	            tf_error("illegal argument #%d to %s", i, name);
+	        }
+	    }
+	    if( acc_fetch_type(args[0]) != accReg &&
+		acc_fetch_type(args[0]) != accTimeVar && 
+		acc_fetch_type(args[0]) != accIntVar ) {
+	        tf_error("illegal argument 0 to %s", name);
+	    }	
+        } break;
+    case reason_calltf: {
+	    int seed = acc_fetch_tfarg_int(1);
+	    int mean = acc_fetch_tfarg_int(2);
+	    int sd = acc_fetch_tfarg_int(3);
+	    int value = rtl_dist_normal(&seed, mean, sd);
+	    tf_putp(1,seed);
+	    tf_putp(0,value);
+	} break;
+    } 
+
+    acc_close();
+    return result;
+}
+/********************************************
+ * dist_exponential
+ *******************************************/
+int dist_exponential(int user, int reason)
+{
+    const char name[] = "dist_exponential";
+    const int ARG_COUNT = 2;
+    int result = 0;
+    int argCount = tf_nump();
+    handle args[ARG_COUNT];
+
+    acc_initialize();
+
+    switch( reason ) {
+    case reason_sizetf:
+	result = 32;
+	break;
+    case reason_checktf: {
+	    if( argCount != ARG_COUNT ) {
+	        tf_error("illegal number of arguments to %s", name);
+	    }
+    	    for (int i = 1; i <= argCount; i++) {
+	        args[i-1] = acc_handle_tfarg(i);	
+	        if( acc_error_flag ) {
+	            tf_error("illegal argument #%d to %s", i, name);
+	        }
+	    }
+	    if( acc_fetch_type(args[0]) != accReg &&
+		acc_fetch_type(args[0]) != accTimeVar && 
+		acc_fetch_type(args[0]) != accIntVar ) {
+	        tf_error("illegal argument 0 to %s", name);
+	    }	
+        } break;
+    case reason_calltf: {
+	    int seed = acc_fetch_tfarg_int(1);
+	    int mean = acc_fetch_tfarg_int(2);
+	    int value = rtl_dist_exponential(&seed, mean);
+	    tf_putp(1,seed);
+	    tf_putp(0,value);
+	} break;
+    } 
+
+    acc_close();
+    return result;
+}
+/********************************************
+ * dist_poisson
+ *******************************************/
+int dist_poisson(int user, int reason)
+{
+    const char name[] = "dist_poisson";
+    const int ARG_COUNT = 2;
+    int result = 0;
+    int argCount = tf_nump();
+    handle args[ARG_COUNT];
+
+    acc_initialize();
+
+    switch( reason ) {
+    case reason_sizetf:
+	result = 32;
+	break;
+    case reason_checktf: {
+	    if( argCount != ARG_COUNT ) {
+	        tf_error("illegal number of arguments to %s", name);
+	    }
+    	    for (int i = 1; i <= argCount; i++) {
+	        args[i-1] = acc_handle_tfarg(i);	
+	        if( acc_error_flag ) {
+	            tf_error("illegal argument #%d to %s", i, name);
+	        }
+	    }
+	    if( acc_fetch_type(args[0]) != accReg &&
+		acc_fetch_type(args[0]) != accTimeVar && 
+		acc_fetch_type(args[0]) != accIntVar ) {
+	        tf_error("illegal argument 0 to %s", name);
+	    }	
+        } break;
+    case reason_calltf: {
+	    int seed = acc_fetch_tfarg_int(1);
+	    int mean = acc_fetch_tfarg_int(2);
+	    int value = rtl_dist_poisson(&seed, mean);
+	    tf_putp(1,seed);
+	    tf_putp(0,value);
+	} break;
+    } 
+
+    acc_close();
+    return result;
+}
+/********************************************
+ * dist_chi_square
+ *******************************************/
+int dist_chi_square(int user, int reason)
+{
+    const char name[] = "dist_chi_square";
+    const int ARG_COUNT = 2;
+    int result = 0;
+    int argCount = tf_nump();
+    handle args[ARG_COUNT];
+
+    acc_initialize();
+
+    switch( reason ) {
+    case reason_sizetf:
+	result = 32;
+	break;
+    case reason_checktf: {
+	    if( argCount != ARG_COUNT ) {
+	        tf_error("illegal number of arguments to %s", name);
+	    }
+    	    for (int i = 1; i <= argCount; i++) {
+	        args[i-1] = acc_handle_tfarg(i);	
+	        if( acc_error_flag ) {
+	            tf_error("illegal argument #%d to %s", i, name);
+	        }
+	    }
+	    if( acc_fetch_type(args[0]) != accReg &&
+		acc_fetch_type(args[0]) != accTimeVar && 
+		acc_fetch_type(args[0]) != accIntVar ) {
+	        tf_error("illegal argument 0 to %s", name);
+	    }	
+        } break;
+    case reason_calltf: {
+	    int seed = acc_fetch_tfarg_int(1);
+	    int dof = acc_fetch_tfarg_int(2);
+	    int value = rtl_dist_chi_square(&seed, dof);
+	    tf_putp(1,seed);
+	    tf_putp(0,value);
+	} break;
+    } 
+
+    acc_close();
+    return result;
+}
+/********************************************
+ * dist_t
+ *******************************************/
+int dist_t(int user, int reason)
+{
+    const char name[] = "dist_t";
+    const int ARG_COUNT = 2;
+    int result = 0;
+    int argCount = tf_nump();
+    handle args[ARG_COUNT];
+
+    acc_initialize();
+
+    switch( reason ) {
+    case reason_sizetf:
+	result = 32;
+	break;
+    case reason_checktf: {
+	    if( argCount != ARG_COUNT ) {
+	        tf_error("illegal number of arguments to %s", name);
+	    }
+    	    for (int i = 1; i <= argCount; i++) {
+	        args[i-1] = acc_handle_tfarg(i);	
+	        if( acc_error_flag ) {
+	            tf_error("illegal argument #%d to %s", i, name);
+	        }
+	    }
+	    if( acc_fetch_type(args[0]) != accReg &&
+		acc_fetch_type(args[0]) != accTimeVar && 
+		acc_fetch_type(args[0]) != accIntVar ) {
+	        tf_error("illegal argument 0 to %s", name);
+	    }	
+        } break;
+    case reason_calltf: {
+	    int seed = acc_fetch_tfarg_int(1);
+	    int dof = acc_fetch_tfarg_int(2);
+	    int value = rtl_dist_t(&seed, dof);
+	    tf_putp(1,seed);
+	    tf_putp(0,value);
+	} break;
+    } 
+
+    acc_close();
+    return result;
+}
+
+/********************************************
+ * dist_erlang
+ *******************************************/
+int dist_erlang(int user, int reason)
+{
+    const char name[] = "dist_erlang";
+    const int ARG_COUNT = 3;
+    int result = 0;
+    int argCount = tf_nump();
+    handle args[ARG_COUNT];
+
+    acc_initialize();
+
+    switch( reason ) {
+    case reason_sizetf:
+	result = 32;
+	break;
+    case reason_checktf: {
+	    if( argCount != ARG_COUNT ) {
+	        tf_error("illegal number of arguments to %s", name);
+	    }
+    	    for (int i = 1; i <= argCount; i++) {
+	        args[i-1] = acc_handle_tfarg(i);	
+	        if( acc_error_flag ) {
+	            tf_error("illegal argument #%d to %s", i, name);
+	        }
+	    }
+	    if( acc_fetch_type(args[0]) != accReg &&
+		acc_fetch_type(args[0]) != accTimeVar && 
+		acc_fetch_type(args[0]) != accIntVar ) {
+	        tf_error("illegal argument 0 to %s", name);
+	    }	
+        } break;
+    case reason_calltf: {
+	    int seed = acc_fetch_tfarg_int(1);
+	    int k_stage = acc_fetch_tfarg_int(2);
+	    int mean = acc_fetch_tfarg_int(3);
+	    int value = rtl_dist_normal(&seed, k_stage, mean);
+	    tf_putp(1,seed);
+	    tf_putp(0,value);
+	} break;
+    } 
+
+    acc_close();
+    return result;
+}
 

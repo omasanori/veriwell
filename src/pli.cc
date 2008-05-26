@@ -2916,7 +2916,6 @@ void tf_ievaluatep(int nparam, char *instance)
 
     numbits = TREE_NBITS(*TREE_EXPR_CODE(arg));
     ngroups = (numbits - 1) / 32 + 1;
-    stack_allocate();
     eval(TREE_EXPR_CODE(arg));
     g = *--R;
 
@@ -4237,7 +4236,6 @@ char *tf_istrgetp(int nparam, char format_character, char *instance)
     }
 
     numbits = TREE_NBITS(*TREE_EXPR_CODE(arg));
-    stack_allocate();
     eval(TREE_EXPR_CODE(arg));
     g = *--R;
 
