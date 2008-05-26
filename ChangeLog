@@ -82,4 +82,5 @@
 	* Change random number generator to alogrithm in spec.
 	* Fixed sysfunctions so the work correctly
 	* Added $dist_* system functions
+	* Bumped rev to 2.8.6
 	

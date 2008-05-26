@@ -60,7 +60,7 @@ tree dbg1;			/* for debugging */
 extern LibPath_t *ypathList;
 
 char *versionString = VERSION;
-char copyright[] = "Copyright (C) 1993-2005 Elliot Mednick and Mark Hummel\n\n"
+char copyright[] = "Copyright (C) 1993-2008 Elliot Mednick and Mark Hummel\n\n"
 	     "Veriwell comes with ABSOLUTELY NO WARRANTY; This is free\n"
 	     "software, and you are welcome to redistribute it under the\n"
 	     "terms of the GNU General Public License as published by\n"
