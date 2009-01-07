@@ -22,19 +22,13 @@
 #ifndef VERIUSER_H
 #define VERIUSER_H
 
+
 #ifdef _LP64
 #define LP64 long
 #else
 #define LP64 int
 #endif
 
-
-/* general defines */
-
-#define true 1
-#define false 0
-#define TRUE 1
-#define FALSE 0
 
 /* defines for error interception */
 
@@ -44,8 +38,17 @@
 #define ERR_INTERNAL 4
 #define ERR_SYSTEM   5
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 /* VERILOG user tasks and functions C header file */
+
+struct t_call_stats {
+    unsigned long long count;
+    unsigned long long cycles;
+};
 
 typedef struct t_tfcell {
     short type;			/* either usertask or userfunction */
@@ -66,6 +69,8 @@ typedef struct t_tfcell {
     struct t_tfcell *right_p;
     char *namecell_p;
     int warning_printed;	/* Flag is set when skipping warning is printed */
+    struct t_call_stats call_stats[18];
+    int statsInit;
 } s_tfcell, *p_tfcell;
 
 struct t_tfexprinfo;
@@ -145,9 +150,6 @@ number is passed as the 3rd argument.
 #define reason_scope 18
 #define REASON_SCOPE 18
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /* user error message string */
     extern char *tf_error_message;

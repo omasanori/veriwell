@@ -84,3 +84,8 @@
 	* Added $dist_* system functions
 	* Bumped rev to 2.8.6
 	
+2009-1-6	Mark Hummel	
+	* Converged veriuser.h with version used by vrq
+	* Corrected --help text for $lxt2_recordvars and $lxt_recordvars
+	* Fixed bug in dumpvars that skipped initial timestamp in output file
+	* Bumped rev to 2.8.7

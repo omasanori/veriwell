@@ -1287,6 +1287,7 @@ void exec_systask(tree node)
 	    if (dumpvars_header(node)) {
 		dumpvars_enable();
 		dumpvars_checkpoint("$dumpvars");
+	        dumpvar.new_time = 1;
 	    }
 	}
 	break;

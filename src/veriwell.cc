@@ -812,7 +812,7 @@ void CmdlineHelp()
     printf(" $lxt_recordclose                     End waveform dump\n");
     printf(" $lxt_recordfile filename options     Set filename and options\n");
     printf(" $lxt_recordsetup options             Set options\n");
-    printf(" $lxt_recordvar options               Start waveform dump\n\n");
+    printf(" $lxt_recordvars options              Start waveform dump\n\n");
 #endif
 #ifdef HAVE_LXT2
     printf(" $lxt2_recordon                        Enable waveform dump\n");
@@ -820,7 +820,7 @@ void CmdlineHelp()
     printf(" $lxt2_recordclose                     End waveform dump\n");
     printf(" $lxt2_recordfile filename options     Set filename and options\n");
     printf(" $lxt2_recordsetup options             Set options\n");
-    printf(" $lxt2_recordvar options               Start waveform dump\n\n");
+    printf(" $lxt2_recordvars options              Start waveform dump\n\n");
 #endif
 #if defined(HAVE_LXT) || defined(HAVE_LXT2)
     printf("Lxt Options:\n");
