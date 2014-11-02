@@ -9,7 +9,7 @@ endif
 
 SUBDIRS = $(LIBZ_DIR) $(LIBBZ2_DIR) .
 
-INCLUDES = -I$(top_builddir) -I$(top_srcdir)
+AM_CPPFLAGS = -I$(top_builddir) -I$(top_srcdir)
 
 noinst_LTLIBRARIES    = libreplace.la
 libreplace_la_SOURCES =

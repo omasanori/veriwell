@@ -1,4 +1,4 @@
-INCLUDES = -I$(top_builddir) 
+AM_CPPFLAGS = -I$(top_builddir) 
 
 noinst_LTLIBRARIES    = libbz2.la
 libbz2_la_SOURCES = bzlib.h bzlib_private.h blocksort.c \

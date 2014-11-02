@@ -1,9 +1,13 @@
 #!/bin/sh
 
 set -x
-aclocal 
+# uncomment this to update ltdl
+#libtoolize -c -f --ltdl
+libtoolize -c 
+aclocal
 autoheader
-automake  --add-missing --copy
+automake --add-missing --copy
 autoconf
 set +x
+
 
